@@ -2,20 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Responsive breakpoints reference:
+  sm: 640px
+  md: 768px
+  lg: 1024px
+  xl: 1280px
+  2xl: 1536px
+*/
+
 :root {
-  --background: #ffffff;
+  --background: #3da6a8;
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
-  color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "poppins";
+}
+
+.cardLogin {
+  background-color: "#EDF6F6";
+}
+
+#inputUsernameLogin,
+#inputSelectLogin {
+  @apply w-full md:w-[549px] lg:w-[549px] h-[40px] md:h-[54px] lg:h-[54px] mb-4 md:mb-[15px] lg:mb-[15px];
+}
+
+label {
+  font-family: "poppins";
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+#loginFormText p {
+  font-family: "poppins";
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #3da6a8;
+}
+
+.btnLogin {
+  padding: 16px;
 }
