@@ -18,6 +18,8 @@ module.exports = {
       {
         mytheme: {
           primary: "#3DA6A8",
+          wenge: "#665A58",
+          antiflash: "#EDF6F6",
         },
       },
     ],

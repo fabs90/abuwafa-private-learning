@@ -37,7 +37,7 @@ export default function FormLogin() {
                       <option>Tutor</option>
                       <option>Admin</option>
                     </select>
-                    <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-teal-500 pointer-events-none w-5 h-5" />
+                    <ChevronDown className="absolute right-3 top-[42%] transform -translate-y-1/2  text-teal-500 pointer-events-none w-5 h-5" />
                   </div>
                   <label className="text-teal-500 text-sm font-semibold mb-1 labelLogin">
                     Username
@@ -64,7 +64,7 @@ export default function FormLogin() {
                     <div>
                       <p>
                         Dont have an account?{" "}
-                        <a href="" className="font-bold">
+                        <a href="/register" className="font-bold">
                           Register
                         </a>
                       </p>
