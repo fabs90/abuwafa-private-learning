@@ -1,5 +1,5 @@
 import React from "react";
-import { Bell, ChevronLast, ChevronLeft } from "lucide-react";
+import { Bell, ChevronLast, ChevronLeft, ChevronRight } from "lucide-react";
 import { useSidebar } from "./SidebarContext";
 
 export default function DashboardNavbar() {
@@ -18,7 +18,7 @@ export default function DashboardNavbar() {
                 expanded ? "rotate-0" : "rotate-180"
               }`}
             >
-              {expanded ? <ChevronLeft /> : <ChevronLast />}
+              {expanded ? <ChevronLeft /> : <ChevronRight />}
             </span>
           </button>
           <h1 className="ml-6 mt-1 text-xl font-semibold">My Schedule</h1>
