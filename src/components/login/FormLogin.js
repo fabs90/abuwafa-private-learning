@@ -8,7 +8,7 @@ export default function FormLogin() {
       <div>
         {/* Card */}
         <div
-          className="card w-full  rounded-lg shadow-lg"
+          className="card w-full rounded-lg shadow-lg"
           style={{ backgroundColor: "#edf6f6" }}
         >
           <div className="card-body items-center text-center w-full">

@@ -1,3 +1,5 @@
+const { Info } = require("lucide-react");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -18,8 +20,10 @@ module.exports = {
       {
         mytheme: {
           primary: "#3DA6A8",
-          wenge: "#665A58",
-          antiflash: "#EDF6F6",
+          success: "#2B7476",
+          secondary: "#665A58",
+          accent: "#EDF6F6",
+          neutral: "#54585E",
         },
       },
     ],
