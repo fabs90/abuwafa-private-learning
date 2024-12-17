@@ -22,6 +22,12 @@
   }
 } */
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background: var(--background);
   font-family: "poppins";
@@ -34,6 +40,7 @@ body {
 #inputUsernameLogin,
 #inputSelectLogin {
   @apply w-full md:w-[549px] lg:w-[549px] h-[40px] md:h-[54px] lg:h-[54px] mb-4 md:mb-[15px] lg:mb-[15px];
+  color: #665a58;
 }
 
 label {

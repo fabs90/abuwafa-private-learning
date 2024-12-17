@@ -1,9 +1,11 @@
-export default function StudentDashboard(params) {
+import DashboardStudent from "@/components/dashboard/student/DashboardStudent";
+
+export default function StudentDashboard() {
   return (
-    <>
-      <div className="flex items-center justify-center h-screen">
-        <div>Ini Dashboard Student</div>
+    <div className="h-screen flex flex-col overflow-hidden">
+      <div className="flex-1 overflow-x-auto">
+        <DashboardStudent />
       </div>
-    </>
+    </div>
   );
 }
