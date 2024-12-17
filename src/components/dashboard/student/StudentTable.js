@@ -1,6 +1,28 @@
 "use client";
 
 export default function DynamicTable({ data }) {
+  if (data == null) {
+    return (
+      <>
+        <table className="min-w-full border-collapse rounded-lg bg-white">
+          <thead>
+            <tr className="bg-gray-200">
+              <th
+                className={`px-4 py-2 capitalize rounded-tl-lg rounded-tr-lg`}
+              >
+                Data Not Found
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="hover:bg-gray-100">
+              <td className={`px-4 py-2  text-center`}>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </>
+    );
+  }
   // Ambil keys dari objek pertama sebagai kolom (jika data tersedia)
   const columns = data.length > 0 ? Object.keys(data[0]) : [];
 
@@ -13,8 +35,12 @@ export default function DynamicTable({ data }) {
               <th
                 key={index}
                 className={`px-4 py-2 capitalize${
-                  index === 0 ? "rounded-tl-lg" : ""
-                } ${index === columns.length - 1 ? "rounded-tr-lg" : ""}`}
+                  index === 0 ? "rounded-tl-lg rounded-tr-lg" : ""
+                } ${
+                  index === columns.length - 1
+                    ? "rounded-tr-lg rounded-tl-lg"
+                    : ""
+                }`}
               >
                 {key}
               </th>
