@@ -1,4 +1,5 @@
 import { Plus } from "lucide-react";
+import Link from "next/link";
 
 export default function TutorTable({
   data = null,
@@ -59,13 +60,12 @@ export default function TutorTable({
               ))}
               {isAttendance && (
                 <td className="p-4">
-                  <a
-                    className="btn btn-primary text-white"
-                    href={`attendance/${item.slug}/create`}
-                  >
-                    <Plus />
-                    Fill
-                  </a>
+                  <Link href={`/attendance/${item.slug}/create`}>
+                    <a className="btn btn-primary text-white">
+                      <Plus />
+                      Fill
+                    </a>
+                  </Link>
                 </td>
               )}
               {showDetail && (

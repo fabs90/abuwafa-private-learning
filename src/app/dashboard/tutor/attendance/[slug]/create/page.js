@@ -7,7 +7,6 @@ export default function page(params) {
     <>
       <DashboardLayoutTutor>
         <CreateAttendanceForm />
-      
       </DashboardLayoutTutor>
     </>
   );
