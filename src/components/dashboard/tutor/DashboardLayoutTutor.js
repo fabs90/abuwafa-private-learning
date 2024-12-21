@@ -3,13 +3,13 @@
 import { BookMarkedIcon, BookOpenText, Grid2X2 } from "lucide-react";
 import { SidebarProvider } from "../SidebarContext";
 import StudentSidebar, { SidebarItem } from "../student/sidebar";
-import TutorNavbar from "./Navbar";
+import TutorNavbar from "./TutorComponents/Navbar";
 import bookOpen from "/public/book_open.svg";
 export default function DashboardLayoutTutor({ children }) {
   return (
     <>
       <SidebarProvider>
-        <div className="flex flex-col h-screen w-full dashboard-background">
+        <div className="flex flex-col h-screen w-full">
           <div className="flex flex-1 w-full">
             <StudentSidebar>
               <SidebarItem
@@ -32,15 +32,15 @@ export default function DashboardLayoutTutor({ children }) {
                 text="Paycheck"
                 href="/dashboard/tutor/paycheck"
               />
-              {/* <SidebarItem
-                icon={<BookOpenText />}
-                text="Monthly Report"
-                href="/dashboard/tutor/monthly-report"
-              /> */}
             </StudentSidebar>
             <div className="flex flex-col flex-1 w-full">
               <TutorNavbar profileHref="/dashboard/tutor/profile" />
-              <main className="flex-1 bg-primary p-6 w-full overflow-x-hidden">
+              <main className="flex-1 bg-primary p-6 w-full overflow-x-hidden relative">
+                <img
+                  src="/img_backdrop.png"
+                  alt="Backdrop"
+                  className="absolute bottom-0 right-0 w-[62%] h-auto object-cover pointer-events-none"
+                />
                 {children}
               </main>
             </div>

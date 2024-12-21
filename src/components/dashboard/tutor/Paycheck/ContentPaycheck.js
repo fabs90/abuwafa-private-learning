@@ -1,4 +1,4 @@
-import TutorTable from "../TutorTable";
+import TutorTable from "../TutorComponents/TutorTable";
 
 export default function ContentPaycheck(params) {
   const datas = [

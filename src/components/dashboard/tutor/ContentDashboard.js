@@ -1,5 +1,5 @@
-import CalendarTutor from "./Calendar/Calendar";
-import CardDashboard from "./Card/Card";
+import CalendarTutor from "./TutorComponents/Calendar/Calendar";
+import CardDashboard from "./TutorComponents/Card/Card";
 import academicHatIcon from "/public/academic-hat.svg";
 import bookIcon from "/public/book.svg";
 

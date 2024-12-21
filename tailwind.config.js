@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        secondarySiena: "#EB7C5A",
       },
     },
   },

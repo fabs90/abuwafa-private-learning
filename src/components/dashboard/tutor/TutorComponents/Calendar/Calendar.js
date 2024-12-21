@@ -95,9 +95,7 @@ export default function Calendar(params) {
                   </a>
                 </p>
               ) : (
-                <p style={{ fontSize: "0.85rem", color: "#999" }}>
-                  No link available
-                </p>
+                <p style={{ fontSize: "0.85rem", color: "#999" }}>-</p>
               )}
             </div>
           );

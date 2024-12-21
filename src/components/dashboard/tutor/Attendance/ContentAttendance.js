@@ -1,4 +1,4 @@
-import TutorTable from "../TutorTable";
+import TutorTable from "../TutorComponents/TutorTable";
 import TutorAttendanceData from "./TutorAttendanceData.json";
 export default function ContentAttendanceTutor(params) {
   return (

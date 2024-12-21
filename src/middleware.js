@@ -1,4 +1,3 @@
-// middleware.js
 import { NextResponse } from "next/server";
 
 export function middleware(request) {
@@ -9,5 +8,5 @@ export function middleware(request) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  return NextResponse.next(); // Lanjutkan request jika bukan root
+  return NextResponse.next();
 }

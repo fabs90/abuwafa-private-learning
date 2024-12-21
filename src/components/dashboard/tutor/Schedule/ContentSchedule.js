@@ -1,4 +1,4 @@
-import TutorTable from "../TutorTable";
+import TutorTable from "../TutorComponents/TutorTable";
 
 export default function ContentSchedule(params) {
   const datas = [

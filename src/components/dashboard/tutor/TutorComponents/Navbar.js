@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Bell, ChevronLeft, ChevronRight, LogOut } from "lucide-react";
-import { useSidebar } from "../SidebarContext";
+import { useSidebar } from "../../SidebarContext";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 
@@ -18,6 +18,7 @@ export default function TutorNavbar({ props }) {
         return "Schedule";
       case "/dashboard/tutor/attendance":
         return "Attendance";
+
       default:
         return "Dashboard";
     }
@@ -87,11 +88,11 @@ export default function TutorNavbar({ props }) {
               </div>
             </button>
             {isDropdownOpen && (
-              <div className="absolute right-0 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+              <div className="absolute right-0 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                 <ul className="py-2">
                   <li>
                     <a
-                      href=""
+                      href="/dashboard/tutor/profile"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
                       Profile
