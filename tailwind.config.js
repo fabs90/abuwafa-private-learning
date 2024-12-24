@@ -13,6 +13,7 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         secondarySiena: "#EB7C5A",
+        darkerNeutral: "#3E4248",
       },
     },
   },

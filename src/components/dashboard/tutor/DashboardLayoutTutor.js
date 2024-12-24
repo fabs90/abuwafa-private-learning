@@ -39,7 +39,7 @@ export default function DashboardLayoutTutor({ children }) {
                 <img
                   src="/img_backdrop.png"
                   alt="Backdrop"
-                  className="absolute bottom-0 right-0 w-[62%] h-auto object-cover pointer-events-none"
+                  className="absolute bottom-0 right-0 w-[62%] h-auto object-cover pointer-events-none z-10"
                 />
                 {children}
               </main>

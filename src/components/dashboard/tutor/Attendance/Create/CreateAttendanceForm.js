@@ -12,6 +12,9 @@ import ButtonForm from "@/components/button/Button";
 import { useEffect, useState } from "react";
 import TutorTable from "../../TutorComponents/TutorTable";
 import { useRouter } from "next/navigation";
+import AttendanceTable from "../../TutorComponents/AttendanceTable";
+import AttendanceData from "./AttendanceData.json";
+import ConfirmAlert from "../../TutorComponents/ConfirmAlert";
 
 const CountdownModal = ({ show, onClose }) => {
   const [timeLeft, setTimeLeft] = useState({
@@ -85,12 +88,24 @@ const CountdownModal = ({ show, onClose }) => {
   );
 };
 
-export default function CreateAttendanceForm(params) {
+export default function CreateAttendanceForm(props) {
   const [isModalVisible, setIsModalVisible] = useState(true);
-
+  const [isConfirmVisible, setIsConfirmVisible] = useState(false);
   let curr = new Date();
   curr.setDate(curr.getDate());
-  let date = curr.toISOString().substring(0, 10);
+  const date = curr.toISOString().split("T")[0];
+
+  const handleConfirm = () => {
+    alert("Data has been saved");
+    setIsConfirmVisible(false);
+    // Logic submit form dapat dilakukan di sini
+    document.getElementById("attendanceForm").submit();
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsConfirmVisible(true);
+  };
 
   return (
     <>
@@ -98,13 +113,20 @@ export default function CreateAttendanceForm(params) {
         show={isModalVisible}
         onClose={() => setIsModalVisible(false)}
       />
+
+      <ConfirmAlert
+        isOpen={isConfirmVisible}
+        onClose={() => setIsConfirmVisible(false)}
+        onConfirm={handleConfirm}
+      />
+
       <div className="rounded-lg">
-        <form>
+        <form id="attendanceForm" onSubmit={handleSubmit}>
           <div className="grid grid-rows-1 md:grid-cols-2 lg:grid-cols-2 gap-0 md:gap-4 lg:gap-4">
             <div className="">
               <div className="w-full">
                 <FormField
-                  label={"Name"}
+                  label={"Tutor Name"}
                   icon={
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -115,6 +137,7 @@ export default function CreateAttendanceForm(params) {
                       <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                     </svg>
                   }
+                  readOnly={true}
                   defaultValue="Hanif Cahyadi"
                 />
               </div>
@@ -181,7 +204,7 @@ export default function CreateAttendanceForm(params) {
               </div>
               <div className="w-full">
                 <FormField
-                  label="Student"
+                  label="Student Name"
                   icon={<Baby width={16} />}
                   defaultValue="Kenji"
                   type="text"
@@ -215,18 +238,20 @@ export default function CreateAttendanceForm(params) {
                   label="Daily Report"
                   icon={<NotebookIcon width={16} />}
                   type="text"
+                  required={true}
+                  placeholder={"Write your daily report here"}
                 />
               </div>
             </div>
           </div>
           <div className="flex justify-center mt-6">
-            <ButtonForm text="Save" />
+            <ButtonForm type="submit" text="Save" />
           </div>
         </form>
       </div>
 
       <div className="mt-6">
-        <TutorTable />
+        <AttendanceTable data={AttendanceData} hiddenColumns={["month"]} />
       </div>
     </>
   );

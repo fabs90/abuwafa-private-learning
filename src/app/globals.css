@@ -106,7 +106,7 @@ input[type="file"]::file-selector-button:active {
 }
 
 .btn-index {
-  z-index: 1000;
+  z-index: 999;
 }
 
 .form-field {
