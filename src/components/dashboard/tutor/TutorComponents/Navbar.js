@@ -26,7 +26,6 @@ export default function TutorNavbar({ props }) {
 
   const handleLogout = (e) => {
     e.stopPropagation();
-    console.log("Logout button clicked"); // Add this line
     router.push("http://localhost:3000/login");
   };
 

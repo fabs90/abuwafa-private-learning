@@ -71,7 +71,7 @@ export default function Calendar(params) {
   ];
 
   return (
-    <div className="bg-white p-5 rounded-lg">
+    <div className="bg-white opacity-1 p-5 rounded-lg ">
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"

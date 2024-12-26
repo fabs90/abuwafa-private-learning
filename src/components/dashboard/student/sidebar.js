@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import abuwafaLogo from "/public/abuwafaLogo.png";
-import { ChevronLast, ChevronLeft } from "lucide-react";
-import { createContext, useContext } from "react";
+import { ChevronLast, ChevronLeft, ChevronUp } from "lucide-react";
+import { createContext, useContext, useState } from "react";
 import { useSidebar } from "../SidebarContext";
 import Link from "next/link";
 
@@ -72,6 +72,60 @@ export function SidebarItem({ icon, text, href, active, alert }) {
             className={`absolute right-2 w-2 h-2 rounded bg-primary text-white`}
           />
         )}
+      </li>
+    </Link>
+  );
+}
+
+export function SidebarDropdown({ icon, text, children }) {
+  const { expanded } = useContext(SidebarContext);
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <li className="relative">
+      <div
+        className={`
+          flex items-center justify-between py-2 md:py-3 lg:py-3 px-2 md:px-3 lg:px-3 mx-2 md:mx-4 lg:mx-4 mt-4 mb-3
+          font-medium rounded-md cursor-pointer
+          transition-colors group hover:bg-primary hover:text-white text-neutral
+        `}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div className="flex items-center">
+          <span className="w-6 h-6">{icon}</span>
+          {expanded && <span className="ml-3">{text}</span>}
+        </div>
+        {expanded && (
+          <span
+            className={`transform transition-transform ${
+              isOpen ? "rotate-180" : ""
+            }`}
+          >
+            <ChevronUp />
+          </span>
+        )}
+      </div>
+      {isOpen && <ul className="pl-8">{children}</ul>}
+    </li>
+  );
+}
+
+export function SidebarSubItem({ text, href, icon }) {
+  const { expanded } = useContext(SidebarContext);
+
+  return (
+    <Link href={href || "#"} passHref>
+      <li
+        className={`
+          flex items-center py-2 md:py-2 lg:py-2 px-2 md:px-3 lg:px-3 my-2
+          font-medium rounded-md cursor-pointer
+          transition-colors group hover:bg-primary hover:text-white text-neutral
+        `}
+      >
+        <div className="flex items-center">
+          <span className="w-6 h-6">{icon}</span>
+          {expanded && <span className="ml-3">{text}</span>}
+        </div>
       </li>
     </Link>
   );

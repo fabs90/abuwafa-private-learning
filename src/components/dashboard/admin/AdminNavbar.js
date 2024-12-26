@@ -1,29 +1,33 @@
+"use client";
 import React, { useState, useRef, useEffect } from "react";
 import { Bell, ChevronLeft, ChevronRight, LogOut } from "lucide-react";
-import { useSidebar } from "../SidebarContext";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useSidebar } from "../SidebarContext";
 
-export default function DashboardNavbar() {
+export default function AdminNavbar({ props }) {
+  const router = useRouter();
   const { expanded, toggleSidebar } = useSidebar();
   const pathname = usePathname();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null); // Ref for dropdown
+  const dropdownRef = useRef(null);
 
   // Map pathnames to titles
   const getTitle = () => {
     switch (pathname) {
-      case "/dashboard/student/":
+      case "/dashboard/admin/schedule":
         return "Schedule";
-      case "/dashboard/student/monthly-report":
-        return "Monthly Report";
-      case "/dashboard/student/invoice":
-        return "Invoice";
-      case "/dashboard/student/profile":
-        return "Profile";
+      case "/dashboard/admin/attendance":
+        return "Attendance";
+
       default:
         return "Dashboard";
     }
+  };
+
+  const handleLogout = (e) => {
+    e.stopPropagation();
+    router.push("http://localhost:3000/login");
   };
 
   const toggleDropdown = () => {
@@ -67,7 +71,10 @@ export default function DashboardNavbar() {
         </div>
         <div className="flex items-center">
           <div className="flex-1">
-            <button className="p-2 md:p-1.5 lg:p-1.5 mr-3 md:mr-3 lg:mr-3 text-neutral rounded hover:bg-primary hover:text-white transition-colors duration-300">
+            <button
+              className="p-2 md:p-1.5 lg:p-1.5 mr-3 md:mr-3 lg:mr-3 text-neutral rounded hover:bg-primary hover:text-white transition-colors duration-300"
+              onClick={handleLogout}
+            >
               <LogOut className="w-5 transform scale-x-[-1]" />
             </button>
           </div>
@@ -77,7 +84,7 @@ export default function DashboardNavbar() {
               className="avatar relative p-0 md:p-2 lg:p-2 rounded-full mr-0 md:mr-8 lg:mr-8"
             >
               <div className="w-7 md:w-9 lg:w-9 rounded-full">
-                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                <img src="https://img.freepik.com/free-vector/online-tutor-concept-illustration_114360-20299.jpg?t=st=1733837286~exp=1733840886~hmac=796583944c56f47eb95cc81f4c34247efcb5ae67de645e0ed063a0036fb32459&w=740" />
               </div>
             </button>
             {isDropdownOpen && (
@@ -85,7 +92,7 @@ export default function DashboardNavbar() {
                 <ul className="py-2">
                   <li>
                     <a
-                      href="/dashboard/student/profile"
+                      href="/dashboard/tutor/profile"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
                       Profile
