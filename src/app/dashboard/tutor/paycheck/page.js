@@ -4,7 +4,7 @@ import ContentPaycheck from "@/components/dashboard/tutor/Paycheck/ContentPayche
 export default function page(params) {
   return (
     <>
-      <DashboardLayoutTutor>
+      <DashboardLayoutTutor title="Paycheck">
         <ContentPaycheck />
       </DashboardLayoutTutor>
     </>

@@ -4,7 +4,7 @@ import DashboardLayoutTutor from "@/components/dashboard/tutor/DashboardLayoutTu
 export default function TutorAttendance() {
   return (
     <>
-      <DashboardLayoutTutor>
+      <DashboardLayoutTutor title="Attendance">
         <ContentAttendanceTutor />
       </DashboardLayoutTutor>
     </>

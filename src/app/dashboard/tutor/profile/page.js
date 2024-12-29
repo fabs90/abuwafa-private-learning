@@ -5,7 +5,7 @@ import ContentTutorProfile from "@/components/dashboard/tutor/Profile/ContentTut
 export default function TutorProfilePage(params) {
   return (
     <>
-      <DashboardLayoutTutor>
+      <DashboardLayoutTutor title="Profile">
         <ContentTutorProfile />
       </DashboardLayoutTutor>
     </>

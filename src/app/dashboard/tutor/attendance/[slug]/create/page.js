@@ -4,7 +4,7 @@ import DashboardLayoutTutor from "@/components/dashboard/tutor/DashboardLayoutTu
 export default function Page({ params }) {
   return (
     <>
-      <DashboardLayoutTutor>
+      <DashboardLayoutTutor title="Create Attendance">
         <CreateAttendanceForm />
       </DashboardLayoutTutor>
     </>

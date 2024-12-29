@@ -4,7 +4,7 @@ import ContentSchedule from "@/components/dashboard/tutor/Schedule/ContentSchedu
 export default function page(params) {
   return (
     <>
-      <DashboardLayoutTutor>
+      <DashboardLayoutTutor title="Schedule">
         <ContentSchedule />
       </DashboardLayoutTutor>
     </>

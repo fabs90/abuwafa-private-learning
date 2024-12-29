@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useSidebar } from "../SidebarContext";
 
-export default function AdminNavbar({ props }) {
+export default function AdminNavbar(props) {
+  const pageTitle = props.pageTitle;
   const router = useRouter();
   const { expanded, toggleSidebar } = useSidebar();
   const pathname = usePathname();
@@ -14,6 +15,7 @@ export default function AdminNavbar({ props }) {
 
   // Map pathnames to titles
   const getTitle = () => {
+    return pageTitle;
     switch (pathname) {
       case "/dashboard/admin/schedule":
         return "Schedule";

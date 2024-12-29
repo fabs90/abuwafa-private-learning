@@ -4,7 +4,7 @@ import ContentMonthlyReportTutor from "@/components/dashboard/tutor/monthly-repo
 export default function page(params) {
   return (
     <>
-      <DashboardLayoutTutor>
+      <DashboardLayoutTutor title="Monthly Report">
         <ContentMonthlyReportTutor />
       </DashboardLayoutTutor>
     </>

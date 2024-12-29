@@ -63,9 +63,12 @@ export default function FormLogin() {
                   >
                     <div>
                       <p>
-                        Dont have an account?{" "}
-                        <a href="/register" className="font-bold">
-                          Register
+                        Dont have an account?
+                        <a
+                          href="https://wa.me/085899496182?text=Assalamualaikum%20"
+                          className="font-bold"
+                        >
+                          Contact your Admin
                         </a>
                       </p>
                     </div>

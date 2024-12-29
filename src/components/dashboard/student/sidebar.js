@@ -105,7 +105,18 @@ export function SidebarDropdown({ icon, text, children }) {
           </span>
         )}
       </div>
-      {isOpen && <ul className="pl-8">{children}</ul>}
+
+      <ul
+        className={`
+          overflow-hidden transition-all duration-300 ease-in-out
+          ${isOpen ? "max-h-screen" : "max-h-0"}
+        `}
+        style={{
+          paddingLeft: expanded ? "2rem" : "1.5rem", // Adjust padding for better alignment
+        }}
+      >
+        {children}
+      </ul>
     </li>
   );
 }

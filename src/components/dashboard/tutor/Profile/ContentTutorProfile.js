@@ -136,13 +136,15 @@ export default function ContentTutorProfile(params) {
                         className=" opacity-70 flex-shrink-0"
                       />
                     }
+                    readOnly={true}
+                    defaultValue="hanifnf90"
                     type="text"
                     placeholder="Your account username"
                   />
                 </div>
                 <div>
                   <FormField
-                    label="Account Password"
+                    label="Change Password"
                     icon={
                       <Key
                         width={16}
@@ -150,8 +152,8 @@ export default function ContentTutorProfile(params) {
                         className=" opacity-70 flex-shrink-0"
                       />
                     }
-                    type="text"
-                    placeholder="Your account password"
+                    type="password"
+                    placeholder="Fill to change the password"
                   />
                 </div>
                 <div>
@@ -197,7 +199,7 @@ const FormField = ({
       {icon}
       <input
         type={type}
-        className="text-black"
+        className="text-black w-fit md:w-full lg:w-full"
         placeholder={placeholder}
         readOnly={readOnly}
         defaultValue={defaultValue}

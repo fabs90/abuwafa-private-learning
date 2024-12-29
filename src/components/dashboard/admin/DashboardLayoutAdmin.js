@@ -20,11 +20,14 @@ import StudentSidebar, {
 } from "../student/sidebar";
 import AdminNavbar from "./AdminNavbar";
 
-export default function DashboardLayoutAdmin({ children }) {
+export default function DashboardLayoutAdmin({
+  children,
+  title = "Dashboard",
+}) {
   return (
     <>
       <SidebarProvider>
-        <div className="flex flex-col h-screen w-full">
+        <div className="flex flex-col h-screen">
           <div className="flex flex-1 w-full">
             <StudentSidebar>
               <SidebarItem
@@ -36,22 +39,22 @@ export default function DashboardLayoutAdmin({ children }) {
                 <SidebarSubItem
                   icon={<BriefcaseBusiness width={24} height={24} />}
                   text="Tutors"
-                  href="/dashboard/admin/students"
+                  href="/dashboard/admin/manage/tutors/"
                 />
                 <SidebarSubItem
                   icon={<GraduationCap width={24} height={24} />}
                   text="Students"
-                  href="/dashboard/admin/students"
+                  href="/dashboard/admin/manage/students"
                 />
                 <SidebarSubItem
                   icon={<BookCopy width={24} height={24} />}
                   text="Subjects"
-                  href="/dashboard/admin/students"
+                  href="/dashboard/admin/manage/subjects"
                 />
                 <SidebarSubItem
                   icon={<CalendarDays width={24} height={24} />}
                   text="Schedules"
-                  href="/dashboard/admin/students"
+                  href="/dashboard/admin/manage/schedules"
                 />
               </SidebarDropdown>
 
@@ -72,8 +75,8 @@ export default function DashboardLayoutAdmin({ children }) {
               />
             </StudentSidebar>
             <div className="flex flex-col flex-1 w-full">
-              <AdminNavbar profileHref="/dashboard/admin" />
-              <main className="flex-1 bg-primary p-6 w-full overflow-x-hidden relative">
+              <AdminNavbar profileHref="/dashboard/admin" pageTitle={title} />
+              <main className="flex-1 bg-primary p-6 w-full overflow-x-hidden relative z-0">
                 <img
                   src="/img_backdrop.png"
                   alt="Backdrop"

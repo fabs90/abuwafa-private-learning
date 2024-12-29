@@ -4,7 +4,7 @@ import { useSidebar } from "../../SidebarContext";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-export default function TutorNavbar({ props }) {
+export default function TutorNavbar(props) {
   const router = useRouter();
   const { expanded, toggleSidebar } = useSidebar();
   const pathname = usePathname();
@@ -13,15 +13,7 @@ export default function TutorNavbar({ props }) {
 
   // Map pathnames to titles
   const getTitle = () => {
-    switch (pathname) {
-      case "/dashboard/tutor/schedule":
-        return "Schedule";
-      case "/dashboard/tutor/attendance":
-        return "Attendance";
-
-      default:
-        return "Dashboard";
-    }
+    return props.pageTitle;
   };
 
   const handleLogout = (e) => {

@@ -116,3 +116,17 @@ input[type="file"]::file-selector-button:active {
 .admin-card {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Opsional */
 }
+
+.tableFooter {
+  padding: 8px 0px;
+  width: 100%;
+  font-weight: 500;
+  text-align: left;
+  font-size: 16px;
+  color: #2c3e50;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

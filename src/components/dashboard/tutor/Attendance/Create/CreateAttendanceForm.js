@@ -146,6 +146,7 @@ export default function CreateAttendanceForm(props) {
                   label={"Time"}
                   icon={<Clock width={16} />}
                   defaultValue="14.30-15.30"
+                  placeholder="Format:Jam.Menit-Jam.Menit"
                 />
               </div>
               <div className="w-full">
@@ -245,7 +246,7 @@ export default function CreateAttendanceForm(props) {
             </div>
           </div>
           <div className="flex justify-center mt-6">
-            <ButtonForm type="submit" text="Save" />
+            <ButtonForm type="submit" text="Submit" />
           </div>
         </form>
       </div>

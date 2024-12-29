@@ -5,7 +5,10 @@ import { SidebarProvider } from "../SidebarContext";
 import StudentSidebar, { SidebarItem } from "../student/sidebar";
 import TutorNavbar from "./TutorComponents/Navbar";
 import bookOpen from "/public/book_open.svg";
-export default function DashboardLayoutTutor({ children }) {
+export default function DashboardLayoutTutor({
+  children,
+  title = "Dashboard",
+}) {
   return (
     <>
       <SidebarProvider>
@@ -34,7 +37,10 @@ export default function DashboardLayoutTutor({ children }) {
               />
             </StudentSidebar>
             <div className="flex flex-col flex-1 w-full">
-              <TutorNavbar profileHref="/dashboard/tutor/profile" />
+              <TutorNavbar
+                profileHref="/dashboard/tutor/profile"
+                pageTitle={title}
+              />
               <main className="flex-1 bg-primary p-6 w-full overflow-x-hidden relative">
                 <img
                   src="/img_backdrop.png"
