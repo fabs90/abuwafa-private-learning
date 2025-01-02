@@ -54,7 +54,10 @@ export default function ContentManageTutor(params) {
 
   return (
     <>
-      <ManageTutortable data={data} />
+      <ManageTutortable
+        data={data}
+        href="/dashboard/admin/manage/tutors/create"
+      />
     </>
   );
 }

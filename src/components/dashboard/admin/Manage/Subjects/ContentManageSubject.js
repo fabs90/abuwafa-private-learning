@@ -59,7 +59,10 @@ export default function ContentManageSubject(params) {
   ];
   return (
     <>
-      <ManageTutortable data={data} />
+      <ManageTutortable
+        data={data}
+        href="/dashboard/admin/manage/subjects/create"
+      />
     </>
   );
 }

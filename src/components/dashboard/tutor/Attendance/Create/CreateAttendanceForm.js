@@ -3,6 +3,7 @@ import {
   Baby,
   CalendarDaysIcon,
   Clock,
+  Cone,
   FileUp,
   House,
   NotebookIcon,
@@ -142,20 +143,47 @@ export default function CreateAttendanceForm(props) {
                 />
               </div>
               <div className="w-full">
-                <FormField
-                  label={"Time"}
-                  icon={<Clock width={16} />}
-                  defaultValue="14.30-15.30"
-                  placeholder="Format:Jam.Menit-Jam.Menit"
-                />
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <FormField
+                      label={"Time"}
+                      icon={<Clock width={16} />}
+                      defaultValue="14.30-15.30"
+                      placeholder="Format:Jam.Menit-Jam.Menit"
+                    />
+                  </div>
+                  <div>
+                    <FormField
+                      label={"Date"}
+                      icon={<CalendarDaysIcon width={16} />}
+                      defaultValue={date}
+                      type="date"
+                      readOnly={true}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="w-full">
+                <label className="block text-sm mb-1 mt-4 text-white">
+                  Image
+                </label>
+                <label
+                  className={`bg-white border-black rounded-lg flex items-center gap-2 w-full`}
+                >
+                  <input
+                    type="file"
+                    className={`text-black w-full`} // Ensure the input takes full width
+                    accept="image/*"
+                  />
+                </label>
               </div>
               <div className="w-full">
                 <FormField
-                  label={"Date"}
-                  icon={<CalendarDaysIcon width={16} />}
-                  defaultValue={date}
-                  type="date"
-                  readOnly={true}
+                  label="Topic"
+                  icon={<Cone width={16} />}
+                  type="text"
+                  required={true}
+                  placeholder={"Write your topic here"}
                 />
               </div>
             </div>
@@ -219,20 +247,6 @@ export default function CreateAttendanceForm(props) {
                   defaultValue="Offline"
                   type="text"
                 />
-              </div>
-              <div className="w-full">
-                <label className="block text-sm mb-1 mt-4 text-white">
-                  Image
-                </label>
-                <label
-                  className={`bg-white border-black rounded-lg flex items-center gap-2 w-full`}
-                >
-                  <input
-                    type="file"
-                    className={`text-black w-full`} // Ensure the input takes full width
-                    accept="image/*"
-                  />
-                </label>
               </div>
               <div className="w-full">
                 <FormField

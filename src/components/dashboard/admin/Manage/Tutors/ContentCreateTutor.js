@@ -1,6 +1,9 @@
+"use client";
 import ButtonForm from "@/components/button/Button";
-import { Mail, CircleUser, Key, Banknote } from "lucide-react";
-export default function ContentTutorProfile(params) {
+import { FormField } from "@/components/dashboard/tutor/TutorComponents/InputField";
+import { Banknote, CircleUser, Key, Mail } from "lucide-react";
+
+export default function ContentCreateTutor(params) {
   return (
     <>
       <form>
@@ -88,9 +91,7 @@ export default function ContentTutorProfile(params) {
                         </svg>
                       }
                       placeholder="status"
-                      type="text"
-                      readOnly
-                      defaultValue="Active"
+                      type="select3"
                     />
                   </div>
                   <div>
@@ -107,9 +108,7 @@ export default function ContentTutorProfile(params) {
                           <path d="m5 13.18v2.81c0 .73.4 1.41 1.04 1.76l5 2.73c.6.33 1.32.33 1.92 0l5-2.73c.64-.35 1.04-1.03 1.04-1.76v-2.81l-6.04 3.3c-.6.33-1.32.33-1.92 0zm6.04-9.66-8.43 4.6c-.69.38-.69 1.38 0 1.76l8.43 4.6c.6.33 1.32.33 1.92 0l8.04-4.39v5.91c0 .55.45 1 1 1s1-.45 1-1v-6.41c0-.37-.2-.7-.52-.88l-9.52-5.19c-.6-.32-1.32-.32-1.92 0z" />
                         </svg>
                       }
-                      type="text"
-                      readOnly
-                      defaultValue="Offline, Online"
+                      type="select3"
                     />
                   </div>
                 </div>
@@ -123,15 +122,13 @@ export default function ContentTutorProfile(params) {
                         className=" opacity-70 flex-shrink-0"
                       />
                     }
-                    readOnly={true}
-                    defaultValue="hanifnf90"
                     type="text"
                     placeholder="Your account username"
                   />
                 </div>
                 <div>
                   <FormField
-                    label="Change Password"
+                    label="Create Password"
                     icon={
                       <Key
                         width={16}
@@ -140,7 +137,7 @@ export default function ContentTutorProfile(params) {
                       />
                     }
                     type="password"
-                    placeholder="Fill to change the password"
+                    placeholder="Fill to create the password"
                   />
                 </div>
                 <div>
@@ -168,36 +165,3 @@ export default function ContentTutorProfile(params) {
     </>
   );
 }
-const FormField = ({
-  label,
-  placeholder,
-  icon,
-  type = "text",
-  readOnly = false,
-  defaultValue = "",
-  fitted = false,
-}) => (
-  <div>
-    <label
-      className={`block text-sm mb-1 ${
-        fitted ? "mt-[10px]" : "mt-4"
-      } text-white`}
-    >
-      {label}
-    </label>
-    <label
-      className={`input input-bordered border-neutral flex items-center gap-2 w-full md:w-full lg:w-full ${
-        readOnly ? "opacity-50" : "opacity-100"
-      }`}
-    >
-      {icon}
-      <input
-        type={type}
-        className="text-black w-fit md:w-full lg:w-full"
-        placeholder={placeholder}
-        readOnly={readOnly}
-        defaultValue={defaultValue}
-      />
-    </label>
-  </div>
-);

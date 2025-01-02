@@ -1,6 +1,12 @@
+"use client";
 import ButtonForm from "@/components/button/Button";
-import { Mail, CircleUser, Key, Banknote } from "lucide-react";
-export default function ContentTutorProfile(params) {
+import {
+  FormField,
+  PasswordField,
+} from "@/components/dashboard/tutor/TutorComponents/InputField";
+import { CircleUser, Key } from "lucide-react";
+
+export default function ContentCreateStudent() {
   return (
     <>
       <form>
@@ -21,7 +27,7 @@ export default function ContentTutorProfile(params) {
                         <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                       </svg>
                     }
-                    placeholder="Enter your name"
+                    placeholder="Enter Student"
                   />
                 </div>
 
@@ -29,7 +35,6 @@ export default function ContentTutorProfile(params) {
                   <div>
                     <FormField
                       label="Phone"
-                      fitted={true}
                       icon={
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -45,26 +50,28 @@ export default function ContentTutorProfile(params) {
                   </div>
                   <div>
                     <FormField
-                      label="Email"
-                      fitted={true}
+                      label="Parent"
                       icon={
-                        <Mail
-                          width={16}
-                          height={16}
-                          className="opacity-70 flex-shrink-0"
-                        />
+                        <svg
+                          viewBox="0 0 17 19"
+                          fill="currentColor"
+                          className="h-4 w-4 opacity-70 flex-shrink-0"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="m7.181 15.129a1.81 1.81 0 0 0 .223.872h-5.554a1.27 1.27 0 0 1 -1.267-1.267v-1.9a3.176 3.176 0 0 1 3.167-3.167h5.478a3.177 3.177 0 0 0 .557 1.067 3.135 3.135 0 0 0 -2.604 3.086zm-.581-6.412a3.236 3.236 0 1 1 3.236-3.236 3.236 3.236 0 0 1 -3.236 3.236zm9.817 6.412a.875.875 0 0 1 -.872.872h-6.542a.875.875 0 0 1 -.872-.872v-1.309a2.187 2.187 0 0 1 2.18-2.18h3.925a2.187 2.187 0 0 1 2.18 2.18zm-1.915-6.372a2.228 2.228 0 1 1 -2.228-2.228 2.228 2.228 0 0 1 2.228 2.228z" />
+                        </svg>
                       }
-                      placeholder="Your email"
+                      placeholder="Your parent name"
                     />
                   </div>
                 </div>
+
                 <div>
                   <label className="block text-sm mb-1 mt-4 text-white">
                     Address
                   </label>
                   <textarea
                     className="textarea border-neutral text-black w-full"
-                    style={{ height: "138px" }}
                     placeholder="Bio"
                   ></textarea>
                 </div>
@@ -88,14 +95,12 @@ export default function ContentTutorProfile(params) {
                         </svg>
                       }
                       placeholder="status"
-                      type="text"
-                      readOnly
-                      defaultValue="Active"
+                      type="select3"
                     />
                   </div>
                   <div>
                     <FormField
-                      label="Courses Type"
+                      label="Package"
                       icon={
                         <svg
                           fill="currentColor"
@@ -108,54 +113,87 @@ export default function ContentTutorProfile(params) {
                         </svg>
                       }
                       type="text"
-                      readOnly
-                      defaultValue="Offline, Online"
+                      placeholder={"Your package"}
                     />
                   </div>
                 </div>
-                <div>
-                  <FormField
-                    label="Account Username"
-                    icon={
-                      <CircleUser
-                        width={16}
-                        height={16}
-                        className=" opacity-70 flex-shrink-0"
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <FormField
+                      label="School"
+                      icon={
+                        <svg
+                          fill="currentColor"
+                          className="h-4 w-4 opacity-70 flex-shrink-0"
+                          viewBox="0 0 15 15"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g fill="#000">
+                            <path d="m7.5 8c-.27614 0-.5.22386-.5.5s.22386.5.5.5.5-.22386.5-.5-.22386-.5-.5-.5z" />
+                            <path
+                              clipRule="evenodd"
+                              d="m12 6.19098-4-2v-1.19098h3v-3h-4v4.19098l-4 2v1.80902h-2v6h-1v1h6v-4h3v4h6v-1h-1v-6h-2zm1 7.80902v-5h-1v5zm-10 0h-1v-5h1zm3-5.5c0-.82843.67157-1.5 1.5-1.5s1.5.67157 1.5 1.5-.67157 1.5-1.5 1.5-1.5-.67157-1.5-1.5z"
+                              fillRule="evenodd"
+                            />
+                            <path d="m8 15v-3h-1v3z" />
+                          </g>
+                        </svg>
+                      }
+                      type="text"
+                      placeholder="Your school name"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm mb-1 mt-4 text-white">
+                      Grade
+                    </label>
+                    <label className="input input-bordered border-neutral flex items-center gap-2 ">
+                      <svg
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        className="h-4 w-4 opacity-70 flex-shrink-0"
+                      >
+                        <path d="m0 0h24v24h-24z" fill="none" />
+                        <path d="m5 13.18v2.81c0 .73.4 1.41 1.04 1.76l5 2.73c.6.33 1.32.33 1.92 0l5-2.73c.64-.35 1.04-1.03 1.04-1.76v-2.81l-6.04 3.3c-.6.33-1.32.33-1.92 0zm6.04-9.66-8.43 4.6c-.69.38-.69 1.38 0 1.76l8.43 4.6c.6.33 1.32.33 1.92 0l8.04-4.39v5.91c0 .55.45 1 1 1s1-.45 1-1v-6.41c0-.37-.2-.7-.52-.88l-9.52-5.19c-.6-.32-1.32-.32-1.92 0z" />
+                      </svg>
+                      <input
+                        type="text"
+                        className="text-black"
+                        placeholder="Your Grade"
                       />
-                    }
-                    readOnly={true}
-                    defaultValue="hanifnf90"
-                    type="text"
-                    placeholder="Your account username"
-                  />
+                    </label>
+                  </div>
                 </div>
                 <div>
-                  <FormField
-                    label="Change Password"
-                    icon={
-                      <Key
-                        width={16}
-                        height={16}
-                        className=" opacity-70 flex-shrink-0"
-                      />
-                    }
-                    type="password"
-                    placeholder="Fill to change the password"
-                  />
-                </div>
-                <div>
-                  <FormField
-                    label="Bank Account"
-                    icon={
-                      <Banknote
-                        width={16}
-                        height={16}
-                        className=" opacity-70 flex-shrink-0"
-                      />
-                    }
-                    type="text"
-                    placeholder="Your bank account"
-                  />
+                  <div>
+                    <FormField
+                      label="Account Username"
+                      icon={
+                        <CircleUser
+                          width={16}
+                          height={16}
+                          className=" opacity-70 flex-shrink-0"
+                        />
+                      }
+                      type="text"
+                      placeholder="Enter username"
+                    />
+                  </div>
+                  <div>
+                    <FormField
+                      type="password"
+                      label="Change Password"
+                      icon={
+                        <Key
+                          width={16}
+                          height={16}
+                          className=" opacity-70 flex-shrink-0"
+                        />
+                      }
+                      placeholder="Enter password"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -168,36 +206,3 @@ export default function ContentTutorProfile(params) {
     </>
   );
 }
-const FormField = ({
-  label,
-  placeholder,
-  icon,
-  type = "text",
-  readOnly = false,
-  defaultValue = "",
-  fitted = false,
-}) => (
-  <div>
-    <label
-      className={`block text-sm mb-1 ${
-        fitted ? "mt-[10px]" : "mt-4"
-      } text-white`}
-    >
-      {label}
-    </label>
-    <label
-      className={`input input-bordered border-neutral flex items-center gap-2 w-full md:w-full lg:w-full ${
-        readOnly ? "opacity-50" : "opacity-100"
-      }`}
-    >
-      {icon}
-      <input
-        type={type}
-        className="text-black w-fit md:w-full lg:w-full"
-        placeholder={placeholder}
-        readOnly={readOnly}
-        defaultValue={defaultValue}
-      />
-    </label>
-  </div>
-);

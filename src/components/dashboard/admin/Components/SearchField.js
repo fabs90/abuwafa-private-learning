@@ -12,14 +12,14 @@ export const SearchField = ({
 }) => (
   <div>
     <label
-      className={`input input-bordered border-neutral flex items-center gap-2 formField ${
+      className={`input input-bordered border-neutral focus-within:outline-none  flex items-center gap-2 formField ${
         fitted ? "w-fit" : "w-full"
       } ${readOnly ? "opacity-50" : "opacity-100"}`}
     >
       {icon}
       <input
         type={type}
-        className={`text-black ${
+        className={`text-black focus:outline-none ${
           readOnly ? "text-neutral" : "text-black w-full"
         }`}
         placeholder={placeholder}

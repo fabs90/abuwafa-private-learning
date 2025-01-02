@@ -5,19 +5,18 @@ import { useState } from "react";
 import { FormField } from "../../tutor/TutorComponents/InputField";
 import { SearchField } from "./SearchField";
 
-export default function ManageTutortable({
+export default function ManageAttendaceTable({
   data = null,
   hiddenColumns = [],
   numbering = true,
-  href = "",
-  rowsPerPage = 5,
 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   let [rowsPerPageState, setRowsPerPageState] = useState(5);
+
   if (data == null) {
     return (
-      <div className="px-1">
+      <div>
         <table className="min-w-full border-collapse rounded-lg bg-white">
           <thead>
             <tr className="bg-gray-200">
@@ -56,9 +55,9 @@ export default function ManageTutortable({
   const visibleColumns = columns.filter((key) => !hiddenColumns.includes(key));
 
   return (
-    <div className="overflow-x-auto text-center px-1">
+    <div className="overflow-x-auto text-center">
       {/* Search Input Button */}
-      <div className="flex justify-between items-center pt-[15px]  z-99 mb-4">
+      <div className="flex justify-between items-center pt-[15px] px-[15px] bg-gray-200 w-full  rounded-t-lg z-99 gap-4 md:gap-0 lg:gap-0">
         <SearchField
           icon={<Search />}
           placeholder="Search by name"
@@ -67,11 +66,11 @@ export default function ManageTutortable({
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         {/* Per-rows select */}
-        <div className="flex justify-end">
+        <div>
           <select
-            className="select select-bordered max-w-xs w-3/4 focus-within:outline-none"
-            value={rowsPerPageState} // Use value prop for controlled component
-            onChange={handleSelectChange} // Attach onChange to the select element
+            className="select select-bordered w-full max-w-xs"
+            value={rowsPerPageState}
+            onChange={handleSelectChange}
           >
             <option disabled value="">
               Rows per-page
@@ -83,7 +82,7 @@ export default function ManageTutortable({
           </select>
         </div>
       </div>
-      <table className="min-w-full border-collapse bg-white overflow-hidden rounded-t-lg">
+      <table className="min-w-full border-collapse bg-white overflow-hidden">
         <thead>
           <tr className="bg-gray-200">
             {numbering && <th className="w-1/12 px-4 py-2 ">No.</th>}
@@ -93,10 +92,7 @@ export default function ManageTutortable({
               </th>
             ))}
             <th className="px-4 py-2 capitalize  flex justify-center items-center flex-wrap">
-              <Link href={href} className="btn btn-primary text-white">
-                <Plus />
-                Add
-              </Link>
+              Action
             </th>
           </tr>
         </thead>
@@ -110,24 +106,24 @@ export default function ManageTutortable({
               )}
               {visibleColumns.map((key, colIndex) => (
                 <td key={colIndex} className="py-4 md:py-0 lg:py-0">
-                  {item[key]}
+                  {key === "attendanceStatus" ? (
+                    item[key] == true ? (
+                      <span className="text-green-500 font-bold">✓</span>
+                    ) : (
+                      <span className="text-red-500 font-bold">✗</span>
+                    )
+                  ) : (
+                    item[key]
+                  )}
                 </td>
               ))}
               <td className="px-4 py-2">
-                <div className="flex justify-center items-center gap-2">
-                  <Link
-                    href={`${item.slug}/update`}
-                    className="btn bg-blueYoender hover:bg-darkerBlueYoender text-white px-3 py-2 "
-                  >
-                    Update
-                  </Link>
-                  <Link
-                    href={`${item.slug}/delete`}
-                    className="btn bg-secondarySiena hover:bg-darkerSecondarySiena text-white px-3 py-2 "
-                  >
-                    Delete
-                  </Link>
-                </div>
+                <Link
+                  href={`/dashboard/admin/attendance/${item.slug}/detail`}
+                  className="btn bg-primary hover:bg-darkerBlueYoender text-white px-3 py-2 "
+                >
+                  Check
+                </Link>
               </td>
             </tr>
           ))}

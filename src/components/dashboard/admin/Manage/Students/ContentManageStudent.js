@@ -47,7 +47,11 @@ export default function ContentManageStudent(params) {
   ];
   return (
     <>
-      <ManageTutortable data={data} rowsPerPage={5} />
+      <ManageTutortable
+        data={data}
+        rowsPerPage={5}
+        href="/dashboard/admin/manage/students/create"
+      />
     </>
   );
 }

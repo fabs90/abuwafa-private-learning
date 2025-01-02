@@ -61,17 +61,17 @@ export default function DashboardLayoutAdmin({
               <SidebarItem
                 icon={<UserCheck />}
                 text="Attendance"
-                href="/dashboard/admin/"
+                href="/dashboard/admin/attendance"
               />
               <SidebarItem
                 icon={<BookOpenText />}
                 text="Monthly Report"
-                href="/dashboard/admin/"
+                href="/dashboard/admin/monthly-report"
               />
               <SidebarItem
                 icon={<Wallet />}
                 text="Paycheck"
-                href="/dashboard/admin/"
+                href="/dashboard/admin/paycheck"
               />
             </StudentSidebar>
             <div className="flex flex-col flex-1 w-full">
