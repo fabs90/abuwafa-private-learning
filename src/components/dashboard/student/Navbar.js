@@ -34,7 +34,7 @@ export default function DashboardNavbar() {
 
   const handleLogout = (e) => {
     e.stopPropagation();
-    router.push("http://localhost:3000/login");
+    router.push("/login");
   };
 
   // Close dropdown when clicking outside

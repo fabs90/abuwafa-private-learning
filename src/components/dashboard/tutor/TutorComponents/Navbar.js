@@ -18,7 +18,7 @@ export default function TutorNavbar(props) {
 
   const handleLogout = (e) => {
     e.stopPropagation();
-    router.push("http://localhost:3000/login");
+    router.push("/login");
   };
 
   const toggleDropdown = () => {

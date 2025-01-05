@@ -29,7 +29,7 @@ export default function AdminNavbar(props) {
 
   const handleLogout = (e) => {
     e.stopPropagation();
-    router.push("http://localhost:3000/login");
+    router.push("/login");
   };
 
   const toggleDropdown = () => {
