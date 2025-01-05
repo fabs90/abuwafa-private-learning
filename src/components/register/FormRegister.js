@@ -1,5 +1,5 @@
 import Image from "next/image";
-import abuwafaLogo from "/assets/abuwafaLogo.png";
+import abuwafaLogo from "/public/abuwafaLogo.png";
 
 export default function FormRegister(params) {
   return (
