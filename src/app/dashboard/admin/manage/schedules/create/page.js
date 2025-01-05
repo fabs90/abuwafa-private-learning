@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import ButtonForm from "@/components/button/Button";
 import DashboardLayoutAdmin from "@/components/dashboard/admin/DashboardLayoutAdmin";
 import { FormField } from "@/components/dashboard/tutor/TutorComponents/InputField";
@@ -16,8 +15,19 @@ import {
   UserSquare2,
 } from "lucide-react";
 import { Breadcrumb } from "@/components/dashboard/admin/Components/Breadcrumb";
+import { useEffect, useState } from "react";
 
 export default function Page() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null; // Prevent rendering on the server
+  }
+
   const breadcrumbItems = [
     { label: "Dashboard", link: "/dashboard/admin", icon: Grid2X2 },
     {

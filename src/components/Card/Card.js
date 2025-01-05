@@ -17,16 +17,12 @@ export default function CardDashboard({
       <div className="card-body text-center font-bold ">
         {icon && (
           <div className="flex justify-center">
-            {typeof icon === "object" ? (
-              <Image
-                src={icon.src}
-                alt={`${title} icon`}
-                width={width}
-                height={height}
-              />
-            ) : (
-              <span className="w-6 h-6">{icon}</span>
-            )}
+            <Image
+              src={icon}
+              alt={`${title} icon`}
+              width={width}
+              height={height}
+            />
           </div>
         )}
         {isAdminPage ? (

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import abuwafaLogo from "/public/abuwafaLogo.png";
 
 export default function FormRegister(params) {
   return (
@@ -10,7 +9,12 @@ export default function FormRegister(params) {
         style={{ backgroundColor: "#edf6f6" }}
       >
         <div className="card-body items-center text-center w-full">
-          <Image src={abuwafaLogo} alt="Logo Abuwafa" width={217} height={67} />
+          <Image
+            src={"/img/abuwafalogo.png"}
+            alt="Logo Abuwafa"
+            width={217}
+            height={67}
+          />
           <div className="mt-6 w-full">
             <h2>Contact Admin</h2>
           </div>

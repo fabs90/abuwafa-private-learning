@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import abuwafaLogo from "/public/abuwafaLogo.png";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -80,7 +79,7 @@ export default function FormLogin() {
         >
           <div className="card-body items-center text-center w-full">
             <Image
-              src={abuwafaLogo}
+              src={"/img/abuwafalogo.png"}
               alt="Logo Abuwafa"
               width={217}
               height={67}

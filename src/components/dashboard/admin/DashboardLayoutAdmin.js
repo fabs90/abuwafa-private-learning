@@ -78,7 +78,7 @@ export default function DashboardLayoutAdmin({
               <AdminNavbar profileHref="/dashboard/admin" pageTitle={title} />
               <main className="flex-1 bg-primary p-6 w-full overflow-x-hidden relative z-0">
                 <img
-                  src="/img_backdrop.png"
+                  src="/img/img_backdrop.png"
                   alt="Backdrop"
                   className="absolute bottom-0 right-0 w-[62%] h-auto object-cover pointer-events-none z-0"
                 />

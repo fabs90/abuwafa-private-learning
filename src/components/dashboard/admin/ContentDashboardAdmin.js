@@ -1,7 +1,4 @@
 import CardDashboard from "@/components/Card/Card";
-import smilingStudentIcon from "/public/smiling-student.png";
-import smilingTutorIcon from "/public/smiling-tutor.png";
-import handSubjectIcon from "/public/hand-subject.png";
 import TutorTable from "../tutor/TutorComponents/TutorTable";
 export default function ContentDashboardAdmin(params) {
   return (
@@ -9,21 +6,21 @@ export default function ContentDashboardAdmin(params) {
       <div className="flex flex-row gap-4 justify-between">
         <CardDashboard
           title="80 Students"
-          icon={smilingStudentIcon}
+          icon={"/img/smiling-student.png"}
           width={145}
           height={160}
           isAdminPage={true}
         />
         <CardDashboard
           title="30 Tutors"
-          icon={smilingTutorIcon}
+          icon={"/img/smiling-tutor.png"}
           width={164}
           height={160}
           isAdminPage={true}
         />
         <CardDashboard
           title="26 Subjects"
-          icon={handSubjectIcon}
+          icon={"/img/hand-subject.png"}
           width={139}
           height={160}
           isAdminPage={true}

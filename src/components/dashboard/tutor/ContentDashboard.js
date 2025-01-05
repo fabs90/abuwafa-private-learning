@@ -1,7 +1,4 @@
-import { Suspense } from "react";
 import CalendarTutor from "./TutorComponents/Calendar/Calendar";
-import smilingStudentIcon from "/public/smiling-student.png";
-import handSubjectIcon from "/public/hand-subject.png";
 import CardDashboard from "../../Card/Card";
 
 export default function ContentDashboard(params) {
@@ -11,7 +8,7 @@ export default function ContentDashboard(params) {
         <div className="flex flex-row justify-evenly">
           <CardDashboard
             title="7 Students"
-            icon={smilingStudentIcon}
+            icon={"/img/smiling-student.png"}
             width={145}
             height={160}
             isAdminPage={true}
@@ -19,7 +16,7 @@ export default function ContentDashboard(params) {
 
           <CardDashboard
             title="5 Subjects"
-            icon={handSubjectIcon}
+            icon={"/img/hand-subject.png"}
             width={139}
             height={160}
             isAdminPage={true}

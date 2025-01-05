@@ -142,7 +142,6 @@ export const FormField = ({
                 cursor: "pointer",
               }),
             }}
-            menuPortalTarget={document.body}
             menuPosition="fixed"
           />
         ) : type === "select3" ? (
@@ -190,7 +189,6 @@ export const FormField = ({
                 cursor: "pointer",
               }),
             }}
-            menuPortalTarget={document.body}
             menuPosition="fixed"
           />
         ) : type === "time" ? (
