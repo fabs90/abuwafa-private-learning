@@ -18,7 +18,7 @@ export default function StudentSidebar({ children }) {
             }`}
           >
             <Image
-              src={"/imgs/abuwafaLogo.png"}
+              src={"/assets/abuwafaLogo.png"}
               alt="Logo Abuwafa"
               width={192} // Set a fixed width
               height={48} // Set a fixed height to maintain aspect ratio

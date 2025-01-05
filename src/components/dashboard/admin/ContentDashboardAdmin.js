@@ -1,7 +1,7 @@
 import CardDashboard from "@/components/Card/Card";
-import smilingStudentIcon from "/imgs/smiling-student.png";
-import smilingTutorIcon from "/imgs/smiling-tutor.png";
-import handSubjectIcon from "/imgs/hand-subject.png";
+import smilingStudentIcon from "/assets/smiling-student.png";
+import smilingTutorIcon from "/assets/smiling-tutor.png";
+import handSubjectIcon from "/assets/hand-subject.png";
 import TutorTable from "../tutor/TutorComponents/TutorTable";
 export default function ContentDashboardAdmin(params) {
   return (

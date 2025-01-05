@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import CalendarTutor from "./TutorComponents/Calendar/Calendar";
-import smilingStudentIcon from "/imgs/smiling-student.png";
-import handSubjectIcon from "/imgs/hand-subject.png";
+import smilingStudentIcon from "/assets/smiling-student.png";
+import handSubjectIcon from "/assets/hand-subject.png";
 import CardDashboard from "../../Card/Card";
 
 export default function ContentDashboard(params) {
