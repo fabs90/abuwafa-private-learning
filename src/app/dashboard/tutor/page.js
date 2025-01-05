@@ -1,8 +1,12 @@
+import DashboardTutor from "@/components/dashboard/tutor/DashboardTutor";
+
 export default function TutorDashboard(params) {
   return (
     <>
-      <div className="flex items-center justify-center h-screen">
-        <div>Ini Dashboard Tutor</div>
+      <div className="h-screen flex flex-col overflow-hidden">
+        <div className="flex-1 overflow-x-auto">
+          <DashboardTutor />
+        </div>
       </div>
     </>
   );

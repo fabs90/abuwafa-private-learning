@@ -12,6 +12,11 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        secondarySiena: "#EB7C5A",
+        darkerSecondarySiena: "#C26545",
+        darkerNeutral: "#3E4248",
+        blueYoender: "#567B97",
+        darkerBlueYoender: "#3F5E75",
       },
     },
   },

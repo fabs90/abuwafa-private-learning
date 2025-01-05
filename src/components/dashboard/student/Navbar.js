@@ -3,8 +3,10 @@ import { Bell, ChevronLeft, ChevronRight, LogOut } from "lucide-react";
 import { useSidebar } from "../SidebarContext";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function DashboardNavbar() {
+  const router = useRouter();
   const { expanded, toggleSidebar } = useSidebar();
   const pathname = usePathname();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -28,6 +30,11 @@ export default function DashboardNavbar() {
 
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
+  };
+
+  const handleLogout = (e) => {
+    e.stopPropagation();
+    router.push("http://localhost:3000/login");
   };
 
   // Close dropdown when clicking outside
@@ -67,7 +74,10 @@ export default function DashboardNavbar() {
         </div>
         <div className="flex items-center">
           <div className="flex-1">
-            <button className="p-2 md:p-1.5 lg:p-1.5 mr-3 md:mr-3 lg:mr-3 text-neutral rounded hover:bg-primary hover:text-white transition-colors duration-300">
+            <button
+              className="p-2 md:p-1.5 lg:p-1.5 mr-3 md:mr-3 lg:mr-3 text-neutral rounded hover:bg-primary hover:text-white transition-colors duration-300"
+              onClick={handleLogout}
+            >
               <LogOut className="w-5 transform scale-x-[-1]" />
             </button>
           </div>
@@ -81,7 +91,7 @@ export default function DashboardNavbar() {
               </div>
             </button>
             {isDropdownOpen && (
-              <div className="absolute right-0 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+              <div className="absolute right-0 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                 <ul className="py-2">
                   <li>
                     <a
