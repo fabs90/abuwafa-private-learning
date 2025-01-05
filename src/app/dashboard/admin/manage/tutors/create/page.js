@@ -3,23 +3,26 @@ import DashboardLayoutAdmin from "@/components/dashboard/admin/DashboardLayoutAd
 import ContentCreateTutor from "@/components/dashboard/admin/Manage/Tutors/ContentCreateTutor";
 import { Grid2X2 } from "lucide-react";
 
-export default function Page(params) {
+export default function Page() {
   return (
     <>
       <DashboardLayoutAdmin title="Create Tutors">
         <Breadcrumb
-          items={[
-            { label: "Dashboard", link: "/dashboard/admin", icon: Grid2X2 },
-            {
-              label: "Manage Tutors",
-              link: "/dashboard/admin/manage/tutors",
-            },
-            {
-              label: "Create Tutor",
-              link: "/dashboard/admin/manage/tutors/create",
-            },
-          ]}
+          items={
+            [
+              { label: "Dashboard", link: "/dashboard/admin", icon: Grid2X2 },
+              {
+                label: "Manage Tutors",
+                link: "/dashboard/admin/manage/tutors",
+              },
+              {
+                label: "Create Tutor",
+                link: "/dashboard/admin/manage/tutors/create",
+              },
+            ] || []
+          }
         />
+
         <ContentCreateTutor />
       </DashboardLayoutAdmin>
     </>
