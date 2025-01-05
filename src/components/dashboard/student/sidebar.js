@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import abuwafaLogo from "@/assets/abuwafaLogo.png";
 import { ChevronLast, ChevronLeft, ChevronUp } from "lucide-react";
 import { createContext, useContext, useState } from "react";
 import { useSidebar } from "../SidebarContext";
@@ -19,7 +18,7 @@ export default function StudentSidebar({ children }) {
             }`}
           >
             <Image
-              src={abuwafaLogo}
+              src={"/imgs/abuwafaLogo.png"}
               alt="Logo Abuwafa"
               width={192} // Set a fixed width
               height={48} // Set a fixed height to maintain aspect ratio
