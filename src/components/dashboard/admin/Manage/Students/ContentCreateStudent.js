@@ -1,15 +1,46 @@
 "use client";
+import Loading from "@/app/dashboard/admin/monthly-report/loading";
 import ButtonForm from "@/components/button/Button";
+import ConfirmAlert from "@/components/dashboard/tutor/TutorComponents/ConfirmAlert";
 import {
   FormField,
   PasswordField,
 } from "@/components/dashboard/tutor/TutorComponents/InputField";
 import { CircleUser, Key } from "lucide-react";
+import { useState } from "react";
 
 export default function ContentCreateStudent() {
+  const [isConfirmVisible, setIsConfirmVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const handleConfirm = () => {
+    setIsConfirmVisible(false);
+    alert("Data submitted successfully");
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    setLoading(true);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsConfirmVisible(true);
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center my-auto h-screen">
+        <Loading />
+      </div>
+    );
+  }
   return (
     <>
-      <form>
+      <ConfirmAlert
+        isOpen={isConfirmVisible}
+        onClose={() => setIsConfirmVisible(false)}
+        onConfirm={handleConfirm}
+      />
+      <form id="createStudent" onSubmit={handleSubmit}>
         <div className="w-full grid grid-rows-1">
           <div className="grid grid-rows-1 text-sm">
             <div className="md:grid md:grid-rows-1 md:grid-cols-2 gap-2 md:gap-6">

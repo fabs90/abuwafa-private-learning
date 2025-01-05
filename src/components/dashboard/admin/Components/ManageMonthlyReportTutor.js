@@ -1,14 +1,15 @@
 "use client";
-import { Plus, Search } from "lucide-react";
+import { Search } from "lucide-react";
+import { SearchField } from "./SearchField";
 import Link from "next/link";
 import { useState } from "react";
-import { FormField } from "../../tutor/TutorComponents/InputField";
-import { SearchField } from "./SearchField";
 
-export default function ManageAttendaceTable({
+export default function ManageMonthlyReportTutor({
   data = null,
   hiddenColumns = [],
   numbering = true,
+  linkHref = "",
+  primaryColumn = "id",
 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
@@ -87,7 +88,7 @@ export default function ManageAttendaceTable({
           <tr className="bg-gray-200">
             {numbering && <th className="w-1/12 px-4 py-4 ">No.</th>}
             {visibleColumns.map((key, index) => (
-              <th key={index} className="w-1/5 px-4 py-4 capitalize">
+              <th key={index} className="w-1/3 px-4 py-4 capitalize">
                 {key}
               </th>
             ))}
@@ -106,21 +107,13 @@ export default function ManageAttendaceTable({
               )}
               {visibleColumns.map((key, colIndex) => (
                 <td key={colIndex} className="py-4 md:py-0 lg:py-0">
-                  {key === "attendanceStatus" ? (
-                    item[key] == true ? (
-                      <span className="text-green-500 font-bold">✓</span>
-                    ) : (
-                      <span className="text-red-500 font-bold">✗</span>
-                    )
-                  ) : (
-                    item[key]
-                  )}
+                  {item[key]}
                 </td>
               ))}
               <td className="px-4 py-2">
                 <Link
-                  href={`/dashboard/admin/attendance/${item.slug}/detail`}
-                  className="btn bg-primary hover:bg-darkerBlueYoender text-white px-3 py-2 "
+                  href={`${linkHref}/${item[primaryColumn]}`}
+                  className="btn bg-primary hover:bg-darkerBlueYoender text-white px-4 py-2 "
                 >
                   Check
                 </Link>

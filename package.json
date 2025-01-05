@@ -13,6 +13,7 @@
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/interaction": "^6.1.15",
     "@fullcalendar/react": "^6.1.15",
+    "axios": "^1.7.9",
     "crypto-js": "^4.2.0",
     "datatables.net-dt": "^2.1.8",
     "datatables.net-react": "^1.0.0",
