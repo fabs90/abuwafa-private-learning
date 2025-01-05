@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Image from "next/image";
-import abuwafaLogo from "/abuwafaLogo.png";
+import abuwafaLogo from "@/assets/abuwafaLogo.png";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";

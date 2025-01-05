@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import abuwafaLogo from "/abuwafaLogo.png";
+import abuwafaLogo from "@/assets/abuwafaLogo.png";
 import { ChevronLast, ChevronLeft, ChevronUp } from "lucide-react";
 import { createContext, useContext, useState } from "react";
 import { useSidebar } from "../SidebarContext";

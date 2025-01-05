@@ -167,7 +167,7 @@ export default function Page({ params }) {
                   </label>
                   <div className="card bg-base-100 w-96 shadow-xl rounded-lg">
                     <figure className="rounded-lg">
-                      <img src="/contoh-attendance.png" alt="Shoes" />
+                      <img src="@/assets/contoh-attendance.png" alt="Shoes" />
                     </figure>
                   </div>
                 </div>
