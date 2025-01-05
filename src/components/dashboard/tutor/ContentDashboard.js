@@ -1,10 +1,10 @@
 import { Suspense } from "react";
 import CalendarTutor from "./TutorComponents/Calendar/Calendar";
-import smilingStudentIcon from "/public/smiling-student.png";
-import handSubjectIcon from "/public/hand-subject.png";
+import smilingStudentIcon from "/smiling-student.png";
+import handSubjectIcon from "/hand-subject.png";
 import CardDashboard from "../../Card/Card";
-import academicHatIcon from "/public/academic-hat.svg";
-import bookIcon from "/public/book.svg";
+import academicHatIcon from "/academic-hat.svg";
+import bookIcon from "/book.svg";
 
 export default function ContentDashboard(params) {
   return (

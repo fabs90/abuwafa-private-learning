@@ -4,7 +4,7 @@ import { BookMarkedIcon, BookOpenText, Grid2X2 } from "lucide-react";
 import { SidebarProvider } from "../SidebarContext";
 import StudentSidebar, { SidebarItem } from "../student/sidebar";
 import TutorNavbar from "./TutorComponents/Navbar";
-import bookOpen from "/public/book_open.svg";
+import bookOpen from "/book_open.svg";
 export default function DashboardLayoutTutor({
   children,
   title = "Dashboard",
