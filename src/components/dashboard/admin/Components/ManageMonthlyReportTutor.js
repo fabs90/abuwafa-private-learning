@@ -36,6 +36,11 @@ export default function ManageMonthlyReportTutor({
     );
   }
 
+  const handleSearchTerm = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
+  };
+
   const handleSelectChange = (e) => {
     setRowsPerPageState(e.target.value);
     setCurrentPage(1);
@@ -64,7 +69,7 @@ export default function ManageMonthlyReportTutor({
           placeholder="Search by name"
           value={searchTerm}
           fitted={true}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={handleSearchTerm}
         />
         {/* Per-rows select */}
         <div>

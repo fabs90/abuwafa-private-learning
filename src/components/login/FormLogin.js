@@ -16,6 +16,11 @@ export default function FormLogin() {
     password: "password",
   };
 
+  const exampleAdmin = {
+    username: "admin",
+    password: "admin",
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -26,14 +31,35 @@ export default function FormLogin() {
     const username = form.get("username");
     const password = form.get("password");
 
-    if (
-      username !== exampleUser.username &&
-      password !== exampleUser.password
-    ) {
-      setError(true);
-      alert("Login gagal. Harap pilih role yang sesuai dengan akun Anda");
+    if (!role || role === "Select here") {
+      alert("Please choose a role!");
       return;
     }
+
+    if (role === "admin") {
+      if (
+        username !== exampleAdmin.username &&
+        password !== exampleAdmin.password
+      ) {
+        alert("Login gagal. Harap pilih role yang sesuai dengan akun Anda.");
+        return;
+      }
+      setLoading(true);
+      setTimeout(() => {
+        router.push("/dashboard/admin");
+        return;
+      }, 1500);
+    } else {
+      if (
+        username !== exampleUser.username &&
+        password !== exampleUser.password
+      ) {
+        setError(true);
+        alert("Username atau Password salah");
+        return;
+      }
+    }
+
     setLoading(true);
     setTimeout(() => {
       alert("Login Success");
@@ -41,10 +67,8 @@ export default function FormLogin() {
         router.push("/dashboard/student");
       } else if (role === "tutor") {
         router.push("/dashboard/tutor");
-      } else {
-        router.push("/dashboard/admin");
       }
-    }, 1500); // Delay simulasi 1.5 detik
+    }, 1500);
   };
 
   return (
