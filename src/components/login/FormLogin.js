@@ -36,7 +36,7 @@ export default function FormLogin() {
 
     if (role === "admin") {
       if (
-        username !== exampleAdmin.username &&
+        username !== exampleAdmin.username ||
         password !== exampleAdmin.password
       ) {
         alert(
@@ -51,7 +51,7 @@ export default function FormLogin() {
       }, 1500);
     } else {
       if (
-        username !== exampleUser.username &&
+        username !== exampleUser.username ||
         password !== exampleUser.password
       ) {
         setError(true);
