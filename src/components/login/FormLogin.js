@@ -39,7 +39,9 @@ export default function FormLogin() {
         username !== exampleAdmin.username &&
         password !== exampleAdmin.password
       ) {
-        alert("Login gagal. Harap pilih role yang sesuai dengan akun Anda.");
+        alert(
+          "Login failed. Please select the role that matches your account."
+        );
         return;
       }
       setLoading(true);
@@ -53,7 +55,7 @@ export default function FormLogin() {
         password !== exampleUser.password
       ) {
         setError(true);
-        alert("Username atau Password salah");
+        alert("Incorrect username or password.");
         return;
       }
     }

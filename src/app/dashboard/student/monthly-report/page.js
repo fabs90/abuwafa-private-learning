@@ -5,7 +5,7 @@ import ContentMonthlyReport from "@/components/dashboard/student/Monthly Report/
 
 export default function MonthlyReport() {
   return (
-    <div className="h-screen">
+    <div className="h-screen overflow-auto">
       <DashboardLayoutStudent>
         <ContentMonthlyReport />
       </DashboardLayoutStudent>

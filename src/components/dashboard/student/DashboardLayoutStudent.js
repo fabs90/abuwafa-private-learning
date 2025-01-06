@@ -8,7 +8,7 @@ export default function DashboardLayoutStudent({ children }) {
   return (
     <>
       <SidebarProvider>
-        <div className="flex flex-col h-screen w-full">
+        <div className="flex flex-col h-screen w-full ">
           <div className="flex flex-1 w-full">
             <StudentSidebar>
               <SidebarItem
@@ -33,7 +33,7 @@ export default function DashboardLayoutStudent({ children }) {
                 <img
                   src="/img/img_backdrop.png"
                   alt="Backdrop"
-                  className="absolute bottom-0 right-0 w-3/4 sm:w-1/2 h-auto object-cover pointer-events-none z-0"
+                  className="absolute bottom-0 right-0 w-3/4 sm:w-1/2 h-auto object-cover pointer-events-none -z-0"
                 />
                 {children}
               </main>

@@ -3,7 +3,7 @@ import ContentProfile from "@/components/dashboard/student/Profile/ContentProfil
 
 export default function ProfilePage() {
   return (
-    <div className="h-full">
+    <div className="h-screen flex flex-col overflow-auto">
       <DashboardLayoutStudent>
         <ContentProfile />
       </DashboardLayoutStudent>
