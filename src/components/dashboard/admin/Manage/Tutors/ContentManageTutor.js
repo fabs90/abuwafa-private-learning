@@ -3,7 +3,7 @@ import ManageTutortable from "../../Components/ManageTutorTable";
 export default function ContentManageTutor(params) {
   const data = [
     {
-      name: "John Doe Kontoloyo selenge",
+      name: "John Doe",
       subject: "Math",
       email: "johndoe213@email.com",
       username: "sadasd",
