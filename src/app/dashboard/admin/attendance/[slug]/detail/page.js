@@ -26,7 +26,6 @@ export default function Page({ params }) {
     {
       label: "Attendance",
       link: "/dashboard/admin/attendance",
-      icon: UserCheck,
     },
     {
       label: "Attendance List",
@@ -42,13 +41,13 @@ export default function Page({ params }) {
       <DashboardLayoutAdmin title="Attendance Detail">
         <div className="flex justify-between">
           <Breadcrumb items={breadcrumbItems} />
-          <div>
+          {/* <div>
             <div className="flex justify-center gap-2">
               <button
                 type="submit"
                 className={`btn w-fit flex items-center justify-center text-accent border-0 bg-secondarySiena hover:bg-darkerSecondarySiena `}
               >
-                Extends Time
+                Extend Time
               </button>
               <button
                 type="submit"
@@ -57,10 +56,11 @@ export default function Page({ params }) {
                 Clear Data
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
-        <div className="text-accent text-md font-semibold">
-          Status Attendance: <span className="text-accent">False</span>
+        <div className="text-accent text-md font-semibold mt-3">
+          {/* Text nya kasih stroke */}
+          Status Attendance: <span className="text-secondarySiena">False</span>
         </div>
         <div className="rounded-lg">
           <form id="attendanceForm">

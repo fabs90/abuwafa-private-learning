@@ -4,10 +4,10 @@ import ContentTutorProfile from "@/components/dashboard/tutor/Profile/ContentTut
 
 export default function TutorProfilePage(params) {
   return (
-    <>
+    <div className="w-auto">
       <DashboardLayoutTutor title="Profile">
         <ContentTutorProfile />
       </DashboardLayoutTutor>
-    </>
+    </div>
   );
 }

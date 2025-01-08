@@ -1,11 +1,14 @@
-import { Plus } from "lucide-react";
+"use client";
+import { Download, Plus } from "lucide-react";
 import Link from "next/link";
+import { jsPDF } from "jspdf";
+import { generatePDF } from "@/utils/generatePdf";
 export default function TutorTable({
   data = null,
   isAttendance = false,
   hiddenColumns = [],
   showDetail = false,
-  title = "",
+  title = "Paycheck",
 }) {
   if (data == null) {
     return (
@@ -44,14 +47,14 @@ export default function TutorTable({
             ))}
             {isAttendance && <th className="px-4 py-2 capitalize">Actions</th>}
             {showDetail && (
-              <th className="px-4 py-2 capitalize rounded-tr-lg">Detail</th>
+              <th className="px-4 py-2 capitalize rounded-tr-lg">Actions</th>
             )}
           </tr>
         </thead>
         <tbody>
           {data.map((item, rowIndex) => (
             <tr key={rowIndex} className="hover:bg-gray-100 capitalize">
-              <td className="px-4 py-2">{rowIndex + 1}</td>
+              <td className="px-4 py-4 ">{rowIndex + 1}</td>
               {visibleColumns.map((key, colIndex) => (
                 <td key={colIndex} className="px-4 py-2">
                   {item[key]}
@@ -69,13 +72,26 @@ export default function TutorTable({
                 </td>
               )}
               {showDetail && (
-                <td>
-                  <Link
+                <td className="text-center">
+                  {/* <Link
                     href={`/dashboard/tutor/${title}/${item.id}`}
                     className="text-blue-500 underline"
                   >
                     View Details
-                  </Link>
+                  </Link> */}
+                  <button
+                    onClick={() =>
+                      generatePDF(
+                        data,
+                        `${item.name}_${item.month}`,
+                        hiddenColumns
+                      )
+                    }
+                    className="btn  mx-auto btn-success flex items-center justify-center text-accent btn-index"
+                  >
+                    <Download />
+                    Download
+                  </button>
                 </td>
               )}
             </tr>

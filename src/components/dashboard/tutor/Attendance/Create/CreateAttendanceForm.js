@@ -179,11 +179,10 @@ export default function CreateAttendanceForm(props) {
               </div>
               <div className="w-full">
                 <FormField
-                  label="Topic"
-                  icon={<Cone width={16} />}
+                  label="Method"
+                  icon={<House width={16} />} // Replace with your icon
+                  defaultValue="Offline"
                   type="text"
-                  required={true}
-                  placeholder={"Write your topic here"}
                 />
               </div>
             </div>
@@ -240,12 +239,14 @@ export default function CreateAttendanceForm(props) {
                   readOnly={true}
                 />
               </div>
+
               <div className="w-full">
                 <FormField
-                  label="Method"
-                  icon={<House width={16} />} // Replace with your icon
-                  defaultValue="Offline"
+                  label="Topic"
+                  icon={<Cone width={16} />}
                   type="text"
+                  required={true}
+                  placeholder={"Write your topic here"}
                 />
               </div>
               <div className="w-full">
@@ -265,8 +266,11 @@ export default function CreateAttendanceForm(props) {
         </form>
       </div>
 
-      <div className="mt-6">
-        <AttendanceTable data={AttendanceData} hiddenColumns={["month"]} />
+      {/* Attendance Table Container */}
+      <div className="overflow-x-auto mt-6">
+        <div className="min-w-full">
+          <AttendanceTable data={AttendanceData} hiddenColumns={["month"]} />
+        </div>
       </div>
     </>
   );

@@ -30,10 +30,10 @@ export default function AttendanceTable({
 
   return (
     <div className="overflow-x-auto text-center">
-      <table className="min-w-full border-collapse bg-white">
+      <table className="min-w-full border-collapse bg-white ">
         <thead>
           <tr className="bg-gray-200">
-            {numbering && <th className="rounded-tl-lg">No.</th>}
+            {numbering && <th className="">No.</th>}
             {visibleColumns.map((key, index) => (
               <th key={index} className="px-4 py-2 capitalize">
                 {key}

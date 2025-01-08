@@ -5,6 +5,7 @@ import {
   BriefcaseBusiness,
   CalendarDays,
   ChevronDown,
+  ChevronLeft,
   GraduationCap,
   Grid2X2,
   NotebookPen,

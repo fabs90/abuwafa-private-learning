@@ -1,9 +1,20 @@
 import ButtonForm from "@/components/button/Button";
+import { Breadcrumb } from "../../admin/Components/Breadcrumb";
+import { Grid2X2 } from "lucide-react";
 
 export default function ContentProfile(params) {
   return (
     <>
-      <form>
+      <Breadcrumb
+        items={[
+          { label: "Dashboard", link: "/dashboard/", icon: Grid2X2 },
+          {
+            label: "Profile",
+            link: "/dashboard/student/profile",
+          },
+        ]}
+      />
+      <form className="mx-auto w-fit">
         <div className="w-full grid grid-rows-1">
           <div className="grid grid-rows-1 text-sm">
             <div className="md:grid md:grid-rows-1 md:grid-cols-2 gap-2 md:gap-6">
