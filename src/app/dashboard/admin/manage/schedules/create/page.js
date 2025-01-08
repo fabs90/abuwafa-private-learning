@@ -233,7 +233,7 @@ export default function Page() {
                   <div className="grid grid-cols-2 gap-2">
                     <div>
                       <FormField
-                        label="Time Duration(HH:MM:SS)"
+                        label="Time"
                         icon={<Clock width={16} />}
                         required={true}
                         type="time"

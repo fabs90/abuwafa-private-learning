@@ -6,6 +6,7 @@ export default function ButtonForm({ icon, text, type, color }) {
         color ? `bg-${color}` : "bg-success"
       }`}
     >
+      {icon}
       {text}
     </button>
   );

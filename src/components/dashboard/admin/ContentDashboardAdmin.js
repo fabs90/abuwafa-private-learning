@@ -3,7 +3,7 @@ import TutorTable from "../tutor/TutorComponents/TutorTable";
 export default function ContentDashboardAdmin(params) {
   return (
     <>
-      <div className="flex flex-row gap-4 justify-between">
+      <div className="flex flex-col md:flex-row lg:flex-row gap-4 justify-evenly">
         <CardDashboard
           title="80 Students"
           icon={"/img/smiling-student.png"}
@@ -25,9 +25,6 @@ export default function ContentDashboardAdmin(params) {
           height={160}
           isAdminPage={true}
         />
-      </div>
-      <div className="mt-4">
-        <TutorTable />
       </div>
     </>
   );

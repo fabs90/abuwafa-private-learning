@@ -10,7 +10,10 @@ export default function Page() {
         <Breadcrumb
           items={[
             { label: "Dashboard", link: "/dashboard/admin", icon: Grid2X2 },
-            { label: "Paycheck", link: "/dashboard/admin/paycheck" },
+            {
+              label: "Monthly Report",
+              link: "/dashboard/admin/monthly-report",
+            },
           ]}
         />
         <ContentMonthlyReportAdmin />

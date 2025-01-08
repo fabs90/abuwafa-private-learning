@@ -35,7 +35,6 @@ export default function ContentAttendanceAdmin() {
     {
       label: "Attendance",
       link: "/dashboard/admin/attendance",
-      icon: UserCheck,
     },
   ];
   return (

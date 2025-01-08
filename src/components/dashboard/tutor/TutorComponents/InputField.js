@@ -197,17 +197,43 @@ export const FormField = ({
             className={`text-black ${
               readOnly ? "text-neutral opacity-50 w-full" : "text-black w-full"
             }`}
-            placeholder="HH:MM:SS"
+            placeholder="HH:MM - HH:MM"
             value={timeValue}
             onChange={onTimeChange}
             onBlur={onBlur}
             onInput={(e) => {
-              const value = e.target.value.replace(/[^0-9:]/g, "");
+              // Allow numbers, colons, and hyphens
+              let value = e.target.value.replace(/[^0-9:-]/g, "");
+
+              // Format the first time as HH:MM
+              if (value.length > 2 && value[2] !== ":") {
+                value = value.slice(0, 2) + ":" + value.slice(2);
+              }
+
+              // Add the slash after the first time (after 5 characters)
+              if (value.length === 5 && !value.includes("/")) {
+                value += " /"; // Add the slash and a space
+              }
+
+              // Add the " - " separator after the first time
+              if (value.length > 8 && !value.includes(" - ")) {
+                value = value.slice(0, 8) + " - " + value.slice(8);
+              }
+
+              // Format the second time as HH:MM
+              if (value.length > 13 && value[13] !== ":") {
+                value = value.slice(0, 13) + ":" + value.slice(13);
+              }
+
+              // Update the input value
               e.target.value = value;
+
+              // Optionally, call onChange to update the state
+              onTimeChange(e);
             }}
             readOnly={readOnly}
             required={required}
-            pattern="^([0-9]{1,2}:)?([0-9]{1,2}:)?[0-9]{1,2}$"
+            pattern="^\d{2}:\d{2} / - \d{2}:\d{2}$"
           />
         ) : type === "password" ? (
           <>

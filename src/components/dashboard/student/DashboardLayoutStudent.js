@@ -29,7 +29,8 @@ export default function DashboardLayoutStudent({ children }) {
             </StudentSidebar>
             <div className="flex flex-col flex-1 w-full">
               <DashboardNavbar />
-              <main className="flex-1 bg-primary p-6 w-full overflow-x-hidden realtive">
+              <main className="flex-1 bg-primary p-6 w-full overflow-x-hidden relative">
+                {/* <main className="flex-1 bg-primary p-6 w-full max-w-6xl overflow-x-hidden relative"> */}
                 <img
                   src="/img/img_backdrop.png"
                   alt="Backdrop"

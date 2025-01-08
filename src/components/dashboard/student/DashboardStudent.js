@@ -4,6 +4,8 @@ import ScheduleData from "./ScheduleData.json";
 import DashboardLayoutStudent from "./DashboardLayoutStudent";
 import { Suspense, useEffect, useState } from "react";
 import Loading from "./loading";
+import { Breadcrumb } from "../admin/Components/Breadcrumb";
+import { Grid2X2 } from "lucide-react";
 export default function DashboardStudent() {
   // const [isLoading, setIsLoading] = useState(true);
 
@@ -30,6 +32,11 @@ export default function DashboardStudent() {
   return (
     <DashboardLayoutStudent>
       <Suspense fallback={<Loading />}>
+        <Breadcrumb
+          items={[
+            { label: "Dashboard", link: "/dashboard/student", icon: Grid2X2 },
+          ]}
+        />
         <StudentTable data={ScheduleData} />
       </Suspense>
     </DashboardLayoutStudent>

@@ -1,0 +1,212 @@
+[
+    {
+        "date": "1 Sep 24",
+        "subject": "Math",
+        "tutor": "Ms. Dinda",
+        "topic": "Numbers (Working on exercises and a little introduction)",
+        "result": "Good at numbers, but need to practice more to solve numbers problem."
+    },
+    {
+        "date": "2 Sep 24",
+        "subject": "English",
+        "tutor": "Mr. John",
+        "topic": "Grammar Basics",
+        "result": "Understood basic grammar rules, needs practice in sentence structuring."
+    },
+    {
+        "date": "3 Sep 24",
+        "subject": "Science",
+        "tutor": "Ms. Sarah",
+        "topic": "Introduction to Biology",
+        "result": "Good understanding of the concepts, needs to revise key terms."
+    },
+    {
+        "date": "4 Sep 24",
+        "subject": "Math",
+        "tutor": "Ms. Dinda",
+        "topic": "Addition and Subtraction",
+        "result": "Excellent, solved problems efficiently."
+    },
+    {
+        "date": "5 Sep 24",
+        "subject": "English",
+        "tutor": "Mr. John",
+        "topic": "Reading Comprehension",
+        "result": "Performed well, improved reading speed and understanding."
+    },
+    {
+        "date": "6 Sep 24",
+        "subject": "Science",
+        "tutor": "Ms. Sarah",
+        "topic": "Parts of a Plant",
+        "result": "Good understanding, could name all parts correctly."
+    },
+    {
+        "date": "7 Sep 24",
+        "subject": "Math",
+        "tutor": "Ms. Dinda",
+        "topic": "Multiplication Tables",
+        "result": "Quick learner, memorized tables up to 10."
+    },
+    {
+        "date": "8 Sep 24",
+        "subject": "English",
+        "tutor": "Mr. John",
+        "topic": "Writing Skills",
+        "result": "Improved sentence formation, still working on punctuation."
+    },
+    {
+        "date": "9 Sep 24",
+        "subject": "Science",
+        "tutor": "Ms. Sarah",
+        "topic": "Basic Physics - Motion",
+        "result": "Understood basic principles, needs to practice calculations."
+    },
+    {
+        "date": "10 Sep 24",
+        "subject": "Math",
+        "tutor": "Ms. Dinda",
+        "topic": "Fractions",
+        "result": "Excellent, can solve simple fractions independently."
+    },
+    {
+        "date": "11 Sep 24",
+        "subject": "English",
+        "tutor": "Mr. John",
+        "topic": "Vocabulary Building",
+        "result": "Learned 20 new words, needs to use them in context."
+    },
+    {
+        "date": "12 Sep 24",
+        "subject": "Science",
+        "tutor": "Ms. Sarah",
+        "topic": "Introduction to Ecosystems",
+        "result": "Good understanding of the food chain and habitats."
+    },
+    {
+        "date": "13 Sep 24",
+        "subject": "Math",
+        "tutor": "Ms. Dinda",
+        "topic": "Decimals",
+        "result": "Needs more practice in converting fractions to decimals."
+    },
+    {
+        "date": "14 Sep 24",
+        "subject": "English",
+        "tutor": "Mr. John",
+        "topic": "Essay Writing",
+        "result": "Improved structure and clarity, needs more creativity."
+    },
+    {
+        "date": "15 Sep 24",
+        "subject": "Science",
+        "tutor": "Ms. Sarah",
+        "topic": "The Solar System",
+        "result": "Excellent, remembers planet names and order."
+    },
+    {
+        "date": "16 Sep 24",
+        "subject": "Math",
+        "tutor": "Ms. Dinda",
+        "topic": "Word Problems",
+        "result": "Struggled initially but improved with guidance."
+    },
+    {
+        "date": "17 Sep 24",
+        "subject": "English",
+        "tutor": "Mr. John",
+        "topic": "Speaking Practice",
+        "result": "More confident, needs to work on pronunciation."
+    },
+    {
+        "date": "18 Sep 24",
+        "subject": "Science",
+        "tutor": "Ms. Sarah",
+        "topic": "Animal Classification",
+        "result": "Can classify animals by characteristics."
+    },
+    {
+        "date": "19 Sep 24",
+        "subject": "Math",
+        "tutor": "Ms. Dinda",
+        "topic": "Geometry Basics",
+        "result": "Understood concepts, needs practice in drawing shapes."
+    },
+    {
+        "date": "20 Sep 24",
+        "subject": "English",
+        "tutor": "Mr. John",
+        "topic": "Storytelling",
+        "result": "Great imagination, improved narration skills."
+    },
+    {
+        "date": "21 Sep 24",
+        "subject": "Science",
+        "tutor": "Ms. Sarah",
+        "topic": "Water Cycle",
+        "result": "Understood key steps, could explain independently."
+    },
+    {
+        "date": "22 Sep 24",
+        "subject": "Math",
+        "tutor": "Ms. Dinda",
+        "topic": "Measurements",
+        "result": "Good understanding, needs practice in unit conversions."
+    },
+    {
+        "date": "23 Sep 24",
+        "subject": "English",
+        "tutor": "Mr. John",
+        "topic": "Synonyms and Antonyms",
+        "result": "Performed well, learned 15 pairs."
+    },
+    {
+        "date": "24 Sep 24",
+        "subject": "Science",
+        "tutor": "Ms. Sarah",
+        "topic": "Human Body Systems",
+        "result": "Excellent, could name and explain key systems."
+    },
+    {
+        "date": "25 Sep 24",
+        "subject": "Math",
+        "tutor": "Ms. Dinda",
+        "topic": "Algebra Basics",
+        "result": "Struggled initially, improved with examples."
+    },
+    {
+        "date": "26 Sep 24",
+        "subject": "English",
+        "tutor": "Mr. John",
+        "topic": "Poetry Analysis",
+        "result": "Understood themes and expressions, needs practice."
+    },
+    {
+        "date": "27 Sep 24",
+        "subject": "Science",
+        "tutor": "Ms. Sarah",
+        "topic": "States of Matter",
+        "result": "Good understanding, explained with examples."
+    },
+    {
+        "date": "28 Sep 24",
+        "subject": "Math",
+        "tutor": "Ms. Dinda",
+        "topic": "Division",
+        "result": "Solved problems quickly and accurately."
+    },
+    {
+        "date": "29 Sep 24",
+        "subject": "English",
+        "tutor": "Mr. John",
+        "topic": "Critical Thinking",
+        "result": "Improved logical reasoning and argumentation skills."
+    },
+    {
+        "date": "30 Sep 24",
+        "subject": "Science",
+        "tutor": "Ms. Sarah",
+        "topic": "Energy Sources",
+        "result": "Great grasp of concepts, needs to explore real-life examples."
+    }
+]

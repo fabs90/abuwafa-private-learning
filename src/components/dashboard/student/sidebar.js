@@ -7,28 +7,52 @@ import Link from "next/link";
 
 const SidebarContext = createContext();
 export default function StudentSidebar({ children }) {
-  const { expanded } = useSidebar();
+  const { expanded, toggleSidebar } = useSidebar();
   return (
-    <aside className="h-full">
-      <nav className="h-full flex flex-col bg-accent">
-        <div className="p-3 sm:p-6 md:p-6 pb-2 flex justify-between items-center">
-          <div
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-48 p-3 md:p-0 lg:p-0" : "w-0"
-            }`}
-          >
+    <aside
+      className={`h-full sticky top-0 left-0 bg-accent z-20 transition-all ${
+        expanded ? "w-48" : "w-16"
+      }`}
+    >
+      <nav className="h-full flex flex-col items-center">
+        <div className="p-5">
+          <div className={`overflow-hidden transition-all`}>
             <Image
               src={"/img/abuwafalogo.png"}
               alt="Logo Abuwafa"
-              width={192} // Set a fixed width
-              height={48} // Set a fixed height to maintain aspect ratio
-              className="object-contain" // Ensure the image scales properly
+              width={expanded ? 192 : 0} // Adjust width for expanded/collapsed
+              height={48}
+              className="object-contain"
             />
           </div>
         </div>
-
         <SidebarContext.Provider value={{ expanded }}>
-          <ul className="flex-1 p-3">{children}</ul>
+          <div className="flex flex-col h-full">
+            <ul className="p-3">{children}</ul>
+            <div className="p-3">
+              <li
+                className={`
+                  flex items-center py-2 md:py-3 lg:py-3 px-2 md:px-3 lg:px-3 mx-2 md:mx-4 lg:mx-4 mt-4 mb-3
+                  font-medium rounded-md cursor-pointer
+                  transition-colors group hover:bg-primary hover:text-white text-neutral
+                `}
+                onClick={toggleSidebar}
+              >
+                <span
+                  className={`flex items-center transition-all ${
+                    expanded ? "" : "justify-center"
+                  }`}
+                >
+                  <ChevronLeft
+                    className={`w-6 h-6 transition-transform ${
+                      expanded ? "" : "rotate-180"
+                    }`}
+                  />
+                </span>
+                {expanded && <span className="ml-3">Collapse</span>}
+              </li>
+            </div>
+          </div>
         </SidebarContext.Provider>
       </nav>
     </aside>

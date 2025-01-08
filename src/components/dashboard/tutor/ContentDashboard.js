@@ -5,7 +5,7 @@ export default function ContentDashboard(params) {
   return (
     <>
       <div className="flex flex-col z-100">
-        <div className="flex flex-row justify-evenly">
+        <div className="flex flex-col gap-3 md:flex-row lg:flex-row justify-evenly">
           <CardDashboard
             title="7 Students"
             icon={"/img/smiling-student.png"}
