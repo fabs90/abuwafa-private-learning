@@ -6,26 +6,33 @@ import ManageMonthlyReportTutor from "../Components/ManageMonthlyReportTutor";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Loading from "@/app/dashboard/admin/monthly-report/loading";
+import ManagePaycheckTable from "../Components/ManagePaycheckTable";
 
-const client = axios.create({
-  baseURL: "https://fakerapi.it/api/v2/creditCards?_quantity=15",
-});
+// const client = axios.create({
+//   baseURL: "https://fakerapi.it/api/v2/creditCards?_quantity=15",
+// });
 
 export default function ContentPaycheckAdmin() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   client
+  //     .get()
+  //     .then((response) => {
+  //       setLoading(false);
+  //       setData(response.data.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error: ", error);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    client
-      .get()
-      .then((response) => {
-        setLoading(false);
-        setData(response.data.data);
-      })
-      .catch((error) => {
-        console.error("Error: ", error);
-      });
-  }, []);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  });
 
   if (loading) {
     return (
@@ -35,12 +42,29 @@ export default function ContentPaycheckAdmin() {
     );
   }
 
+  const datas = [
+    {
+      name: "Hanif",
+      month: "January",
+      status: "✅",
+    },
+    {
+      name: "Hanif",
+      month: "February",
+      status: "✅",
+    },
+    {
+      name: "Hanif",
+      month: "March",
+      status: "❌",
+    },
+  ];
+
   return (
     <>
-      <ManageMonthlyReportTutor
-        data={data}
-        linkHref="http://localhost:3000/dashboard/admin/paycheck"
-        primaryColumn="owner"
+      <ManagePaycheckTable
+        data={datas}
+        columnName={["Tutor Name", "Month", "Status"]}
       />
     </>
   );

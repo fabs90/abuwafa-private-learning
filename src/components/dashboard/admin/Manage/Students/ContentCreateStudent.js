@@ -6,7 +6,7 @@ import {
   FormField,
   PasswordField,
 } from "@/components/dashboard/tutor/TutorComponents/InputField";
-import { CircleUser, Key } from "lucide-react";
+import { CircleUser, Key, User } from "lucide-react";
 import { useState } from "react";
 
 export default function ContentCreateStudent() {
@@ -45,6 +45,19 @@ export default function ContentCreateStudent() {
           <div className="grid grid-rows-1 text-sm">
             <div className="md:grid md:grid-rows-1 md:grid-cols-2 gap-2 md:gap-6">
               <div>
+                <div>
+                  <FormField
+                    label="ID"
+                    icon={
+                      <User
+                        width={16}
+                        height={16}
+                        className="opacity-70 flex-shrink-0"
+                      />
+                    }
+                    placeholder="Enter ID Student"
+                  />
+                </div>
                 <div>
                   <FormField
                     label="Name"

@@ -1,5 +1,5 @@
 import ManageTutortable from "../../Components/ManageTutorTable";
-import ScheduleData from "../../../student/ScheduleData.json";
+import ScheduleData from "./dataschedules.json";
 export default function ContentManageSchedules() {
   return (
     <>

@@ -34,6 +34,7 @@ export const FormField = ({
 
   const handleCreate = (inputValue) => {
     const newOption = createOption(inputValue);
+    // Tempel ke array yg udah ada
     setOptions((prev) => [...prev, newOption]);
     setSelectedOption(newOption);
   };

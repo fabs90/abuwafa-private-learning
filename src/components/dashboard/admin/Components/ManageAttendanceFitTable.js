@@ -98,39 +98,50 @@ export default function ManageAttendanceFitTable({
           </tr>
         </thead>
         <tbody>
-          {paginatedData.map((item, rowIndex) => (
-            <tr key={rowIndex} className="hover:bg-gray-100">
-              {numbering && (
-                <td className=" px-4 py-2 text-center">
-                  {(currentPage - 1) * rowsPerPageState + rowIndex + 1}
-                </td>
-              )}
-              {visibleColumns.map((key, colIndex) => (
-                <td
-                  key={colIndex}
-                  className="px-4 py-2 text-left truncate max-w-[300px]"
-                >
-                  {key === "attendanceStatus" ? (
-                    item[key] ? (
-                      <span className="text-green-500 font-bold">✓</span>
-                    ) : (
-                      <span className="text-red-500 font-bold">✗</span>
-                    )
-                  ) : (
-                    item[key]
-                  )}
-                </td>
-              ))}
-              <td className="text-right px-4 py-2 flex justify-end">
-                <Link
-                  href={`attendance/${item.slug}/list`}
-                  className="btn bg-primary hover:bg-darkerBlueYoender text-white me-4"
-                >
-                  Check
-                </Link>
+          {filteredData.length === 0 ? (
+            <tr>
+              <td
+                colSpan={visibleColumns.length + (numbering ? 2 : 1)} // Tambahkan kolom untuk "No." dan "Action" jika ada numbering
+                className="px-4 py-4 text-center text-black"
+              >
+                Data not found
               </td>
             </tr>
-          ))}
+          ) : (
+            paginatedData.map((item, rowIndex) => (
+              <tr key={rowIndex} className="hover:bg-gray-100">
+                {numbering && (
+                  <td className="px-4 py-2 text-center">
+                    {(currentPage - 1) * rowsPerPageState + rowIndex + 1}
+                  </td>
+                )}
+                {visibleColumns.map((key, colIndex) => (
+                  <td
+                    key={colIndex}
+                    className="px-4 py-2 text-left truncate max-w-[300px]"
+                  >
+                    {key === "attendanceStatus" ? (
+                      item[key] ? (
+                        <span className="text-green-500 font-bold">✓</span>
+                      ) : (
+                        <span className="text-red-500 font-bold">✗</span>
+                      )
+                    ) : (
+                      item[key]
+                    )}
+                  </td>
+                ))}
+                <td className="text-right px-4 py-2 flex justify-end">
+                  <Link
+                    href={`attendance/${item.slug}/list`}
+                    className="btn bg-primary hover:bg-darkerBlueYoender text-white me-4"
+                  >
+                    Check
+                  </Link>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
 

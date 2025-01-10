@@ -4,10 +4,11 @@ export default function AttendanceTable({
   numbering = false,
   title = "",
 }) {
-  if (data == null) {
+  // Jika data null atau kosong, tampilkan pesan "Data Not Found"
+  if (!data || data.length === 0) {
     return (
       <div>
-        <table className="min-w-full border-collapse rounded-lg bg-white">
+        <table className="min-w-full border-collapse rounded-lg bg-white z-50">
           <thead>
             <tr className="bg-gray-200">
               <th className="px-4 py-2 capitalize rounded-tl-lg rounded-tr-lg">
@@ -30,7 +31,7 @@ export default function AttendanceTable({
 
   return (
     <div className="overflow-x-auto text-center">
-      <table className="min-w-full border-collapse bg-white ">
+      <table className="min-w-full border-collapse bg-white z-50">
         <thead>
           <tr className="bg-gray-200">
             {numbering && <th className="">No.</th>}
@@ -39,7 +40,6 @@ export default function AttendanceTable({
                 {key}
               </th>
             ))}
-            {/* {isAttendance && <th className="px-4 py-2 capitalize">Actions</th>} */}
           </tr>
         </thead>
         <tbody>

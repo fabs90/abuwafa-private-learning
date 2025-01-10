@@ -1,6 +1,7 @@
 "use client";
 import { Breadcrumb } from "@/components/dashboard/admin/Components/Breadcrumb";
 import DashboardLayoutAdmin from "@/components/dashboard/admin/DashboardLayoutAdmin";
+import AttendanceTable from "@/components/dashboard/tutor/TutorComponents/AttendanceTable";
 import { FormField } from "@/components/dashboard/tutor/TutorComponents/InputField";
 
 import {
@@ -13,14 +14,20 @@ import {
   NotebookIcon,
   UserCheck,
 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 export default function Page({ params }) {
   // Get the slug
   const slug = React.use(params).slug;
 
-  let curr = new Date();
-  curr.setDate(curr.getDate());
-  const date = curr.toISOString().split("T")[0];
+  const [curr, setCurrentTime] = useState(null);
+  const [date, setDate] = useState("");
+
+  useEffect(() => {
+    const currentTime = new Date();
+    setCurrentTime(currentTime);
+    setDate(currentTime.toISOString().split("T")[0]); // Set the date when currentTime is available
+  }, []);
+
   const breadcrumbItems = [
     { label: "Dashboard", link: "/dashboard/admin", icon: Grid2X2 },
     {
@@ -33,9 +40,10 @@ export default function Page({ params }) {
     },
     {
       label: "Attendance Detail",
-      link: `/dashboard/admin/attendance/${slug}/detail"`,
+      link: `/dashboard/admin/attendance/${slug}/detail`,
     },
   ];
+
   return (
     <>
       <DashboardLayoutAdmin title="Attendance Detail">
@@ -185,6 +193,12 @@ export default function Page({ params }) {
               </div>
             </div>
           </form>
+        </div>
+        {/* Attendance Table Container */}
+        <div className="overflow-x-auto mt-6">
+          <div className="min-w-full">
+            <AttendanceTable data={""} hiddenColumns={["month"]} />
+          </div>
         </div>
       </DashboardLayoutAdmin>
     </>

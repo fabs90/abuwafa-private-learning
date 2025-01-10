@@ -4,7 +4,6 @@
         "tutorName": "John Doe",
         "subject": "English",
         "method": "Online",
-        "date": "2024-12-05",
         "attendanceStatus": true,
         "slug": "john-doe-english-online"
     },
@@ -13,7 +12,6 @@
         "tutorName": "John Doe",
         "subject": "Coding",
         "method": "Offline",
-        "date": "2024-12-07",
         "attendanceStatus": false,
         "slug": "john-doe-coding-offline"
     },
@@ -22,7 +20,6 @@
         "tutorName": "John Doe",
         "subject": "Math",
         "method": "Offline",
-        "date": "2024-12-07",
         "attendanceStatus": false,
         "slug": "john-doe-math-offline"
     }
