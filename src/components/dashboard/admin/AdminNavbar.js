@@ -4,7 +4,7 @@ import { Bell, ChevronLeft, LogOut } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useSidebar } from "../SidebarContext";
 
-export default function AdminNavbar({ pageTitle }) {
+export default function AdminNavbar({ pageTitle, profileHref }) {
   const router = useRouter();
   const pathname = usePathname();
   const { expanded, toggleSidebar } = useSidebar();
@@ -80,7 +80,7 @@ export default function AdminNavbar({ pageTitle }) {
                 <ul className="py-2">
                   <li>
                     <a
-                      href="/dashboard/tutor/profile"
+                      href={profileHref}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
                       Profile

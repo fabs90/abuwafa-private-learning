@@ -74,9 +74,17 @@ export default function DashboardLayoutAdmin({
                 text="Paycheck"
                 href="/dashboard/admin/paycheck"
               />
+              <SidebarItem
+                icon={<Wallet />}
+                text="Invoice"
+                href="/dashboard/admin/invoice"
+              />
             </StudentSidebar>
             <div className="flex flex-col flex-1 w-full">
-              <AdminNavbar profileHref="/dashboard/admin" pageTitle={title} />
+              <AdminNavbar
+                profileHref="/dashboard/admin/profile"
+                pageTitle={title}
+              />
               <main className="flex-1 bg-primary p-6 w-full overflow-x-hidden relative z-0">
                 <img
                   src="/img/img_backdrop.png"

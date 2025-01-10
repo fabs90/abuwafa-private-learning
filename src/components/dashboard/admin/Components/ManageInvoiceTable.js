@@ -1,23 +1,23 @@
 "use client";
 import { Plus, Search } from "lucide-react";
+import { SearchField } from "./SearchField";
 import Link from "next/link";
 import { useState } from "react";
-import { FormField } from "../../tutor/TutorComponents/InputField";
-import { SearchField } from "./SearchField";
 
-export default function ManageTutortable({
+export default function ManageInvoiceTable({
   data = null,
+  columnName = [],
   hiddenColumns = [],
   numbering = true,
-  href = "",
-  rowsPerPage = 5,
+  primaryColumn = "id",
 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   let [rowsPerPageState, setRowsPerPageState] = useState(5);
+
   if (data == null) {
     return (
-      <div className="px-1">
+      <div>
         <table className="min-w-full border-collapse rounded-lg bg-white">
           <thead>
             <tr className="bg-gray-200">
@@ -35,6 +35,11 @@ export default function ManageTutortable({
       </div>
     );
   }
+
+  const handleSearchTerm = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
+  };
 
   const handleSelectChange = (e) => {
     setRowsPerPageState(e.target.value);
@@ -56,22 +61,22 @@ export default function ManageTutortable({
   const visibleColumns = columns.filter((key) => !hiddenColumns.includes(key));
 
   return (
-    <div className="overflow-x-auto text-center px-1">
+    <div className="overflow-x-auto text-center me-2">
       {/* Search Input Button */}
-      <div className="flex justify-between items-center pt-[15px]  z-99 mb-4">
+      <div className="flex justify-between items-center pt-[15px] px-[15px]  w-full  rounded-t-lg z-99 gap-4 md:gap-0 lg:gap-0 mb-4">
         <SearchField
           icon={<Search />}
           placeholder="Search by name"
           value={searchTerm}
           fitted={true}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={handleSearchTerm}
         />
         {/* Per-rows select */}
-        <div className="flex justify-end">
+        <div>
           <select
-            className="select select-bordered max-w-xs w-3/4 focus-within:outline-none"
-            value={rowsPerPageState} // Use value prop for controlled component
-            onChange={handleSelectChange} // Attach onChange to the select element
+            className="select select-bordered w-full max-w-xs"
+            value={rowsPerPageState}
+            onChange={handleSelectChange}
           >
             <option disabled value="">
               Rows per-page
@@ -86,23 +91,31 @@ export default function ManageTutortable({
       <table className="min-w-full border-collapse bg-white overflow-hidden rounded-t-lg">
         <thead>
           <tr className="bg-gray-200">
-            {numbering && <th className="w-1/12 px-4 py-2 ">No.</th>}
+            {numbering && <th className="w-1/12 px-4 py-4 ">No.</th>}
             {visibleColumns.map((key, index) => (
-              <th key={index} className="w-1/5 px-4 py-2 capitalize">
-                {key}
+              <th key={index} className="w-1/3 px-4 py-4 capitalize">
+                {columnName[index] || key}
               </th>
             ))}
-            <th className="px-4 py-2 capitalize  flex justify-center items-center flex-wrap">
-              <Link href={href} className="btn btn-primary text-white">
-                <Plus />
-                Add
-              </Link>
-            </th>
+            {filteredData.length > 0 ? (
+              <th className="px-4 py-2 capitalize  flex justify-center items-center flex-wrap">
+                <Link
+                  href={"invoice/create"}
+                  className="btn btn-primary text-white"
+                >
+                  <Plus />
+                  Add
+                </Link>
+              </th>
+            ) : (
+              ""
+            )}
           </tr>
         </thead>
+
         <tbody>
           {filteredData.length > 0 ? (
-            paginatedData.map((item, rowIndex) => (
+            filteredData.map((item, rowIndex) => (
               <tr key={rowIndex} className="hover:bg-gray-100">
                 {numbering && (
                   <td className="w-1/12 ">
@@ -135,7 +148,7 @@ export default function ManageTutortable({
           ) : (
             <tr>
               <td
-                colSpan={visibleColumns.length + (numbering ? 2 : 1)}
+                colSpan={visibleColumns.length + (numbering ? 2 : 1)} // +2 if "numbering" and "action", otherwise +1
                 className="text-center py-4"
               >
                 Data Not Found

@@ -37,6 +37,10 @@ export default function DashboardNavbar() {
     router.push("/login");
   };
 
+  const toggleBack = () => {
+    router.back();
+  };
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -57,7 +61,7 @@ export default function DashboardNavbar() {
       <div className="flex justify-between items-center p-4">
         <div className="flex flex-row">
           <button
-            onClick={toggleSidebar}
+            onClick={toggleBack}
             className="ml-1 md:ml-3 lg:ml-3 p-1.5 text-neutral rounded hover:bg-primary hover:text-white transition-colors duration-300"
           >
             <span

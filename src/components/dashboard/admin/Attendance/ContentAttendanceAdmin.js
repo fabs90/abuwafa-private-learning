@@ -1,8 +1,13 @@
+"use client";
 import { Grid2x2, UserCheck } from "lucide-react";
 import { Breadcrumb } from "../Components/Breadcrumb";
 import ManageAttendaceTable from "../Components/ManageAttendanceTable";
 import ManageAttendanceFitTable from "../Components/ManageAttendanceFitTable";
+import { useEffect, useState } from "react";
+import Loading from "@/app/dashboard/admin/monthly-report/loading";
 export default function ContentAttendanceAdmin() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const tutorName = [
     {
       id: 1,
@@ -30,6 +35,21 @@ export default function ContentAttendanceAdmin() {
       slug: "james-bond",
     },
   ];
+  useEffect(() => {
+    setTimeout(() => {
+      setData(tutorName);
+      setLoading(false);
+    }, 1000);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center my-auto h-screen">
+        <Loading />
+      </div>
+    );
+  }
+
   const breadcrumbItems = [
     { label: "Dashboard", link: "/dashboard/admin", icon: Grid2x2 },
     {

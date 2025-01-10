@@ -1,11 +1,17 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+"use client";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
+import { useEffect, useState } from "react";
 
 const generateInvoice = (studentData) => {
   // Check the data
   console.log("Data: ", studentData);
   const doc = new jsPDF("portrait", "mm", "a4");
-  const date = new Date();
+  const [currentTime, setCurrentTime] = useState(null);
+  useEffect(() => {
+    setCurrentTime(new Date());
+  }, []);
   const month = [
     "Jan",
     "Feb",
@@ -125,7 +131,9 @@ const generateInvoice = (studentData) => {
     });
 
     // Save the PDF
-    doc.save(`Invoice_${studentData.name}_${month[date.getMonth()]}_2024.pdf`);
+    doc.save(
+      `Invoice_${studentData.name}_${month[currentTime.getMonth()]}_2024.pdf`
+    );
   };
 };
 

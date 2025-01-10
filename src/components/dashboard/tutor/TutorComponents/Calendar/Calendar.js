@@ -79,11 +79,30 @@ export default function Calendar(params) {
         events={events}
         eventContent={(info) => {
           return (
+            // <div style={{ textAlign: "left" }}>
+            //   <b>{info.event.title}</b>
+            //   <p>{info.event.extendedProps.student}</p>
+            //   {info.event.extendedProps.link &&
+            //   info.event.extendedProps.link != "-" ? (
+            //     <p style={{ margin: 0, fontSize: "0.85rem", color: "#555" }}>
+            //       <b>Link:</b>{" "}
+            //       <a
+            //         href={info.event.extendedProps.link}
+            //         target="_blank"
+            //         rel="noopener noreferrer"
+            //       >
+            //         <span>Open</span>
+            //       </a>
+            //     </p>
+            //   ) : (
+            //     <p style={{ fontSize: "0.85rem", color: "#999" }}>-</p>
+            //   )}
+            // </div>
             <div style={{ textAlign: "left" }}>
               <b>{info.event.title}</b>
               <p>{info.event.extendedProps.student}</p>
               {info.event.extendedProps.link &&
-              info.event.extendedProps.link != "-" ? (
+              info.event.extendedProps.link !== "-" ? (
                 <p style={{ margin: 0, fontSize: "0.85rem", color: "#555" }}>
                   <b>Link:</b>{" "}
                   <a
@@ -91,7 +110,7 @@ export default function Calendar(params) {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <span>Open</span>
+                    Open
                   </a>
                 </p>
               ) : (

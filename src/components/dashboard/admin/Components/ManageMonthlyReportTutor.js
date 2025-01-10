@@ -1,11 +1,12 @@
 "use client";
-import { Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { SearchField } from "./SearchField";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function ManageMonthlyReportTutor({
   data = null,
+  columnName = [],
   hiddenColumns = [],
   numbering = true,
   linkHref = "",
@@ -97,34 +98,63 @@ export default function ManageMonthlyReportTutor({
                 {key}
               </th>
             ))}
-            <th className="px-4 py-4 capitalize  flex justify-center items-center flex-wrap">
-              Action
-            </th>
+            {filteredData.length > 0 ? (
+              <th className="px-4 py-2 capitalize  flex justify-center items-center flex-wrap">
+                <Link
+                  href={"monthly-report/create"}
+                  className="btn btn-primary text-white"
+                >
+                  <Plus />
+                  Add
+                </Link>
+              </th>
+            ) : (
+              ""
+            )}
           </tr>
         </thead>
         <tbody>
-          {paginatedData.map((item, rowIndex) => (
-            <tr key={rowIndex} className="hover:bg-gray-100">
-              {numbering && (
-                <td className="w-1/12 ">
-                  {(currentPage - 1) * rowsPerPageState + rowIndex + 1}
+          {filteredData.length > 0 ? (
+            filteredData.map((item, rowIndex) => (
+              <tr key={rowIndex} className="hover:bg-gray-100">
+                {numbering && (
+                  <td className="w-1/12 ">
+                    {(currentPage - 1) * rowsPerPageState + rowIndex + 1}
+                  </td>
+                )}
+                {visibleColumns.map((key, colIndex) => (
+                  <td key={colIndex} className="py-4 md:py-0 lg:py-0">
+                    {item[key]}
+                  </td>
+                ))}
+                <td className="px-4 py-2">
+                  <div className="flex justify-center items-center gap-2">
+                    <Link
+                      href={`monthly-report/${item.title}/update`}
+                      className="btn bg-blueYoender hover:bg-darkerBlueYoender text-white px-3 py-2 "
+                    >
+                      Update
+                    </Link>
+                    <Link
+                      href={`monthly-report/${item.title}/delete`}
+                      className="btn bg-secondarySiena hover:bg-darkerSecondarySiena text-white px-3 py-2 "
+                    >
+                      Delete
+                    </Link>
+                  </div>
                 </td>
-              )}
-              {visibleColumns.map((key, colIndex) => (
-                <td key={colIndex} className="py-4 md:py-0 lg:py-0">
-                  {item[key]}
-                </td>
-              ))}
-              <td className="px-4 py-2">
-                <Link
-                  href={`${linkHref}/${item[primaryColumn]}`}
-                  className="btn bg-primary hover:bg-darkerBlueYoender text-white px-4 py-2 "
-                >
-                  Check
-                </Link>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan={visibleColumns.length + (numbering ? 2 : 1)} // +2 if "numbering" and "action", otherwise +1
+                className="text-center py-4"
+              >
+                Data Not Found
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
 

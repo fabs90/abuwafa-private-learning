@@ -1,27 +1,33 @@
 "use client";
 import ButtonForm from "@/components/button/Button";
-import { FormField } from "@/components/dashboard/tutor/TutorComponents/InputField";
-import { Banknote, CircleUser, Key, Mail } from "lucide-react";
+import { FormField } from "../../tutor/TutorComponents/InputField";
+import { Breadcrumb } from "../Components/Breadcrumb";
+import { Banknote, CircleUser, Grid2X2, Key, Mail } from "lucide-react";
 
-export default function ContentCreateTutor(params) {
-  const typeOptions = [
-    {
-      value: "1",
-      label: "Active",
-    },
-    {
-      value: "2",
-      label: "Not Active",
-    },
-  ];
+export default function ContentAdminProfile(params) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    alert("Form is submited");
+  };
+
   return (
     <>
-      <form>
+      <Breadcrumb
+        items={[
+          { label: "Dashboard", link: "/dashboard/", icon: Grid2X2 },
+          {
+            label: "Profile Admin",
+            link: "/dashboard/admin/profile",
+          },
+        ]}
+      />
+      <form id="profileAdminForm" onSubmit={handleSubmit}>
         <div className="w-full grid grid-rows-1">
           <div className="grid grid-rows-1 text-sm">
             <div className="md:grid md:grid-rows-1 md:grid-cols-2 gap-2 md:gap-6">
               <div>
-                <div>
+                <div className="w-full">
                   <FormField
                     label="Name"
                     icon={
@@ -35,6 +41,7 @@ export default function ContentCreateTutor(params) {
                       </svg>
                     }
                     placeholder="Enter your name"
+                    required={true}
                   />
                 </div>
 
@@ -54,6 +61,7 @@ export default function ContentCreateTutor(params) {
                         </svg>
                       }
                       placeholder="Your phone num."
+                      required={true}
                     />
                   </div>
                   <div>
@@ -68,6 +76,7 @@ export default function ContentCreateTutor(params) {
                         />
                       }
                       placeholder="Your email"
+                      required={true}
                     />
                   </div>
                 </div>
@@ -86,7 +95,6 @@ export default function ContentCreateTutor(params) {
                 <div>
                   <FormField
                     label="Status"
-                    options={typeOptions}
                     icon={
                       <svg
                         fill="currentColor"
@@ -101,7 +109,7 @@ export default function ContentCreateTutor(params) {
                       </svg>
                     }
                     placeholder="Status"
-                    type="select3"
+                    type="select2"
                   />
                 </div>
                 <div>
@@ -114,13 +122,15 @@ export default function ContentCreateTutor(params) {
                         className=" opacity-70 flex-shrink-0"
                       />
                     }
+                    defaultValue="adminabuwafa01"
                     type="text"
                     placeholder="Your account username"
+                    required={true}
                   />
                 </div>
                 <div>
                   <FormField
-                    label="Create Password"
+                    label="Change Password"
                     icon={
                       <Key
                         width={16}
@@ -129,21 +139,8 @@ export default function ContentCreateTutor(params) {
                       />
                     }
                     type="password"
-                    placeholder="Fill to create the password"
-                  />
-                </div>
-                <div>
-                  <FormField
-                    label="Bank Account"
-                    icon={
-                      <Banknote
-                        width={16}
-                        height={16}
-                        className=" opacity-70 flex-shrink-0"
-                      />
-                    }
-                    type="text"
-                    placeholder="Your bank account"
+                    placeholder="Fill to change the password"
+                    required={true}
                   />
                 </div>
               </div>
