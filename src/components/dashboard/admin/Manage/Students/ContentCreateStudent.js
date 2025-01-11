@@ -6,24 +6,65 @@ import {
   FormField,
   PasswordField,
 } from "@/components/dashboard/tutor/TutorComponents/InputField";
+import axios from "axios";
 import { CircleUser, Key, User } from "lucide-react";
 import { useState } from "react";
+
+const client = axios.create({
+  baseURL: "http://localhost:8080/auth/register",
+});
 
 export default function ContentCreateStudent() {
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  const handleConfirm = () => {
-    setIsConfirmVisible(false);
-    alert("Data submitted successfully");
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-    setLoading(true);
-  };
+  const [error, setError] = useState(false);
+  const [formData, setFormData] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const formData = new FormData(e.target);
+    const studentData = {
+      id_student: formData.get("id_student"),
+      student_name: formData.get("student_name"),
+      phone_student: formData.get("student_phone"),
+      parent_name: formData.get("student_parent"),
+      address: formData.get("student_address"),
+      status: formData.get("student_status"),
+      package: formData.get("student_package"),
+      school: formData.get("student_school"),
+      grade: formData.get("student_grade"),
+      username: formData.get("student_username"),
+      password: formData.get("student_password"),
+      role: "Student",
+    };
+    setFormData(studentData);
     setIsConfirmVisible(true);
+  };
+
+  const handleConfirm = async () => {
+    setIsConfirmVisible(false);
+
+    try {
+      setError(null);
+      const response = client.post("/", formData);
+
+      if (!response.data.error) {
+        router.reload(); // Refresh the page to clear the form
+        setLoading(true);
+      } else {
+        setError(
+          response.data.message || "Failed to create student. Please try again."
+        );
+      }
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+          "An error occurred while creating the student."
+      );
+    } finally {
+      alert("Data submitted successfully");
+      setLoading(false);
+    }
   };
 
   if (loading) {
@@ -56,11 +97,13 @@ export default function ContentCreateStudent() {
                       />
                     }
                     placeholder="Enter ID Student"
+                    name="id_student"
                   />
                 </div>
                 <div>
                   <FormField
                     label="Name"
+                    name="student_name"
                     icon={
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -79,6 +122,7 @@ export default function ContentCreateStudent() {
                   <div>
                     <FormField
                       label="Phone"
+                      name="student_phone"
                       icon={
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -95,6 +139,7 @@ export default function ContentCreateStudent() {
                   <div>
                     <FormField
                       label="Parent"
+                      name="student_parent"
                       icon={
                         <svg
                           viewBox="0 0 17 19"
@@ -115,6 +160,7 @@ export default function ContentCreateStudent() {
                     Address
                   </label>
                   <textarea
+                    name="student_address"
                     className="textarea border-neutral text-black w-full"
                     placeholder="Bio"
                   ></textarea>
@@ -125,6 +171,7 @@ export default function ContentCreateStudent() {
                   <div>
                     <FormField
                       label="Status"
+                      name="student_status"
                       icon={
                         <svg
                           fill="currentColor"
@@ -145,6 +192,7 @@ export default function ContentCreateStudent() {
                   <div>
                     <FormField
                       label="Package"
+                      name="student_package"
                       icon={
                         <svg
                           fill="currentColor"
@@ -165,6 +213,7 @@ export default function ContentCreateStudent() {
                   <div>
                     <FormField
                       label="School"
+                      name="student_school"
                       icon={
                         <svg
                           fill="currentColor"
@@ -202,6 +251,7 @@ export default function ContentCreateStudent() {
                         <path d="m5 13.18v2.81c0 .73.4 1.41 1.04 1.76l5 2.73c.6.33 1.32.33 1.92 0l5-2.73c.64-.35 1.04-1.03 1.04-1.76v-2.81l-6.04 3.3c-.6.33-1.32.33-1.92 0zm6.04-9.66-8.43 4.6c-.69.38-.69 1.38 0 1.76l8.43 4.6c.6.33 1.32.33 1.92 0l8.04-4.39v5.91c0 .55.45 1 1 1s1-.45 1-1v-6.41c0-.37-.2-.7-.52-.88l-9.52-5.19c-.6-.32-1.32-.32-1.92 0z" />
                       </svg>
                       <input
+                        name="student_grade"
                         type="text"
                         className="text-black"
                         placeholder="Your Grade"
@@ -213,6 +263,7 @@ export default function ContentCreateStudent() {
                   <div>
                     <FormField
                       label="Account Username"
+                      name="student_username"
                       icon={
                         <CircleUser
                           width={16}
@@ -227,6 +278,7 @@ export default function ContentCreateStudent() {
                   <div>
                     <FormField
                       type="password"
+                      name="student_password"
                       label="Change Password"
                       icon={
                         <Key

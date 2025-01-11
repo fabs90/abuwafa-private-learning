@@ -1,29 +1,121 @@
 "use client";
 import ButtonForm from "@/components/button/Button";
+import Loading from "@/components/dashboard/student/loading";
+import ConfirmAlert from "@/components/dashboard/tutor/TutorComponents/ConfirmAlert";
 import { FormField } from "@/components/dashboard/tutor/TutorComponents/InputField";
+import axios from "axios";
 import { Banknote, CircleUser, Key, Mail } from "lucide-react";
+import { useState } from "react";
+
+const client = axios.create({
+  baseURL: "http://localhost:8080/auth/register",
+});
 
 export default function ContentCreateTutor(params) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [formData, setFormData] = useState(null);
+  const [isConfirmVisible, setIsConfirmVisible] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const tutorData = {
+      id_tutor: formData.get("tutor_id"),
+      tutor_name: formData.get("tutor_name"),
+      phone_tutor: formData.get("tutor_phone"),
+      email: formData.get("tutor_email"),
+      address: formData.get("tutor_address"),
+      status: formData.get("tutor_status"),
+      username: formData.get("tutor_username"),
+      password: formData.get("tutor_password"),
+      bank: formData.get("tutor_bankAcc"),
+      no_rek: formData.get("tutor_numberAcc"),
+      role: "Tutor",
+    };
+
+    setFormData(tutorData);
+    setIsConfirmVisible(true);
+  };
+
+  const handleConfirm = async () => {
+    setIsConfirmVisible(false);
+
+    try {
+      setError(null);
+      const response = client.post("/", formData);
+
+      if (!response.data.error) {
+        setLoading(true);
+      } else {
+        setError(
+          response.data.message || "Failed to create student. Please try again."
+        );
+      }
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+          "An error occurred while creating the student."
+      );
+    } finally {
+      alert("Data submitted successfully");
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center my-auto h-screen">
+        <Loading />
+      </div>
+    );
+  }
+
   const typeOptions = [
     {
-      value: "1",
+      value: "Active",
       label: "Active",
     },
     {
-      value: "2",
+      value: "Not Active",
       label: "Not Active",
     },
   ];
+
   return (
     <>
-      <form>
+      <ConfirmAlert
+        isOpen={isConfirmVisible}
+        onClose={() => setIsConfirmVisible(false)}
+        onConfirm={handleConfirm}
+      />
+      <form onSubmit={handleSubmit}>
         <div className="w-full grid grid-rows-1">
           <div className="grid grid-rows-1 text-sm">
             <div className="md:grid md:grid-rows-1 md:grid-cols-2 gap-2 md:gap-6">
               <div>
                 <div>
                   <FormField
+                    label="ID Tutor"
+                    name="tutor_id"
+                    icon={
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        className="h-4 w-4 opacity-70"
+                      >
+                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+                      </svg>
+                    }
+                    placeholder="Enter tutor ID"
+                    required={true}
+                  />
+                </div>
+                <div>
+                  <FormField
                     label="Name"
+                    name="tutor_name"
                     icon={
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -35,6 +127,7 @@ export default function ContentCreateTutor(params) {
                       </svg>
                     }
                     placeholder="Enter your name"
+                    required={true}
                   />
                 </div>
 
@@ -42,6 +135,7 @@ export default function ContentCreateTutor(params) {
                   <div>
                     <FormField
                       label="Phone"
+                      name="tutor_phone"
                       fitted={true}
                       icon={
                         <svg
@@ -54,11 +148,13 @@ export default function ContentCreateTutor(params) {
                         </svg>
                       }
                       placeholder="Your phone num."
+                      required={true}
                     />
                   </div>
                   <div>
                     <FormField
                       label="Email"
+                      name="tutor_email"
                       fitted={true}
                       icon={
                         <Mail
@@ -68,6 +164,7 @@ export default function ContentCreateTutor(params) {
                         />
                       }
                       placeholder="Your email"
+                      required={true}
                     />
                   </div>
                 </div>
@@ -77,15 +174,18 @@ export default function ContentCreateTutor(params) {
                   </label>
                   <textarea
                     className="textarea border-neutral text-black w-full"
+                    name="tutor_address"
                     style={{ height: "138px" }}
                     placeholder="Bio"
+                    required
                   ></textarea>
                 </div>
               </div>
               <div>
-                <div>
+                <div className="">
                   <FormField
                     label="Status"
+                    name="tutor_status"
                     options={typeOptions}
                     icon={
                       <svg
@@ -102,11 +202,13 @@ export default function ContentCreateTutor(params) {
                     }
                     placeholder="Status"
                     type="select3"
+                    required={true}
                   />
                 </div>
                 <div>
                   <FormField
                     label="Account Username"
+                    name="tutor_username"
                     icon={
                       <CircleUser
                         width={16}
@@ -116,11 +218,13 @@ export default function ContentCreateTutor(params) {
                     }
                     type="text"
                     placeholder="Your account username"
+                    required={true}
                   />
                 </div>
                 <div>
                   <FormField
                     label="Create Password"
+                    name="tutor_password"
                     icon={
                       <Key
                         width={16}
@@ -130,21 +234,42 @@ export default function ContentCreateTutor(params) {
                     }
                     type="password"
                     placeholder="Fill to create the password"
+                    required={true}
                   />
                 </div>
-                <div>
-                  <FormField
-                    label="Bank Account"
-                    icon={
-                      <Banknote
-                        width={16}
-                        height={16}
-                        className=" opacity-70 flex-shrink-0"
-                      />
-                    }
-                    type="text"
-                    placeholder="Your bank account"
-                  />
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <FormField
+                      label="Bank"
+                      name="tutor_bankAcc"
+                      icon={
+                        <Banknote
+                          width={16}
+                          height={16}
+                          className=" opacity-70 flex-shrink-0"
+                        />
+                      }
+                      type="text"
+                      placeholder="Bank"
+                      required={true}
+                    />
+                  </div>
+                  <div>
+                    <FormField
+                      label="Account Number"
+                      name="tutor_numberAcc"
+                      icon={
+                        <Banknote
+                          width={16}
+                          height={16}
+                          className=" opacity-70 flex-shrink-0"
+                        />
+                      }
+                      type="text"
+                      placeholder="Account number"
+                      required={true}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

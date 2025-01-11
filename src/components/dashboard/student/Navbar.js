@@ -4,6 +4,7 @@ import { useSidebar } from "../SidebarContext";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 export default function DashboardNavbar() {
   const router = useRouter();
@@ -34,6 +35,14 @@ export default function DashboardNavbar() {
 
   const handleLogout = (e) => {
     e.stopPropagation();
+    // Clear authentication data (e.g., token) from cookies
+    Cookies.remove("token");
+    Cookies.remove("username");
+    Cookies.remove("role");
+
+    // Optionally clear cookies if you're using them for server-side authentication
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
     router.push("/login");
   };
 

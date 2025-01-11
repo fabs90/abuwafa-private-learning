@@ -13,6 +13,7 @@ export const FormField = ({
   isFile = false,
   required = false,
   options: initialOptions = [],
+  name = "",
 }) => {
   const [timeValue, setTimeValue] = useState("0:00");
   const [selectedOption, setSelectedOption] = useState(null);
@@ -94,6 +95,7 @@ export const FormField = ({
         {type === "textarea" ? (
           <textarea
             className="textarea border-neutral text-black w-full"
+            name={name}
             placeholder={placeholder}
             readOnly={readOnly}
             required={required}
@@ -102,6 +104,7 @@ export const FormField = ({
         ) : type === "select2" ? (
           <Select
             options={options}
+            name={name}
             placeholder={placeholder}
             value={selectedOption}
             onChange={(selected) => setSelectedOption(selected)}
@@ -148,6 +151,7 @@ export const FormField = ({
         ) : type === "select3" ? (
           <Creatable
             options={options}
+            name={name}
             isClearable={!required}
             placeholder={placeholder}
             value={selectedOption}
@@ -195,6 +199,7 @@ export const FormField = ({
         ) : type === "time" ? (
           <input
             type="text"
+            name={name}
             className={`text-black ${
               readOnly ? "text-neutral opacity-50 w-full" : "text-black w-full"
             }`}
@@ -239,6 +244,7 @@ export const FormField = ({
         ) : type === "password" ? (
           <>
             <input
+              name={name}
               type={showPassword ? "text" : "password"}
               className="text-black w-full focus:outline-none"
               placeholder={placeholder}
@@ -255,6 +261,7 @@ export const FormField = ({
         ) : (
           <input
             type={type}
+            name={name}
             className={`text-black z-50${
               readOnly
                 ? "text-neutral opacity-50 w-full"

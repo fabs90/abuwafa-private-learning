@@ -16,6 +16,7 @@
     "axios": "^1.7.9",
     "crypto-js": "^4.2.0",
     "html2pdf.js": "^0.9.3",
+    "js-cookie": "^3.0.5",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
     "lucide-react": "^0.462.0",

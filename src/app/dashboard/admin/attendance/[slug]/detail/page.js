@@ -77,6 +77,7 @@ export default function Page({ params }) {
                 <div className="w-full">
                   <FormField
                     label={"Tutor Name"}
+                    name=""
                     icon={
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

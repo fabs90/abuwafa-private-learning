@@ -39,6 +39,36 @@ export default function CreateMonthlyReport(params) {
             </div>
           </div>
           <div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="w-full">
+                <FormField
+                  label={"Month"}
+                  icon={
+                    <Calendar
+                      width={16}
+                      height={16}
+                      className="opacity-70 flex-shrink-0"
+                    />
+                  }
+                  type="select3"
+                  placeholder={"Month"}
+                />
+              </div>
+              <div className="w-full">
+                <FormField
+                  label={"Year"}
+                  icon={
+                    <Calendar
+                      width={16}
+                      height={16}
+                      className="opacity-70 flex-shrink-0"
+                    />
+                  }
+                  type="select3"
+                  placeholder={"Year"}
+                />
+              </div>
+            </div>
             <div className="w-full">
               <label className="block text-sm mb-1 mt-4 text-white">File</label>
               <label
@@ -50,20 +80,6 @@ export default function CreateMonthlyReport(params) {
                   accept="*/*"
                 />
               </label>
-            </div>
-            <div className="w-full">
-              <FormField
-                label={"Month"}
-                icon={
-                  <Calendar
-                    width={16}
-                    height={16}
-                    className="opacity-70 flex-shrink-0"
-                  />
-                }
-                type="select3"
-                placeholder={"Month"}
-              />
             </div>
           </div>
         </div>

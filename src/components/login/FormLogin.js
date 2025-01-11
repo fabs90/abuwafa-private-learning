@@ -1,12 +1,17 @@
 "use client";
 import Image from "next/image";
-import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { ChevronDown, XCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useSearchParams } from "next/navigation";
 
 export default function FormLogin() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const redirectReason = searchParams.get("redirect");
   const router = useRouter();
 
   const exampleUser = {
@@ -19,7 +24,11 @@ export default function FormLogin() {
     password: "admin",
   };
 
-  const handleSubmit = (e) => {
+  const client = axios.create({
+    baseURL: "http://localhost:8080/auth/login",
+  });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const form = new FormData(e.target);
@@ -34,47 +43,94 @@ export default function FormLogin() {
       return;
     }
 
-    if (role === "admin") {
-      if (
-        username !== exampleAdmin.username ||
-        password !== exampleAdmin.password
-      ) {
-        alert(
-          "Login failed. Please select the role that matches your account."
-        );
-        return;
-      }
+    try {
       setLoading(true);
-      setTimeout(() => {
-        router.push("/dashboard/admin");
-        return;
-      }, 1500);
-    } else {
-      if (
-        username !== exampleUser.username ||
-        password !== exampleUser.password
-      ) {
-        setError(true);
-        alert("Incorrect username or password.");
-        return;
-      }
-    }
+      setError(null);
 
-    setLoading(true);
-    setTimeout(() => {
-      alert("Login Success");
-      if (role === "student") {
-        router.push("/dashboard/student");
-      } else if (role === "tutor") {
-        router.push("/dashboard/tutor");
+      // Create response
+      const response = await client.post("/", {
+        // Insert the data
+        role,
+        username,
+        password,
+      });
+
+      // Response logic
+      if (!response.data.error) {
+        // taruh response ke loginResult
+        const { loginResult } = response.data;
+
+        // Save token to cookies
+        Cookies.set("token", loginResult.token, {
+          expires: 1, // Expires in 1 day
+          secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
+        });
+
+        Cookies.set("role", loginResult.role, {
+          expires: 1,
+        });
+
+        alert("Login Successful!");
+
+        // Redirect based on role
+        if (loginResult.role.toLowerCase() === "admin") {
+          router.push("/dashboard/admin");
+        } else if (loginResult.role.toLowerCase() === "student") {
+          router.push("/dashboard/student");
+        } else if (loginResult.role.toLowerCase() === "tutor") {
+          router.push("/dashboard/tutor");
+        }
+      } else {
+        setError(response.data.message || "Login failed. Please try again.");
       }
-    }, 1500);
+    } catch (err) {
+      setError(
+        err.response?.data?.message || "An error occurred during login."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
+
+  // if (role === "admin") {
+  //   if (
+  //     username !== exampleAdmin.username ||
+  //     password !== exampleAdmin.password
+  //   ) {
+  //     alert(
+  //       "Login failed. Please select the role that matches your account."
+  //     );
+  //     return;
+  //   }
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     router.push("/dashboard/admin");
+  //     return;
+  //   }, 1500);
+  // } else {
+  //   if (
+  //     username !== exampleUser.username ||
+  //     password !== exampleUser.password
+  //   ) {
+  //     setError(true);
+  //     alert("Incorrect username or password.");
+  //     return;
+  //   }
+  // }
+
+  // setLoading(true);
+  // setTimeout(() => {
+  //   alert("Login Success");
+  //   if (role === "student") {
+  //     router.push("/dashboard/student");
+  //   } else if (role === "tutor") {
+  //     router.push("/dashboard/tutor");
+  //   }
+  // }, 1500);
 
   return (
     <>
       <div>
-        {/* Card */}
         <div
           className="card w-full rounded-lg shadow-lg"
           style={{ backgroundColor: "#edf6f6" }}
@@ -95,6 +151,26 @@ export default function FormLogin() {
               ) : (
                 <form id="loginForm" method="POST" onSubmit={handleSubmit}>
                   <div className="flex flex-col items-start">
+                    {redirectReason === "unauthorized" && (
+                      <div
+                        role="alert"
+                        className="alert alert-error mb-4 flex justify-between items-center"
+                      >
+                        <div className="flex items-center">
+                          <XCircle width={24} height={24} color="#ffffff" />
+                          <span className="text-white ml-2">
+                            You must log in to access the dashboard!
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {error && (
+                      <div role="alert" className="alert alert-error mb-4">
+                        <XCircle width={24} height={24} color="#ffffff" />
+                        <span className="text-white">{error}</span>
+                      </div>
+                    )}
                     <label className="text-primary text-sm font-medium mb-1 labelLogin">
                       Role
                     </label>
@@ -106,9 +182,9 @@ export default function FormLogin() {
                         defaultValue="Select here"
                       >
                         <option disabled>Select here</option>
-                        <option value={"student"}>Student</option>
-                        <option value={"tutor"}>Tutor</option>
-                        <option value={"admin"}>Admin</option>
+                        <option value={"Student"}>Student</option>
+                        <option value={"Tutor"}>Tutor</option>
+                        <option value={"Admin"}>Admin</option>
                       </select>
                       <ChevronDown className="absolute right-3 top-[42%] transform -translate-y-1/2  text-primary pointer-events-none w-5 h-5" />
                     </div>
@@ -138,7 +214,7 @@ export default function FormLogin() {
                     >
                       <div>
                         <p>
-                          Dont have an account?
+                          Don’t have an account?
                           <a
                             href="https://wa.me/085899496182?text=Assalamualaikum%20"
                             className="font-bold"

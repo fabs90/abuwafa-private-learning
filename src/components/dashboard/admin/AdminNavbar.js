@@ -3,8 +3,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { Bell, ChevronLeft, LogOut } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useSidebar } from "../SidebarContext";
+import Cookies from "js-cookie";
 
-export default function AdminNavbar({ pageTitle, profileHref }) {
+export default function AdminNavbar({ pageTitle }) {
   const router = useRouter();
   const pathname = usePathname();
   const { expanded, toggleSidebar } = useSidebar();
@@ -16,6 +17,14 @@ export default function AdminNavbar({ pageTitle, profileHref }) {
 
   const handleLogout = (e) => {
     e.stopPropagation();
+    // Clear authentication data (e.g., token) from cookies
+    Cookies.remove("token");
+    Cookies.remove("username");
+    Cookies.remove("role");
+
+    // Optionally clear cookies if you're using them for server-side authentication
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
     router.push("/login");
   };
 
@@ -65,8 +74,8 @@ export default function AdminNavbar({ pageTitle, profileHref }) {
           </button>
           <div className="relative" ref={dropdownRef}>
             <button
-              onClick={toggleDropdown}
-              className="avatar relative p-0 md:p-2 lg:p-2 rounded-full mr-0 md:mr-8 lg:mr-8"
+              // onClick={toggleDropdown}
+              className="avatar relative p-0 md:p-2 lg:p-2 rounded-full mr-0 md:mr-8 lg:mr-8 pointer-events-none"
             >
               <div className="w-7 md:w-9 lg:w-9 rounded-full">
                 <img
@@ -75,20 +84,6 @@ export default function AdminNavbar({ pageTitle, profileHref }) {
                 />
               </div>
             </button>
-            {isDropdownOpen && (
-              <div className="absolute right-0 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-                <ul className="py-2">
-                  <li>
-                    <a
-                      href={profileHref}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Profile
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            )}
           </div>
         </div>
       </div>
