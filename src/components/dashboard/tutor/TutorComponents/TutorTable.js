@@ -156,7 +156,7 @@ export default function TutorTable({
             </thead>
             <tbody>
               {paginatedData.map((item, index) => (
-                <tr key={index} className="hover:bg-gray-100 capitalize">
+                <tr key={index} className="hover:bg-gray-100">
                   <td className="px-4 py-4">{index + 1}</td>
                   {visibleColumns.map((key) => (
                     <td key={key} className="px-4 py-2">

@@ -126,7 +126,9 @@ export default function StudentTable({
                   key={index}
                   className={`px-4 py-3 capitalize ${
                     index === 0 ? "rounded-tl-lg" : ""
-                  } ${index === visibleColumns.length - 1 ? "" : ""}`}
+                  } ${
+                    index === visibleColumns.length - 1 ? "rounded-tr-lg" : ""
+                  }`}
                 >
                   {key}
                 </th>
