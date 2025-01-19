@@ -13,11 +13,9 @@ const client = axios.create({
 export default function ContentInvoiceAdmin(params) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
+  const token = Cookies.get("token");
 
   useEffect(() => {
-    const token = Cookies.get("token");
-    const student_id = Cookies.get("user_id");
-
     if (!token) {
       console.error("Authorization token is missing!");
       setLoading(false);
@@ -34,6 +32,7 @@ export default function ContentInvoiceAdmin(params) {
           })
           .then((res) => {
             setData(res.data.invoices);
+            console.log(res.data.invoices);
             setLoading(false);
           });
       } catch (error) {
@@ -41,7 +40,8 @@ export default function ContentInvoiceAdmin(params) {
         setLoading(false);
       }
     }, 1500);
-  }, []);
+  }, [token]);
+
   if (loading) {
     return (
       <div className="flex justify-center items-center my-auto h-screen">

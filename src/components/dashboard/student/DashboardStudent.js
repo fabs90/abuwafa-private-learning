@@ -81,6 +81,7 @@ export default function DashboardStudent() {
           data={data}
           hiddenColumns={[
             "id_schedule",
+            "id_subject",
             "date",
             "curriculum",
             "time_duration",

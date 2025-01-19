@@ -52,7 +52,7 @@ export default function ContentPaycheckAdmin() {
   return (
     <>
       <ManagePaycheckTable
-        data={data}
+        initialData={data}
         hiddenColumns={["id_paycheck", "id_tutor", "file"]}
       />
     </>

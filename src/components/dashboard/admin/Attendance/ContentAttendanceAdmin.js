@@ -30,7 +30,18 @@ export default function ContentAttendanceAdmin() {
         },
       })
       .then((response) => {
-        setData(response.data); // Set the data after fetching
+        const transformedData = response.data.attendances.map((item) => {
+          const date = new Date(item.date); // Replace 'item.date' with the actual date field name
+          const formattedDate = `${date.getDate()}/${
+            date.getMonth() + 1
+          }/${date.getFullYear()}`; // d/m/y format
+
+          return {
+            ...item,
+            date: formattedDate, // Replace the ISO date with the formatted date
+          };
+        });
+        setData(transformedData); // Set the data after fetching
         setLoading(false); // Stop loading once data is set
       })
       .catch((error) => {
@@ -60,18 +71,18 @@ export default function ContentAttendanceAdmin() {
         <Breadcrumb items={breadcrumbItems} />
       </div>
       <ManageAttendanceFitTable
-        data={data.attendances}
+        data={data}
         hiddenColumns={[
           "image",
           "report_generated",
           "topic",
           "result",
           "id_subject",
-          "date",
           "id_tutor",
           "id_attendance",
           "id_schedule",
           "id_student",
+          "time",
         ]}
       />
     </>

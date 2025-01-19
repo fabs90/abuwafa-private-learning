@@ -3,6 +3,7 @@ import { Plus, Search } from "lucide-react";
 import { SearchField } from "./SearchField";
 import Link from "next/link";
 import { useState } from "react";
+import Cookies from "js-cookie";
 
 export default function ManageMonthlyReportTutor({
   data = null,
@@ -15,6 +16,7 @@ export default function ManageMonthlyReportTutor({
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   let [rowsPerPageState, setRowsPerPageState] = useState(5);
+  const token = Cookies.get("token");
 
   if (data == null) {
     return (
@@ -53,6 +55,8 @@ export default function ManageMonthlyReportTutor({
       value.toString().toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
+
+  const handleGenerate = async (id_schedule) => {};
 
   // Calculate range and slice data
   const range = calculateRange(filteredData, rowsPerPageState);

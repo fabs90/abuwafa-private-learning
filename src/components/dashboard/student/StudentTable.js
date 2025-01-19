@@ -2,6 +2,7 @@
 
 import generateInvoice from "@/utils/generateInvoice";
 import generateMonthlyReport from "@/utils/generateMonthlyReport";
+import Cookies from "js-cookie";
 import { Download } from "lucide-react";
 
 export default function StudentTable({
@@ -10,6 +11,84 @@ export default function StudentTable({
   isMonthlyReport = false,
   isInvoice = false,
 }) {
+  const handleDownload = async (item) => {
+    try {
+      // Get the file from the backend
+      const response = await fetch(
+        `http://localhost:8080/api/monthlyreports/download/${item.id_monthlyReport}`,
+        {
+          headers: {
+            Authorization: `${Cookies.get("token")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("File download failed");
+      }
+
+      // Get the filename from the response headers or use a default name
+      const filename =
+        response.headers.get("content-disposition")?.split("filename=")[1] ||
+        item.file_path;
+
+      // Convert response to blob
+      const blob = await response.blob();
+
+      // Create a link element and trigger download
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Download failed:", error);
+      alert("Failed to download file");
+    }
+  };
+
+  const handleInvoiceDownload = async (item) => {
+    try {
+      // Get the file from the backend
+      const response = await fetch(
+        `http://localhost:8080/api/invoice/download/${item.id_invoice}`,
+        {
+          headers: {
+            Authorization: `${Cookies.get("token")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("File download failed");
+      }
+
+      // Get the filename from the response headers or use a default name
+      const filename =
+        response.headers.get("content-disposition")?.split("filename=")[1] ||
+        item.file;
+
+      // Convert response to blob
+      const blob = await response.blob();
+
+      // Create a link element and trigger download
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Download failed:", error);
+      alert("Failed to download file");
+    }
+  };
+
   if (!data || data.length === 0) {
     return (
       <>
@@ -82,6 +161,7 @@ export default function StudentTable({
                         href={item.link}
                         className="text-blue-500 cursor-pointer"
                         rel="noopener noreferrer"
+                        target="_blank"
                       >
                         Click Here
                       </a>
@@ -91,26 +171,26 @@ export default function StudentTable({
 
                 {isMonthlyReport && (
                   <td className="px-4 py-3">
-                    <a
-                      onClick={() => generateMonthlyReport(item)}
+                    <button
+                      onClick={() => handleDownload(item)}
                       className="btn btn-success text-white cursor-pointer"
                       rel="noopener noreferrer"
                     >
                       <Download />
                       Download
-                    </a>
+                    </button>
                   </td>
                 )}
                 {isInvoice && (
                   <td className="px-4 py-3">
-                    <a
-                      onClick={() => generateInvoice(item)}
+                    <button
+                      onClick={() => handleInvoiceDownload(item)}
                       className="btn btn-success text-white cursor-pointer"
                       rel="noopener noreferrer"
                     >
                       <Download />
                       Download
-                    </a>
+                    </button>
                   </td>
                 )}
               </tr>

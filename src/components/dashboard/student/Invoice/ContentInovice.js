@@ -9,7 +9,7 @@ import Loading from "@/app/dashboard/admin/monthly-report/loading";
 import Cookies from "js-cookie";
 
 const client = axios.create({
-  baseURL: "http://localhost:8080/api/invoices",
+  baseURL: "http://localhost:8080/api/invoice/list",
 });
 
 export default function ContentInovice(params) {
@@ -29,13 +29,13 @@ export default function ContentInovice(params) {
     setTimeout(() => {
       try {
         client
-          .get("/", {
+          .get(`/${student_id}`, {
             headers: {
               Authorization: `${token}`,
             },
           })
           .then((res) => {
-            setData(res.data.invoices);
+            setData(res.data.invoice);
             setLoading(false);
           });
       } catch (error) {
@@ -67,7 +67,7 @@ export default function ContentInovice(params) {
       <StudentTable
         data={data}
         isInvoice={true}
-        hiddenColumns={["file", "id_student"]}
+        hiddenColumns={["file", "id_invoice"]}
       />
     </>
   );

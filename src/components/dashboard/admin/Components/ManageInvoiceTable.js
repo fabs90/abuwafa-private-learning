@@ -3,6 +3,8 @@ import { Plus, Search } from "lucide-react";
 import { SearchField } from "./SearchField";
 import Link from "next/link";
 import { useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function ManageInvoiceTable({
   data = null,
@@ -14,6 +16,36 @@ export default function ManageInvoiceTable({
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   let [rowsPerPageState, setRowsPerPageState] = useState(5);
+  const token = Cookies.get("token");
+
+  const handleDeleteInvoice = async (invoiceId) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (confirmed) {
+      try {
+        const response = await axios.delete(
+          `http://localhost:8080/api/invoice/${invoiceId}`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          alert("Item deleted successfully!");
+          // Perbarui data tanpa reload halaman
+          window.location.reload();
+        } else {
+          alert("Failed to delete the item. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error deleting item:", error);
+        alert("An error occurred while trying to delete the item.");
+      }
+    }
+  };
 
   if (data == null) {
     return (
@@ -21,8 +53,14 @@ export default function ManageInvoiceTable({
         <table className="min-w-full border-collapse rounded-lg bg-white">
           <thead>
             <tr className="bg-gray-200">
-              <th className="px-4 py-2 capitalize rounded-tl-lg rounded-tr-lg">
-                Data Not Found
+              <th className="px-4 py-2 capitalize  flex justify-center items-center flex-wrap">
+                <Link
+                  href={"invoice/create"}
+                  className="btn btn-primary text-white"
+                >
+                  <Plus />
+                  Add
+                </Link>
               </th>
             </tr>
           </thead>
@@ -91,7 +129,7 @@ export default function ManageInvoiceTable({
       <table className="min-w-full border-collapse bg-white overflow-hidden rounded-t-lg">
         <thead>
           <tr className="bg-gray-200">
-            {numbering && <th className="w-1/12 px-4 py-4 ">No.</th>}
+            {/* {numbering && <th className="w-1/12 px-4 py-4 ">No.</th>} */}
             {visibleColumns.map((key, index) => (
               <th key={index} className="w-1/3 px-4 py-4 capitalize">
                 {columnName[index] || key}
@@ -108,7 +146,15 @@ export default function ManageInvoiceTable({
                 </Link>
               </th>
             ) : (
-              ""
+              <th className="px-4 py-2 capitalize  flex justify-center items-center flex-wrap">
+                <Link
+                  href={"invoice/create"}
+                  className="btn btn-primary text-white"
+                >
+                  <Plus />
+                  Add
+                </Link>
+              </th>
             )}
           </tr>
         </thead>
@@ -117,11 +163,6 @@ export default function ManageInvoiceTable({
           {filteredData.length > 0 ? (
             filteredData.map((item, rowIndex) => (
               <tr key={rowIndex} className="hover:bg-gray-100">
-                {numbering && (
-                  <td className="w-1/12 ">
-                    {(currentPage - 1) * rowsPerPageState + rowIndex + 1}
-                  </td>
-                )}
                 {visibleColumns.map((key, colIndex) => (
                   <td key={colIndex} className="py-4 md:py-0 lg:py-0">
                     {item[key]}
@@ -130,17 +171,18 @@ export default function ManageInvoiceTable({
                 <td className="px-4 py-2">
                   <div className="flex justify-center items-center gap-2">
                     <Link
-                      href={`${item.slug}/update`}
+                      href={`${item.id_invoice}/update`}
                       className="btn bg-blueYoender hover:bg-darkerBlueYoender text-white px-3 py-2 "
                     >
                       Update
                     </Link>
-                    <Link
-                      href={`${item.slug}/delete`}
+                    <button
+                      href={`${item.id_invoice}/delete`}
+                      onClick={() => handleDeleteInvoice(item.id_invoice)}
                       className="btn bg-secondarySiena hover:bg-darkerSecondarySiena text-white px-3 py-2 "
                     >
                       Delete
-                    </Link>
+                    </button>
                   </div>
                 </td>
               </tr>

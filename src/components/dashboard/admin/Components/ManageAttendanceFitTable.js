@@ -91,7 +91,7 @@ export default function ManageAttendanceFitTable({
             {visibleColumns.map((key, index) => (
               <th
                 key={index}
-                className="px-4 py-4 capitalize text-left min-w-[150px] max-w-[300px]"
+                className="px-4 py-4 capitalize text-center min-w-[150px] max-w-[300px]"
               >
                 {key}
               </th>

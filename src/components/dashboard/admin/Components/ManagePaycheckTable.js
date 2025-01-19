@@ -3,37 +3,19 @@ import { Plus, Search } from "lucide-react";
 import { SearchField } from "./SearchField";
 import Link from "next/link";
 import { useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function ManagePaycheckTable({
-  data = null,
+  initialData = [], // Use initialData prop to set initial state
   columnName = [],
   hiddenColumns = [],
   numbering = false,
 }) {
+  const [data, setData] = useState(initialData); // Initialize state with initialData
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   let [rowsPerPageState, setRowsPerPageState] = useState(5);
-
-  if (data == null) {
-    return (
-      <div>
-        <table className="min-w-full border-collapse rounded-lg bg-white">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="px-4 py-2 capitalize rounded-tl-lg rounded-tr-lg">
-                Data Not Found
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="hover:bg-gray-100">
-              <td className="px-4 py-2 text-center">-</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    );
-  }
 
   const handleSearchTerm = (e) => {
     setSearchTerm(e.target.value);
@@ -59,10 +41,34 @@ export default function ManagePaycheckTable({
   const columns = data.length > 0 ? Object.keys(data[0]) : [];
   const visibleColumns = columns.filter((key) => !hiddenColumns.includes(key));
 
+  // Delete function
+  const handleDelete = async (paycheckId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this paycheck?"
+    );
+    if (confirmDelete) {
+      try {
+        const token = Cookies.get("token");
+        await axios.delete(`http://localhost:8080/api/paycheck/${paycheckId}`, {
+          headers: {
+            Authorization: `${token}`,
+          },
+        });
+        // Remove the deleted item from the data
+        const updatedData = data.filter((item) => item.id !== paycheckId); // Adjust the key based on your data structure
+        setData(updatedData); // Update the state with the new data
+        alert("Succesfully deleted data");
+        window.location.reload();
+      } catch (error) {
+        console.error("Error deleting paycheck:", error);
+      }
+    }
+  };
+
   return (
     <div className="overflow-x-auto text-center me-2">
       {/* Search Input Button */}
-      <div className="flex justify-between items-center pt-[15px] px-[15px]  w-full  rounded-t-lg z-99 gap-4 md:gap-0 lg:gap-0 mb-4">
+      <div className="flex justify-between items-center pt-[15px] px-[15px] w-full rounded-t-lg z-99 gap-4 md:gap-0 lg:gap-0 mb-4">
         <SearchField
           icon={<Search />}
           placeholder="Search by name"
@@ -97,7 +103,7 @@ export default function ManagePaycheckTable({
               </th>
             ))}
             {filteredData.length > 0 ? (
-              <th className="px-4 py-2 capitalize  flex justify-center items-center flex-wrap">
+              <th className="px-4 py-2 capitalize flex justify-center items-center flex-wrap">
                 <Link
                   href={"paycheck/create"}
                   className="btn btn-primary text-white"
@@ -114,41 +120,36 @@ export default function ManagePaycheckTable({
 
         <tbody>
           {filteredData.length > 0 ? (
-            paginatedData.map(
-              (
-                item,
-                rowIndex // <-- Now using paginatedData instead
-              ) => (
-                <tr key={rowIndex} className="hover:bg-gray-100">
-                  {numbering && (
-                    <td className="w-1/12 ">
-                      {(currentPage - 1) * rowsPerPageState + rowIndex + 1}
-                    </td>
-                  )}
-                  {visibleColumns.map((key, colIndex) => (
-                    <td key={colIndex} className="py-4 md:py-0 lg:py-0">
-                      {item[key]}
-                    </td>
-                  ))}
-                  <td className="px-4 py-2">
-                    <div className="flex justify-center items-center gap-2">
-                      <Link
-                        href={`${item.slug}/update`}
-                        className="btn bg-blueYoender hover:bg-darkerBlueYoender text-white px-3 py-2 "
-                      >
-                        Update
-                      </Link>
-                      <Link
-                        href={`${item.slug}/delete`}
-                        className="btn bg-secondarySiena hover:bg-darkerSecondarySiena text-white px-3 py-2 "
-                      >
-                        Delete
-                      </Link>
-                    </div>
+            paginatedData.map((item, rowIndex) => (
+              <tr key={rowIndex} className="hover:bg-gray-100">
+                {numbering && (
+                  <td className="w-1/12 ">
+                    {(currentPage - 1) * rowsPerPageState + rowIndex + 1}
                   </td>
-                </tr>
-              )
-            )
+                )}
+                {visibleColumns.map((key, colIndex) => (
+                  <td key={colIndex} className="py-4 md:py-0 lg:py-0">
+                    {item[key]}
+                  </td>
+                ))}
+                <td className="px-4 py-2">
+                  <div className="flex justify-center items-center gap-2">
+                    <Link
+                      href={`${item.slug}/update`}
+                      className="btn bg-blueYoender hover:bg-darkerBlueYoender text-white px-3 py-2 "
+                    >
+                      Update
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(item.id_paycheck)} // Adjust the key based on your data structure
+                      className="btn bg-secondarySiena hover:bg-darkerSecondarySiena text-white px-3 py-2 "
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))
           ) : (
             <tr>
               <td
@@ -163,7 +164,7 @@ export default function ManagePaycheckTable({
       </table>
 
       {/* Pagination Controls */}
-      <div className="flex justify-center items-center gap-2 mb-3 p-4 bg-gray-200 w-full  rounded-b-lg z-99">
+      <div className="flex justify-center items-center gap-2 mb-3 p-4 bg-gray-200 w-full rounded-b-lg z-99">
         {range.map((page, index) => (
           <button
             key={index}

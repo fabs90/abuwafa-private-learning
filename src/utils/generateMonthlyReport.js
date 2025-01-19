@@ -1,96 +1,267 @@
+// // GenerateMonthlyReport.js
+// import { jsPDF } from "jspdf";
+// import "jspdf-autotable";
+
+// export default function generateMonthlyReport(studentData) {
+//   // Guard clause for undefined data
+//   if (!studentData || !studentData.length) {
+//     console.error("No student data provided");
+//     return;
+//   }
+
+//   const doc = new jsPDF("portrait", "mm", "a4");
+
+//   // Page dimensions and margin settings
+//   const pageWidth = doc.internal.pageSize.width;
+//   const margin = 14;
+//   let currentY = margin;
+
+//   // Add header image and text
+//   const img = new Image();
+//   img.src = "/img/abuwafalogo.png";
+
+//   img.onload = () => {
+//     const imgWidth = img.naturalWidth;
+//     const imgHeight = img.naturalHeight;
+
+//     // Calculate image dimensions for the header
+//     const maxHeaderHeight = 15;
+//     const headerImageWidth = (maxHeaderHeight / imgHeight) * imgWidth;
+//     const headerImageHeight = maxHeaderHeight;
+
+//     const headerImageX = pageWidth - margin - headerImageWidth;
+//     const headerVerticalCenter = currentY + maxHeaderHeight / 2;
+
+//     const date = new Date();
+//     const monthNames = [
+//       "January",
+//       "February",
+//       "March",
+//       "April",
+//       "May",
+//       "June",
+//       "July",
+//       "August",
+//       "September",
+//       "October",
+//       "November",
+//       "December",
+//     ];
+
+//     // Add header text
+//     doc.setFontSize(18);
+//     doc.setTextColor(40);
+//     doc.setFont("helvetica", "bold");
+//     const textVerticalPosition = headerVerticalCenter + 2;
+//     doc.text(
+//       `${monthNames[date.getMonth()]} Report ${date.getFullYear()}`,
+//       margin,
+//       textVerticalPosition
+//     );
+
+//     // Add the header image
+//     const imageVerticalPosition = headerVerticalCenter - headerImageHeight / 2;
+//     doc.addImage(
+//       img,
+//       "PNG",
+//       headerImageX,
+//       imageVerticalPosition,
+//       headerImageWidth,
+//       headerImageHeight
+//     );
+
+//     // Draw a horizontal line below the header
+//     currentY += maxHeaderHeight + 4;
+//     doc.setDrawColor(0);
+//     doc.setLineWidth(0.5);
+//     doc.line(margin, currentY, pageWidth - margin, currentY);
+//     currentY += 8;
+
+//     // Add personal details using the first entry in studentData
+//     doc.setFontSize(12);
+//     doc.setFont("helvetica", "normal");
+//     const personalLeft = `NAME: ${studentData[0].student_name} (${studentData[0].id_student})`;
+//     const personalRight = "SUBJECT / LEVEL: CAMBRIDGE & KELAS 10";
+
+//     // Add left-aligned personal detail
+//     doc.text(personalLeft, margin, currentY);
+//     // Add right-aligned personal detail
+//     const textWidth = doc.getTextWidth(personalRight);
+//     doc.text(personalRight, pageWidth - margin - textWidth, currentY);
+
+//     // Increment vertical position
+//     currentY += 5;
+
+//     // Format dates in the data
+//     const formattedData = studentData.map((row) => ({
+//       ...row,
+//       date: new Date(row.date).toLocaleDateString(),
+//     }));
+
+//     // Add table
+//     doc.autoTable({
+//       startY: currentY,
+//       head: [["NAME", "SUBJECT", "DATE", "TOPIC", "RESULT"]],
+//       body: formattedData.map((row) => [
+//         row.student_name,
+//         row.subject,
+//         row.date,
+//         row.topic || "-",
+//         row.result || "-",
+//       ]),
+//       styles: { fontSize: 10, cellPadding: 2 },
+//       columnStyles: {
+//         0: { cellWidth: 25 },
+//         1: { cellWidth: 25 },
+//         2: { cellWidth: 25 },
+//         3: { cellWidth: 45 },
+//         4: { cellWidth: 65 },
+//       },
+//       headStyles: { fillColor: [235, 124, 90], halign: "center" },
+//     });
+
+//     // Save the PDF with formatted name
+//     // const fileName = `Monthly_Report_${studentData[0].student_name}_${
+//     //   monthNames[date.getMonth()]
+//     // }_${date.getFullYear()}.pdf`;
+//     // doc.save(fileName);
+//     const pdfBlob = doc.output("blob");
+//     return pdfBlob; // Return the Blob
+//   };
+// }
+
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
-import monthlyReportData from "./monthly-report-example-data.json";
-import MonthlyReportDataLittle from "../components/dashboard/student/Monthly Report/MonthlyReportData.json";
 
 export default function generateMonthlyReport(studentData) {
-  const doc = new jsPDF("portrait", "mm", "a4");
+  return new Promise((resolve, reject) => {
+    // Guard clause for undefined data
+    if (!studentData || !studentData.length) {
+      console.error("No student data provided");
+      reject("No student data provided");
+      return;
+    }
 
-  // Page dimensions and margin settings
-  const pageWidth = doc.internal.pageSize.width;
-  const margin = 14;
-  let currentY = margin;
+    const doc = new jsPDF("portrait", "mm", "a4");
 
-  // Add header image and text
-  const img = new Image();
-  img.src = "/img/abuwafalogo.png"; // Path to your image
+    // Page dimensions and margin settings
+    const pageWidth = doc.internal.pageSize.width;
+    const margin = 14;
+    let currentY = margin;
 
-  img.onload = () => {
-    const imgWidth = img.naturalWidth;
-    const imgHeight = img.naturalHeight;
+    // Add header image and text
+    const img = new Image();
+    img.src = "/img/abuwafalogo.png";
 
-    // Calculate image dimensions for the header
-    const maxHeaderHeight = 15;
-    const headerImageWidth = (maxHeaderHeight / imgHeight) * imgWidth;
-    const headerImageHeight = maxHeaderHeight;
+    img.onload = () => {
+      const imgWidth = img.naturalWidth;
+      const imgHeight = img.naturalHeight;
 
-    const headerImageX = pageWidth - margin - headerImageWidth;
-    const headerVerticalCenter = currentY + maxHeaderHeight / 2;
+      // Calculate image dimensions for the header
+      const maxHeaderHeight = 15;
+      const headerImageWidth = (maxHeaderHeight / imgHeight) * imgWidth;
+      const headerImageHeight = maxHeaderHeight;
 
-    // Add header text
-    doc.setFontSize(18);
-    doc.setTextColor(40);
-    doc.setFont("helvetica", "bold");
-    const textVerticalPosition = headerVerticalCenter + 2;
-    doc.text("September Report 2024", margin, textVerticalPosition);
+      const headerImageX = pageWidth - margin - headerImageWidth;
+      const headerVerticalCenter = currentY + maxHeaderHeight / 2;
 
-    // Add the header image
-    const imageVerticalPosition = headerVerticalCenter - headerImageHeight / 2;
-    doc.addImage(
-      img,
-      "PNG",
-      headerImageX,
-      imageVerticalPosition,
-      headerImageWidth,
-      headerImageHeight
-    );
+      const date = new Date();
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
 
-    // Draw a horizontal line below the header
-    currentY += maxHeaderHeight + 4;
-    doc.setDrawColor(0);
-    doc.setLineWidth(0.5);
-    doc.line(margin, currentY, pageWidth - margin, currentY);
-    currentY += 8;
+      // Add header text
+      doc.setFontSize(18);
+      doc.setTextColor(40);
+      doc.setFont("helvetica", "bold");
+      const textVerticalPosition = headerVerticalCenter + 2;
+      doc.text(
+        `${monthNames[date.getMonth()]} Report ${date.getFullYear()}`,
+        margin,
+        textVerticalPosition
+      );
 
-    // Add personal details (left and right alignment)
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "normal");
-    const personalLeft = "NAME: THARIQ (2024030026)";
-    const personalRight = "SUBJECT / LEVEL: CAMBRIDGE & KELAS 10";
+      // Add the header image
+      const imageVerticalPosition =
+        headerVerticalCenter - headerImageHeight / 2;
+      doc.addImage(
+        img,
+        "PNG",
+        headerImageX,
+        imageVerticalPosition,
+        headerImageWidth,
+        headerImageHeight
+      );
 
-    // Add left-aligned personal detail
-    doc.text(personalLeft, margin, currentY);
-    // Add right-aligned personal detail
-    const textWidth = doc.getTextWidth(personalRight);
-    doc.text(personalRight, pageWidth - margin - textWidth, currentY);
+      // Draw a horizontal line below the header
+      currentY += maxHeaderHeight + 4;
+      doc.setDrawColor(0);
+      doc.setLineWidth(0.5);
+      doc.line(margin, currentY, pageWidth - margin, currentY);
+      currentY += 8;
 
-    // Increment vertical position
-    currentY += 5;
+      // Add personal details using the first entry in studentData
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "normal");
+      const personalLeft = `NAME: ${studentData[0].student_name} (${studentData[0].id_student})`;
+      const personalRight = "SUBJECT / LEVEL: CAMBRIDGE & KELAS 10";
 
-    // Add table
-    doc.autoTable({
-      startY: currentY,
-      // head: [["DATE", "SUB", "TUTOR", "TOPIC", "RESULT"]],
-      head: [["NAME", "SUB", "MONTH", "TOPIC", "RESULT"]],
-      body: MonthlyReportDataLittle.map((row) => [
-        row.name,
-        row.subject,
-        row.month,
-        row.topic,
-        row.result,
-      ]),
-      styles: { fontSize: 10, cellPadding: 2 },
-      columnStyles: {
-        0: { cellWidth: 25 },
-        1: { cellWidth: 20 }, // Center align for Subject
-        2: { cellWidth: 20 }, // Center align for Tutor
-        3: { cellWidth: 60 }, // Center align for Topic
-        4: { cellWidth: 60 }, // Center align for Result
-      },
-      headStyles: { fillColor: [235, 124, 90], halign: "center" }, // Center align header labels
-    });
+      // Add left-aligned personal detail
+      doc.text(personalLeft, margin, currentY);
+      // Add right-aligned personal detail
+      const textWidth = doc.getTextWidth(personalRight);
+      doc.text(personalRight, pageWidth - margin - textWidth, currentY);
 
-    // Save the PDF
-    doc.save("Monthly_Report_Thariq_Sep_2024.pdf");
-  };
+      // Increment vertical position
+      currentY += 5;
+
+      // Format dates in the data
+      const formattedData = studentData.map((row) => ({
+        ...row,
+        date: new Date(row.date).toLocaleDateString(),
+      }));
+
+      // Add table
+      doc.autoTable({
+        startY: currentY,
+        head: [["NAME", "SUBJECT", "DATE", "TOPIC", "RESULT"]],
+        body: formattedData.map((row) => [
+          row.student_name,
+          row.subject,
+          row.date,
+          row.topic || "-",
+          row.result || "-",
+        ]),
+        styles: { fontSize: 10, cellPadding: 2 },
+        columnStyles: {
+          0: { cellWidth: 25 },
+          1: { cellWidth: 25 },
+          2: { cellWidth: 25 },
+          3: { cellWidth: 45 },
+          4: { cellWidth: 65 },
+        },
+        headStyles: { fillColor: [235, 124, 90], halign: "center" },
+      });
+
+      // Generate PDF as Blob
+      const pdfBlob = doc.output("blob");
+      resolve(pdfBlob); // Resolve the Promise with the Blob
+    };
+
+    img.onerror = (error) => {
+      console.error("Error loading image:", error);
+      reject("Error loading image");
+    };
+  });
 }
