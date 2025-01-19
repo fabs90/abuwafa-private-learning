@@ -86,10 +86,15 @@ export default function DashboardLayoutAdmin({
                 pageTitle={title}
               />
               <main className="flex-1 bg-primary p-6 w-full overflow-x-hidden relative z-0">
+                {/* <img
+                  src="/img/img_backdrop.png"
+                  alt="Backdrop"
+                  className="absolute overflow-hidden bottom-0 -right-[25%] w-[75%] h-auto object-cover pointer-events-none -z-10 opacity-40 "
+                /> */}
                 <img
                   src="/img/img_backdrop.png"
                   alt="Backdrop"
-                  className="absolute bottom-0 right-0 w-[62%] h-auto object-cover pointer-events-none z-0"
+                  className="absolute overflow-hidden bottom-0 -right-[15%] w-[85%] h-auto object-cover pointer-events-none -z-10 opacity-40 "
                 />
                 {children}
               </main>

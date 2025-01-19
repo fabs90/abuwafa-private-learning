@@ -1,6 +1,8 @@
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import monthlyReportData from "./monthly-report-example-data.json";
+import MonthlyReportDataLittle from "../components/dashboard/student/Monthly Report/MonthlyReportData.json";
+
 export default function generateMonthlyReport(studentData) {
   const doc = new jsPDF("portrait", "mm", "a4");
 
@@ -54,7 +56,7 @@ export default function generateMonthlyReport(studentData) {
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
     const personalLeft = "NAME: THARIQ (2024030026)";
-    const personalRight = "SUBJECT / LEVEL: ENGLISH & INTER CUR";
+    const personalRight = "SUBJECT / LEVEL: CAMBRIDGE & KELAS 10";
 
     // Add left-aligned personal detail
     doc.text(personalLeft, margin, currentY);
@@ -68,11 +70,12 @@ export default function generateMonthlyReport(studentData) {
     // Add table
     doc.autoTable({
       startY: currentY,
-      head: [["DATE", "SUB", "TUTOR", "TOPIC", "RESULT"]],
-      body: monthlyReportData.map((row) => [
-        row.date,
+      // head: [["DATE", "SUB", "TUTOR", "TOPIC", "RESULT"]],
+      head: [["NAME", "SUB", "MONTH", "TOPIC", "RESULT"]],
+      body: MonthlyReportDataLittle.map((row) => [
+        row.name,
         row.subject,
-        row.tutor,
+        row.month,
         row.topic,
         row.result,
       ]),

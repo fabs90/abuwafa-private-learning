@@ -6,16 +6,17 @@ export default function ContentDashboardAdmin(params) {
       <div className="flex flex-col md:flex-row lg:flex-row gap-4 justify-evenly">
         <CardDashboard
           title="80 Students"
+          data={"50 Active : 30 Inactive"}
           icon={"/img/smiling-student.png"}
-          width={145}
-          height={160}
+          width={140}
+          height={136}
           isAdminPage={true}
         />
         <CardDashboard
           title="30 Tutors"
           icon={"/img/smiling-tutor.png"}
-          width={164}
-          height={160}
+          width={140}
+          height={136}
           isAdminPage={true}
         />
         <CardDashboard

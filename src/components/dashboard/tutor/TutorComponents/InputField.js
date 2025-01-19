@@ -12,12 +12,12 @@ export const FormField = ({
   defaultValue = "",
   isFile = false,
   required = false,
-  options: initialOptions = [],
+  selectOptions = [],
   name = "",
+  onChange,
 }) => {
   const [timeValue, setTimeValue] = useState("0:00");
   const [selectedOption, setSelectedOption] = useState(null);
-  const [options, setOptions] = useState(initialOptions);
   const [showPassword, setShowPassword] = useState(false);
 
   const onTimeChange = (event) => {
@@ -83,6 +83,13 @@ export const FormField = ({
     value: label.toLowerCase().replace(/\W/g, ""),
   });
 
+  const handleSelectChange = (selected) => {
+    setSelectedOption(selected);
+    if (onChange) {
+      onChange(selected); // Call the onChange prop with the selected option
+    }
+  };
+
   return (
     <div>
       <label className="block text-sm mb-1 mt-4 text-white">{label}</label>
@@ -103,11 +110,11 @@ export const FormField = ({
           ></textarea>
         ) : type === "select2" ? (
           <Select
-            options={options}
+            options={selectOptions}
             name={name}
             placeholder={placeholder}
             value={selectedOption}
-            onChange={(selected) => setSelectedOption(selected)}
+            onChange={handleSelectChange}
             isDisabled={readOnly}
             className="w-full text-black"
             isClearable={!required}
@@ -150,12 +157,12 @@ export const FormField = ({
           />
         ) : type === "select3" ? (
           <Creatable
-            options={options}
+            options={selectOptions}
             name={name}
             isClearable={!required}
             placeholder={placeholder}
             value={selectedOption}
-            onChange={(selected) => setSelectedOption(selected)}
+            onChange={handleSelectChange}
             onCreateOption={handleCreate}
             className="w-full text-black"
             styles={{

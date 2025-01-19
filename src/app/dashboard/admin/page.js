@@ -1,9 +1,11 @@
+"use client";
 import { Breadcrumb } from "@/components/dashboard/admin/Components/Breadcrumb";
 import ContentDashboardAdmin from "@/components/dashboard/admin/ContentDashboardAdmin";
 import DashboardLayoutAdmin from "@/components/dashboard/admin/DashboardLayoutAdmin";
 import { Grid2X2 } from "lucide-react";
+import withRoleGuard from "@/utils/withRoleGuards";
 
-export default function AdminDashboard(params) {
+function AdminDashboard(params) {
   return (
     <>
       <DashboardLayoutAdmin>
@@ -17,3 +19,6 @@ export default function AdminDashboard(params) {
     </>
   );
 }
+
+// Bungkus komponen AdminDashboard dengan middleware
+export default withRoleGuard(AdminDashboard, ["admin"]);

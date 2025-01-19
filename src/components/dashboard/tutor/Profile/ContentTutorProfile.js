@@ -1,9 +1,116 @@
+"use client";
+import Loading from "@/app/dashboard/admin/monthly-report/loading";
 import ButtonForm from "@/components/button/Button";
-import { Mail, CircleUser, Key, Banknote } from "lucide-react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { Mail, CircleUser, Key, Banknote, Grid2X2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Breadcrumb } from "../../admin/Components/Breadcrumb";
+import ConfirmAlert from "../TutorComponents/ConfirmAlert";
+
+const client = axios.create({
+  baseURL: "http://localhost:8080/api/tutors/profile/",
+});
+
 export default function ContentTutorProfile(params) {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false); // State untuk ConfirmAlert
+  const [formValues, setFormValues] = useState(null); // Simpan data form sementara
+  const token = Cookies.get("token");
+  const id_user = Cookies.get("user_id");
+
+  useEffect(() => {
+    if (!token) {
+      console.error("Authorization token is missing!");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      client
+        .get(`?id_tutor=${id_user}`, {
+          headers: {
+            Authorization: `${token}`,
+          },
+        })
+        .then((res) => {
+          setData(res.data.profile);
+          setLoading(false);
+        });
+    } catch (error) {
+      console.error("Error: ", error);
+      setLoading(false);
+    }
+  }, []);
+
+  const onSubmitClick = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const updates = Object.fromEntries(formData.entries());
+    setFormValues(updates); // Simpan sementara data form
+    console.log(formValues);
+
+    setIsConfirmOpen(true); // Buka dialog konfirmasi
+  };
+
+  const onConfirm = async () => {
+    if (!token) {
+      console.error("Authorization token is missing!");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const response = await client.patch(`${id_user}`, formValues, {
+        headers: {
+          Authorization: `${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.data.error) {
+        console.error(response.data.message);
+        alert(response.data.message);
+      } else {
+        alert("Profile updated successfully!");
+        setData({ ...data, ...formValues });
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      alert("Failed to update profile. Please try again.");
+    } finally {
+      setLoading(false);
+      setIsConfirmOpen(false); // Tutup dialog setelah submit
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center my-auto h-screen">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <>
-      <form>
+      <Breadcrumb
+        items={[
+          { label: "Dashboard", link: "/dashboard/", icon: Grid2X2 },
+          {
+            label: "Profile",
+            link: "/dashboard/tutor/profile",
+          },
+        ]}
+      />
+      <ConfirmAlert
+        isOpen={isConfirmOpen}
+        onClose={() => setIsConfirmOpen(false)}
+        onConfirm={onConfirm}
+      />
+      <form onSubmit={onSubmitClick}>
         <div className="w-full grid grid-rows-1">
           <div className="grid grid-rows-1 text-sm">
             <div className="md:grid md:grid-rows-1 md:grid-cols-2 gap-2 md:gap-6">
@@ -11,6 +118,7 @@ export default function ContentTutorProfile(params) {
                 <div>
                   <FormField
                     label="Name"
+                    name="tutor_name"
                     icon={
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -22,6 +130,7 @@ export default function ContentTutorProfile(params) {
                       </svg>
                     }
                     placeholder="Enter your name"
+                    defaultValue={data?.tutor_name}
                   />
                 </div>
 
@@ -29,6 +138,7 @@ export default function ContentTutorProfile(params) {
                   <div>
                     <FormField
                       label="Phone"
+                      name="phone_tutor"
                       fitted={true}
                       icon={
                         <svg
@@ -40,12 +150,14 @@ export default function ContentTutorProfile(params) {
                           <path d="M21.384,17.752a2.108,2.108,0,0,1-.522,3.359,7.543,7.543,0,0,1-5.476.642C10.5,20.523,3.477,13.5,2.247,8.614a7.543,7.543,0,0,1,.642-5.476,2.108,2.108,0,0,1,3.359-.522L8.333,4.7a2.094,2.094,0,0,1,.445,2.328A3.877,3.877,0,0,1,8,8.2c-2.384,2.384,5.417,10.185,7.8,7.8a3.877,3.877,0,0,1,1.173-.781,2.092,2.092,0,0,1,2.328.445Z" />
                         </svg>
                       }
+                      defaultValue={data?.phone_tutor}
                       placeholder="Your phone num."
                     />
                   </div>
                   <div>
                     <FormField
                       label="Email"
+                      name="email"
                       fitted={true}
                       icon={
                         <Mail
@@ -54,6 +166,7 @@ export default function ContentTutorProfile(params) {
                           className="opacity-70 flex-shrink-0"
                         />
                       }
+                      defaultValue={data?.email}
                       placeholder="Your email"
                     />
                   </div>
@@ -63,9 +176,11 @@ export default function ContentTutorProfile(params) {
                     Address
                   </label>
                   <textarea
+                    name="address"
                     className="textarea border-neutral text-black w-full"
-                    style={{ height: "138px" }}
+                    style={{ height: "142px" }}
                     placeholder="Bio"
+                    defaultValue={data?.address}
                   ></textarea>
                 </div>
               </div>
@@ -73,6 +188,7 @@ export default function ContentTutorProfile(params) {
                 <div>
                   <FormField
                     label="Status"
+                    name="status"
                     icon={
                       <svg
                         fill="currentColor"
@@ -89,12 +205,13 @@ export default function ContentTutorProfile(params) {
                     placeholder="status"
                     type="text"
                     readOnly
-                    defaultValue="Active"
+                    defaultValue={data?.status}
                   />
                 </div>
                 <div>
                   <FormField
                     label="Account Username"
+                    name="username"
                     icon={
                       <CircleUser
                         width={16}
@@ -103,7 +220,7 @@ export default function ContentTutorProfile(params) {
                       />
                     }
                     readOnly={true}
-                    defaultValue="hanifnf90"
+                    defaultValue={data?.username}
                     type="text"
                     placeholder="Your account username"
                   />
@@ -111,6 +228,7 @@ export default function ContentTutorProfile(params) {
                 <div>
                   <FormField
                     label="Change Password"
+                    name="password"
                     icon={
                       <Key
                         width={16}
@@ -122,19 +240,40 @@ export default function ContentTutorProfile(params) {
                     placeholder="Fill to change the password"
                   />
                 </div>
-                <div>
-                  <FormField
-                    label="Bank Account"
-                    icon={
-                      <Banknote
-                        width={16}
-                        height={16}
-                        className=" opacity-70 flex-shrink-0"
-                      />
-                    }
-                    type="text"
-                    placeholder="Your bank account"
-                  />
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <FormField
+                      label="Bank"
+                      name="tutor_bankAcc"
+                      defaultValue={data?.bank}
+                      icon={
+                        <Banknote
+                          width={16}
+                          height={16}
+                          className=" opacity-70 flex-shrink-0"
+                        />
+                      }
+                      type="text"
+                      placeholder="Bank"
+                      required={true}
+                    />
+                  </div>
+                  <div>
+                    <FormField
+                      label="Account Number"
+                      name="tutor_numberAcc"
+                      icon={
+                        <Banknote
+                          width={16}
+                          height={16}
+                          className=" opacity-70 flex-shrink-0"
+                        />
+                      }
+                      type="text"
+                      placeholder="Account number"
+                      required={true}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -149,6 +288,7 @@ export default function ContentTutorProfile(params) {
 }
 const FormField = ({
   label,
+  name = "",
   placeholder,
   icon,
   type = "text",
@@ -172,6 +312,7 @@ const FormField = ({
       {icon}
       <input
         type={type}
+        name={name}
         className="text-black w-fit md:w-full lg:w-full"
         placeholder={placeholder}
         readOnly={readOnly}

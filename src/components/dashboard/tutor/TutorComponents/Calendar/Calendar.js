@@ -2,6 +2,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import tippy from "tippy.js";
 import "tippy.js/dist/tippy.css";
+import Link from "next/link";
 
 export default function Calendar(params) {
   /*
@@ -105,13 +106,13 @@ export default function Calendar(params) {
               info.event.extendedProps.link !== "-" ? (
                 <p style={{ margin: 0, fontSize: "0.85rem", color: "#555" }}>
                   <b>Link:</b>{" "}
-                  <a
+                  <Link
                     href={info.event.extendedProps.link}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     Open
-                  </a>
+                  </Link>
                 </p>
               ) : (
                 <p style={{ fontSize: "0.85rem", color: "#999" }}>-</p>

@@ -42,8 +42,10 @@ export default function ManageAttendanceFitTable({
 
   // Filter data based on search term
   const filteredData = data.filter((item) =>
-    Object.values(item).some((value) =>
-      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    Object.values(item).some(
+      (value) =>
+        value != null && // Check if value is not null or undefined
+        value.toString().toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
 
@@ -118,10 +120,10 @@ export default function ManageAttendanceFitTable({
                 {visibleColumns.map((key, colIndex) => (
                   <td
                     key={colIndex}
-                    className="px-4 py-2 text-left truncate max-w-[300px]"
+                    className="px-4 py-2 text-center truncate max-w-[300px]"
                   >
-                    {key === "attendanceStatus" ? (
-                      item[key] ? (
+                    {key === "attendance_status" ? (
+                      item[key]?.trim().toLowerCase() === "present" ? (
                         <span className="text-green-500 font-bold">✓</span>
                       ) : (
                         <span className="text-red-500 font-bold">✗</span>
@@ -133,7 +135,7 @@ export default function ManageAttendanceFitTable({
                 ))}
                 <td className="text-right px-4 py-2 flex justify-end">
                   <Link
-                    href={`attendance/${item.slug}/list`}
+                    href={`attendance/${item["id_schedule"]}/list`}
                     className="btn bg-primary hover:bg-darkerBlueYoender text-white me-4"
                   >
                     Check

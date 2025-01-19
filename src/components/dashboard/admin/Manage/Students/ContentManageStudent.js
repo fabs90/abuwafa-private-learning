@@ -1,56 +1,70 @@
-import ManageTutortable from "../../Components/ManageTutorTable";
+"use client";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import Loading from "@/app/dashboard/admin/monthly-report/loading";
+import ManageStudentAdminTable from "../../Components/ManageStudentAdminTable";
+
+const client = axios.create({
+  baseURL: "http://localhost:8080/api/students/profiles",
+});
 
 export default function ContentManageStudent(params) {
-  const data = [
-    {
-      name: "Alice Johnson",
-      status: "active",
-      grade: "10",
-      school: "Greenwood High School",
-      no_telepon: "081234567890",
-    },
-    {
-      name: "Bob Smith",
-      status: "not active",
-      grade: "11",
-      school: "Riverdale High School",
-      no_telepon: "082345678901",
-    },
-    {
-      name: "Charlie Brown",
-      status: "active",
-      grade: "12",
-      school: "Sunnydale High School",
-      no_telepon: "083456789012",
-    },
-    {
-      name: "Diana Prince",
-      status: "active",
-      grade: "10",
-      school: "Metropolis High School",
-      no_telepon: "084567890123",
-    },
-    {
-      name: "Ethan Hunt",
-      status: "not active",
-      grade: "11",
-      school: "Gotham High School",
-      no_telepon: "085678901234",
-    },
-    {
-      name: "Nick Furry",
-      status: "active",
-      grade: "12",
-      school: "Metropolis High School",
-      no_telepon: "084567890123",
-    },
-  ];
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = Cookies.get("token"); // Get token from cookies
+
+    if (!token) {
+      console.error("Authorization token is missing!");
+      setLoading(false); // Stop loading in case there's no token
+      return;
+    }
+
+    client
+      .get("/", {
+        headers: {
+          Authorization: `${token}`,
+        },
+      })
+      .then((response) => {
+        setData(response.data); // Set the data after fetching
+        setLoading(false); // Stop loading once data is set
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+        setLoading(false); // Stop loading even if there's an error
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center my-auto h-screen">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <>
-      <ManageTutortable
-        data={data}
+      <ManageStudentAdminTable
+        data={data?.profile}
         rowsPerPage={5}
         href="/dashboard/admin/manage/students/create"
+        hiddenColumns={[
+          "city",
+          "phone_student",
+          "parent_name",
+          "address",
+          "package",
+          "grade",
+          "curriculum",
+          "password",
+          "role",
+          "parent_name",
+        ]}
+        primary_key="student_id"
       />
     </>
   );

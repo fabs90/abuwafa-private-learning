@@ -8,8 +8,7 @@ export default function ManagePaycheckTable({
   data = null,
   columnName = [],
   hiddenColumns = [],
-  numbering = true,
-  primaryColumn = "id",
+  numbering = false,
 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
@@ -115,36 +114,41 @@ export default function ManagePaycheckTable({
 
         <tbody>
           {filteredData.length > 0 ? (
-            filteredData.map((item, rowIndex) => (
-              <tr key={rowIndex} className="hover:bg-gray-100">
-                {numbering && (
-                  <td className="w-1/12 ">
-                    {(currentPage - 1) * rowsPerPageState + rowIndex + 1}
+            paginatedData.map(
+              (
+                item,
+                rowIndex // <-- Now using paginatedData instead
+              ) => (
+                <tr key={rowIndex} className="hover:bg-gray-100">
+                  {numbering && (
+                    <td className="w-1/12 ">
+                      {(currentPage - 1) * rowsPerPageState + rowIndex + 1}
+                    </td>
+                  )}
+                  {visibleColumns.map((key, colIndex) => (
+                    <td key={colIndex} className="py-4 md:py-0 lg:py-0">
+                      {item[key]}
+                    </td>
+                  ))}
+                  <td className="px-4 py-2">
+                    <div className="flex justify-center items-center gap-2">
+                      <Link
+                        href={`${item.slug}/update`}
+                        className="btn bg-blueYoender hover:bg-darkerBlueYoender text-white px-3 py-2 "
+                      >
+                        Update
+                      </Link>
+                      <Link
+                        href={`${item.slug}/delete`}
+                        className="btn bg-secondarySiena hover:bg-darkerSecondarySiena text-white px-3 py-2 "
+                      >
+                        Delete
+                      </Link>
+                    </div>
                   </td>
-                )}
-                {visibleColumns.map((key, colIndex) => (
-                  <td key={colIndex} className="py-4 md:py-0 lg:py-0">
-                    {item[key]}
-                  </td>
-                ))}
-                <td className="px-4 py-2">
-                  <div className="flex justify-center items-center gap-2">
-                    <Link
-                      href={`${item.slug}/update`}
-                      className="btn bg-blueYoender hover:bg-darkerBlueYoender text-white px-3 py-2 "
-                    >
-                      Update
-                    </Link>
-                    <Link
-                      href={`${item.slug}/delete`}
-                      className="btn bg-secondarySiena hover:bg-darkerSecondarySiena text-white px-3 py-2 "
-                    >
-                      Delete
-                    </Link>
-                  </div>
-                </td>
-              </tr>
-            ))
+                </tr>
+              )
+            )
           ) : (
             <tr>
               <td

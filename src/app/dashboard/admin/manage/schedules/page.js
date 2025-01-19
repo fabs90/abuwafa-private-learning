@@ -7,8 +7,8 @@ export default function Page(params) {
   const breadcrumbItems = [
     { label: "Dashboard", link: "/dashboard/admin", icon: Grid2X2 },
     {
-      label: "Manage Students",
-      link: "/dashboard/admin/manage/students",
+      label: "Manage Schedules",
+      link: "/dashboard/admin/manage/schedules",
     },
   ];
 

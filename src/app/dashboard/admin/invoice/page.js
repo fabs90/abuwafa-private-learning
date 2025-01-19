@@ -11,7 +11,7 @@ export default function Page(params) {
         <Breadcrumb
           items={[
             { label: "Dashboard", link: "/dashboard/admin", icon: Grid2X2 },
-            { label: "Paycheck", link: "/dashboard/admin/invoice" },
+            { label: "Invoice", link: "/dashboard/admin/invoice" },
           ]}
         />
         <ContentInvoiceAdmin />

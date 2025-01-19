@@ -1,36 +1,41 @@
 import { NextResponse } from "next/server";
 
 export function middleware(request) {
-  const token = request.cookies.get("token"); // Mendapatkan token dari cookies
+  const token = request.cookies.get("token")?.value;
   const { nextUrl } = request;
 
-  // Jika URL root, redirect ke /login
   if (nextUrl.pathname === "/") {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
   if (!token && request.nextUrl.pathname.startsWith("/dashboard")) {
-    // Redirect to login with a query parameter
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("redirect", "unauthorized");
     return NextResponse.redirect(loginUrl);
   }
 
-  // Validasi token untuk halaman yang membutuhkan autentikasi
-  const protectedRoutes = [
-    "/dashboard/admin",
-    "/dashboard/tutor",
-    "/dashboard/student",
-  ];
-  if (protectedRoutes.includes(nextUrl.pathname)) {
-    if (!token) {
-      return NextResponse.redirect(new URL("/login", request.url)); // Redirect jika token tidak ada
+  const role = request.cookies.get("role")?.value?.toLowerCase();
+
+  if (nextUrl.pathname.startsWith("/dashboard/admin")) {
+    // Restrict to admin role
+    if (role !== "admin") {
+      return NextResponse.redirect(new URL("/403", request.url));
+    }
+  } else if (nextUrl.pathname.startsWith("/dashboard/tutor")) {
+    // Restrict to tutor role
+    if (role !== "tutor") {
+      return NextResponse.redirect(new URL("/403", request.url));
+    }
+  } else if (nextUrl.pathname.startsWith("/dashboard/student")) {
+    // Restrict to student role
+    if (role !== "student") {
+      return NextResponse.redirect(new URL("/403", request.url));
     }
   }
 
-  return NextResponse.next(); // Lanjutkan ke halaman yang diminta jika valid
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/", "/dashboard/:path*"], // Terapkan middleware ke root dan semua route dashboard
+  matcher: ["/", "/dashboard/:path*"],
 };

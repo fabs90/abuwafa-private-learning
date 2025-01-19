@@ -46,7 +46,7 @@ export default function ContentCreateStudent() {
 
     try {
       setError(null);
-      const response = client.post("/", formData);
+      const response = await client.post("/", formData);
 
       if (!response.data.error) {
         router.reload(); // Refresh the page to clear the form
@@ -64,6 +64,7 @@ export default function ContentCreateStudent() {
     } finally {
       alert("Data submitted successfully");
       setLoading(false);
+      window.location.reload();
     }
   };
 
@@ -186,7 +187,17 @@ export default function ContentCreateStudent() {
                         </svg>
                       }
                       placeholder="status"
-                      type="select3"
+                      type="select2"
+                      selectOptions={[
+                        {
+                          label: "Active",
+                          value: "Active",
+                        },
+                        {
+                          label: "Nonactive",
+                          value: "Nonactive",
+                        },
+                      ]}
                     />
                   </div>
                   <div>

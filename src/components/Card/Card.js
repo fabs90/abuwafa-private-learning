@@ -30,7 +30,7 @@ export default function CardDashboard({
         ) : (
           <h2>{title}</h2>
         )}
-        <p>{data}</p>
+        <p className="text-primary">{data}</p>
       </div>
     </div>
   );

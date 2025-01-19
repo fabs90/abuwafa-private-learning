@@ -5,41 +5,38 @@ import ManageAttendaceTable from "../Components/ManageAttendanceTable";
 import ManageAttendanceFitTable from "../Components/ManageAttendanceFitTable";
 import { useEffect, useState } from "react";
 import Loading from "@/app/dashboard/admin/monthly-report/loading";
+import axios from "axios";
+import Cookies from "js-cookie";
+
+const client = axios.create({
+  baseURL: "http://localhost:8080/api/attendances",
+});
 export default function ContentAttendanceAdmin() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const tutorName = [
-    {
-      id: 1,
-      name: "John Doe",
-      slug: "john-doe",
-    },
-    {
-      id: 2,
-      name: "John Smith",
-      slug: "john-smith",
-    },
-    {
-      id: 3,
-      name: "Siti Nurbaya",
-      slug: "siti-nurbaya",
-    },
-    {
-      id: 4,
-      name: "Ethan Hunt",
-      slug: "ethan-hunt",
-    },
-    {
-      id: 5,
-      name: "James Bond",
-      slug: "james-bond",
-    },
-  ];
+
   useEffect(() => {
-    setTimeout(() => {
-      setData(tutorName);
-      setLoading(false);
-    }, 1000);
+    const token = Cookies.get("token");
+    if (!token) {
+      console.error("Authorization token is missing!");
+      setLoading(false); // Stop loading in case there's no token
+      return;
+    }
+
+    client
+      .get("/", {
+        headers: {
+          Authorization: `${token}`,
+        },
+      })
+      .then((response) => {
+        setData(response.data); // Set the data after fetching
+        setLoading(false); // Stop loading once data is set
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+        setLoading(false); // Stop loading even if there's an error
+      });
   }, []);
 
   if (loading) {
@@ -63,8 +60,19 @@ export default function ContentAttendanceAdmin() {
         <Breadcrumb items={breadcrumbItems} />
       </div>
       <ManageAttendanceFitTable
-        data={tutorName}
-        hiddenColumns={["id", "slug"]}
+        data={data.attendances}
+        hiddenColumns={[
+          "image",
+          "report_generated",
+          "topic",
+          "result",
+          "id_subject",
+          "date",
+          "id_tutor",
+          "id_attendance",
+          "id_schedule",
+          "id_student",
+        ]}
       />
     </>
   );

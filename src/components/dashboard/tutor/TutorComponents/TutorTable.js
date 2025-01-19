@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { SearchField } from "../../admin/Components/SearchField";
 import { generatePDF } from "@/utils/generatePdf";
+import Cookies from "js-cookie";
 
 export default function TutorTable({
   data = null,
@@ -20,7 +21,7 @@ export default function TutorTable({
   if (!data) {
     return (
       <div>
-        <table className="min-w-full border-collapse rounded-lg bg-white">
+        <table className="min-w-full border-collapse rounded-lg bg-white z-50">
           <thead>
             <tr className="bg-gray-200">
               <th className="px-4 py-2 capitalize rounded-tl-lg rounded-tr-lg">
@@ -29,7 +30,7 @@ export default function TutorTable({
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr className="hover:bg-gray-100">
               <td className="px-4 py-2 text-center">-</td>
             </tr>
           </tbody>
@@ -41,7 +42,9 @@ export default function TutorTable({
   // Filter and paginate data
   const filteredData = data.filter((item) =>
     Object.values(item).some((value) =>
-      value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      typeof value === "string" || typeof value === "number"
+        ? value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        : false
     )
   );
 
@@ -64,8 +67,43 @@ export default function TutorTable({
     setCurrentPage(1);
   };
 
-  const handleDownload = (item) => {
-    generatePDF(data, `${item.name}_${item.month}`, hiddenColumns);
+  const handleDownload = async (item) => {
+    try {
+      // Get the file from the backend
+      const response = await fetch(
+        `http://localhost:8080/api/paycheck/download/${item.id_paycheck}`,
+        {
+          headers: {
+            Authorization: `${Cookies.get("token")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("File download failed");
+      }
+
+      // Get the filename from the response headers or use a default name
+      const filename =
+        response.headers.get("content-disposition")?.split("filename=")[1] ||
+        item.file;
+
+      // Convert response to blob
+      const blob = await response.blob();
+
+      // Create a link element and trigger download
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Download failed:", error);
+      alert("Failed to download file");
+    }
   };
 
   return (
@@ -95,67 +133,78 @@ export default function TutorTable({
         </select>
       </div>
 
-      {/* Table */}
       <table className="min-w-full border-collapse rounded-t-lg bg-white">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="">No.</th>
-            {visibleColumns.map((key) => (
-              <th key={key} className="px-4 py-4 capitalize">
-                {key}
-              </th>
-            ))}
-            {isAttendance && <th className="px-4 py-2 capitalize">Actions</th>}
-            {showDetail && <th className="px-4 py-2 capitalize ">Actions</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.length > 0 ? (
-            paginatedData.map((item, index) => (
-              <tr key={index} className="hover:bg-gray-100 capitalize">
-                <td className="px-4 py-4">{index + 1}</td>
+        {filteredData.length > 0 ? (
+          <>
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="rounded-tl-lg">No.</th>
                 {visibleColumns.map((key) => (
-                  <td key={key} className="px-4 py-2">
-                    {item[key]}
-                  </td>
+                  <th key={key} className="px-4 py-4 capitalize">
+                    {key}
+                  </th>
                 ))}
                 {isAttendance && (
-                  <td className="p-4">
-                    <Link
-                      href={`attendance/${item.slug}/create`}
-                      className="btn btn-primary text-white flex items-center"
-                    >
-                      <Plus className="mr-2" />
-                      Fill
-                    </Link>
-                  </td>
+                  <th className="px-4 py-2 capitalize rounded-tr-lg">
+                    Actions
+                  </th>
                 )}
                 {showDetail && (
-                  <td className="text-center">
-                    <button
-                      onClick={() => handleDownload(item)}
-                      className="btn mx-auto btn-success flex items-center justify-center"
-                    >
-                      <Download className="mr-2" />
-                      Download
-                    </button>
-                  </td>
+                  <th className="px-4 py-2 capitalize">Actions</th>
                 )}
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td
-                colSpan={
-                  visibleColumns.length + (isAttendance || showDetail ? 2 : 1)
-                }
-                className="text-center py-4"
-              >
-                Data Not Found
-              </td>
-            </tr>
-          )}
-        </tbody>
+            </thead>
+            <tbody>
+              {paginatedData.map((item, index) => (
+                <tr key={index} className="hover:bg-gray-100 capitalize">
+                  <td className="px-4 py-4">{index + 1}</td>
+                  {visibleColumns.map((key) => (
+                    <td key={key} className="px-4 py-2">
+                      {item[key]}
+                    </td>
+                  ))}
+                  {isAttendance && (
+                    <td className="p-4">
+                      <Link
+                        href={`attendance/${item?.id_tutor}/create`}
+                        className="btn btn-primary text-white flex items-center"
+                      >
+                        <Plus className="mr-2" />
+                        Fill
+                      </Link>
+                    </td>
+                  )}
+                  {showDetail && (
+                    <td className="text-center">
+                      <button
+                        onClick={() => handleDownload(item)}
+                        className="btn mx-auto btn-success flex items-center justify-center"
+                      >
+                        <Download className="mr-2" />
+                        Download
+                      </button>
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </>
+        ) : (
+          <>
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="px-4 py-2 capitalize rounded-tl-lg rounded-tr-lg">
+                  Data Not Found
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </>
+        )}
       </table>
 
       {/* Pagination */}

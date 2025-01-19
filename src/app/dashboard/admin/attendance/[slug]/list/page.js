@@ -1,8 +1,17 @@
 import ContentListAttendanceAdmin from "@/components/dashboard/admin/Attendance/ContentListAttendanceAdmin";
 import { Breadcrumb } from "@/components/dashboard/admin/Components/Breadcrumb";
 import DashboardLayoutAdmin from "@/components/dashboard/admin/DashboardLayoutAdmin";
+import axios from "axios";
 import { Grid2X2, UserCheck } from "lucide-react";
+import React from "react";
+
+const client = axios.create({
+  baseURL: "http://localhost:8080/api/attendance/schedule/",
+});
+
 export default function Page({ params }) {
+  const slug = React.use(params).slug;
+
   const breadcrumbItems = [
     { label: "Dashboard", link: "/dashboard/admin", icon: Grid2X2 },
     {
@@ -17,9 +26,9 @@ export default function Page({ params }) {
   ];
   return (
     <>
-      <DashboardLayoutAdmin title={`List Attendance ${params.slug}`}>
+      <DashboardLayoutAdmin title={`List Attendance ${slug}`}>
         <Breadcrumb items={breadcrumbItems} />
-        <ContentListAttendanceAdmin />
+        <ContentListAttendanceAdmin slug={slug} />
       </DashboardLayoutAdmin>
     </>
   );

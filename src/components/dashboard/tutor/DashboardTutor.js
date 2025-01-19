@@ -4,8 +4,9 @@ import { Grid2X2 } from "lucide-react";
 import { Breadcrumb } from "../admin/Components/Breadcrumb";
 import ContentDashboard from "./ContentDashboard";
 import DashboardLayoutTutor from "./DashboardLayoutTutor";
+import withRoleGuard from "@/utils/withRoleGuards";
 
-export default function DashboardTutor(params) {
+function DashboardTutor(params) {
   return (
     <>
       <DashboardLayoutTutor>
@@ -19,3 +20,5 @@ export default function DashboardTutor(params) {
     </>
   );
 }
+
+export default withRoleGuard(DashboardTutor, ["tutor"]);

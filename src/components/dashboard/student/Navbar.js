@@ -37,8 +37,8 @@ export default function DashboardNavbar() {
     e.stopPropagation();
     // Clear authentication data (e.g., token) from cookies
     Cookies.remove("token");
-    Cookies.remove("username");
     Cookies.remove("role");
+    Cookies.remove("user_id");
 
     // Optionally clear cookies if you're using them for server-side authentication
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";

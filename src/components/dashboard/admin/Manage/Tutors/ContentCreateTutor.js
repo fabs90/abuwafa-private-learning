@@ -16,12 +16,27 @@ export default function ContentCreateTutor(params) {
   const [error, setError] = useState(false);
   const [formData, setFormData] = useState(null);
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState(null);
+
+  function generateRandomNumber() {
+    const year = new Date().getFullYear().toString().slice(-2); // Last 2 digits of the year
+    const month = String(Math.floor(Math.random() * 12) + 1).padStart(2, "0"); // Random month
+    const randomDigits = String(Math.floor(Math.random() * 100000)).padStart(
+      5,
+      "0"
+    ); // Random 5 digits
+
+    const id = `${year}${month}${randomDigits}`;
+    return parseInt(id);
+  }
+
+  const tutorId = generateRandomNumber();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const tutorData = {
-      id_tutor: formData.get("tutor_id"),
+      id_tutor: tutorId,
       tutor_name: formData.get("tutor_name"),
       phone_tutor: formData.get("tutor_phone"),
       email: formData.get("tutor_email"),
@@ -60,6 +75,7 @@ export default function ContentCreateTutor(params) {
     } finally {
       alert("Data submitted successfully");
       setLoading(false);
+      window.location.reload();
     }
   };
 
@@ -71,14 +87,18 @@ export default function ContentCreateTutor(params) {
     );
   }
 
+  const handleStatusChange = (selectedOption) => {
+    setSelectedStatus(selectedOption); // Update the state with the selected option
+  };
+
   const typeOptions = [
     {
-      value: "Active",
+      value: "active",
       label: "Active",
     },
     {
-      value: "Not Active",
-      label: "Not Active",
+      value: "inactive",
+      label: "Inactive",
     },
   ];
 
@@ -94,24 +114,6 @@ export default function ContentCreateTutor(params) {
           <div className="grid grid-rows-1 text-sm">
             <div className="md:grid md:grid-rows-1 md:grid-cols-2 gap-2 md:gap-6">
               <div>
-                <div>
-                  <FormField
-                    label="ID Tutor"
-                    name="tutor_id"
-                    icon={
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        fill="currentColor"
-                        className="h-4 w-4 opacity-70"
-                      >
-                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-                      </svg>
-                    }
-                    placeholder="Enter tutor ID"
-                    required={true}
-                  />
-                </div>
                 <div>
                   <FormField
                     label="Name"
@@ -186,7 +188,8 @@ export default function ContentCreateTutor(params) {
                   <FormField
                     label="Status"
                     name="tutor_status"
-                    options={typeOptions}
+                    selectOptions={typeOptions}
+                    onChange={handleStatusChange}
                     icon={
                       <svg
                         fill="currentColor"
@@ -236,40 +239,6 @@ export default function ContentCreateTutor(params) {
                     placeholder="Fill to create the password"
                     required={true}
                   />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <FormField
-                      label="Bank"
-                      name="tutor_bankAcc"
-                      icon={
-                        <Banknote
-                          width={16}
-                          height={16}
-                          className=" opacity-70 flex-shrink-0"
-                        />
-                      }
-                      type="text"
-                      placeholder="Bank"
-                      required={true}
-                    />
-                  </div>
-                  <div>
-                    <FormField
-                      label="Account Number"
-                      name="tutor_numberAcc"
-                      icon={
-                        <Banknote
-                          width={16}
-                          height={16}
-                          className=" opacity-70 flex-shrink-0"
-                        />
-                      }
-                      type="text"
-                      placeholder="Account number"
-                      required={true}
-                    />
-                  </div>
                 </div>
               </div>
             </div>

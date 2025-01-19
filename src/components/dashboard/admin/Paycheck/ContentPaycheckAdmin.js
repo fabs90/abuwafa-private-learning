@@ -7,26 +7,33 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Loading from "@/app/dashboard/admin/monthly-report/loading";
 import ManagePaycheckTable from "../Components/ManagePaycheckTable";
+import Cookies from "js-cookie";
 
-// const client = axios.create({
-//   baseURL: "https://fakerapi.it/api/v2/creditCards?_quantity=15",
-// });
+const client = axios.create({
+  baseURL: "http://localhost:8080/api/paychecks",
+});
 
 export default function ContentPaycheckAdmin() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   client
-  //     .get()
-  //     .then((response) => {
-  //       setLoading(false);
-  //       setData(response.data.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error: ", error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    const token = Cookies.get("token");
+
+    client
+      .get("/", {
+        headers: {
+          Authorization: `${token}`,
+        },
+      })
+      .then((response) => {
+        setLoading(false);
+        setData(response.data.paychecks);
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+      });
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -42,29 +49,11 @@ export default function ContentPaycheckAdmin() {
     );
   }
 
-  const datas = [
-    {
-      name: "Hanif",
-      month: "January",
-      status: "✅",
-    },
-    {
-      name: "Hanif",
-      month: "February",
-      status: "✅",
-    },
-    {
-      name: "Hanif",
-      month: "March",
-      status: "❌",
-    },
-  ];
-
   return (
     <>
       <ManagePaycheckTable
-        data={datas}
-        columnName={["Tutor Name", "Month", "Status"]}
+        data={data}
+        hiddenColumns={["id_paycheck", "id_tutor", "file"]}
       />
     </>
   );

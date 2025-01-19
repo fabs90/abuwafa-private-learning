@@ -141,6 +141,9 @@ export default function ManageMonthlyReportTutor({
                     >
                       Delete
                     </Link>
+                    <button className="btn bg-primary hover:bg-darkerBlueYoender text-white px-3 py-2 ">
+                      Generate
+                    </button>
                   </div>
                 </td>
               </tr>

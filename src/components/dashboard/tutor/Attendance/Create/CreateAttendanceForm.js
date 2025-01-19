@@ -12,10 +12,13 @@ import { FormField } from "../../TutorComponents/InputField";
 import ButtonForm from "@/components/button/Button";
 import { useEffect, useState } from "react";
 import TutorTable from "../../TutorComponents/TutorTable";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import AttendanceTable from "../../TutorComponents/AttendanceTable";
 import AttendanceData from "./AttendanceData.json";
 import ConfirmAlert from "../../TutorComponents/ConfirmAlert";
+import axios from "axios";
+import Cookies from "js-cookie";
+import Loading from "@/app/dashboard/admin/monthly-report/loading";
 
 const CountdownModal = ({ show, onClose }) => {
   const [timeLeft, setTimeLeft] = useState({
@@ -89,23 +92,102 @@ const CountdownModal = ({ show, onClose }) => {
   );
 };
 
-export default function CreateAttendanceForm(props) {
+const client = axios.create({
+  baseURL: "http://localhost:8080/api/attendance/detail",
+});
+
+export default function CreateAttendanceForm({ params }) {
   const [isModalVisible, setIsModalVisible] = useState(true);
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
+  const [data, setData] = useState(false);
+  const [attendanceData, setAttendanceData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // State to hold error messages
+  const token = Cookies.get("token");
+  // get id_attendance from parameter
+  const { slug } = useParams();
+
+  useEffect(() => {
+    const fetchAttendanceData = async () => {
+      try {
+        await client
+          .get(`/${slug}`, {
+            headers: {
+              Authorization: `${token}`,
+            },
+          })
+          .then((response) => {
+            setData(response.data.attendance);
+          });
+      } catch (err) {
+        console.error("Error fetching attendance data:", err); // Log the error
+        setError("Failed to fetch attendance data."); // Set error message
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAttendanceData();
+  }, [token, slug]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center my-auto h-screen">
+        <Loading />
+      </div>
+    );
+  }
+
   let curr = new Date();
   curr.setDate(curr.getDate());
   const date = curr.toISOString().split("T")[0];
 
-  const handleConfirm = () => {
-    alert("Data has been saved");
-    setIsConfirmVisible(false);
-    // Logic submit form dapat dilakukan di sini
-    document.getElementById("attendanceForm").submit();
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Get the file from the input
+    const fileInput = e.target.querySelector('input[type="file"]');
+    const file = fileInput.files[0];
+
+    const attendanceData = {
+      time: e.target.time.value,
+      image: file,
+      topic: e.target.topic.value,
+      result: e.target.result.value,
+      method: e.target.method.value,
+      attendance_status: "present",
+    };
+    setAttendanceData(attendanceData);
     setIsConfirmVisible(true);
+  };
+
+  const handleConfirm = async () => {
+    setIsConfirmVisible(false);
+    console.log("Data: ", attendanceData);
+
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/attendance/${slug}`,
+        attendanceData,
+        {
+          headers: {
+            Authorization: `${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (response.data.error) {
+        console.error(response.data.message);
+      }
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+          "An error occurred while creating the student."
+      );
+    } finally {
+      alert("Data submitted successfully");
+      setLoading(false);
+    }
   };
 
   return (
@@ -139,7 +221,7 @@ export default function CreateAttendanceForm(props) {
                     </svg>
                   }
                   readOnly={true}
-                  defaultValue="Hanif Cahyadi"
+                  defaultValue={data.tutor_name}
                 />
               </div>
               <div className="w-full">
@@ -147,8 +229,9 @@ export default function CreateAttendanceForm(props) {
                   <div>
                     <FormField
                       label={"Time"}
+                      name="time"
                       icon={<Clock width={16} />}
-                      defaultValue="14.30-15.30"
+                      defaultValue={data.time}
                       placeholder="Format:Jam.Menit-Jam.Menit"
                     />
                   </div>
@@ -156,7 +239,7 @@ export default function CreateAttendanceForm(props) {
                     <FormField
                       label={"Date"}
                       icon={<CalendarDaysIcon width={16} />}
-                      defaultValue={date}
+                      defaultValue={data.date}
                       type="date"
                       readOnly={true}
                     />
@@ -172,16 +255,19 @@ export default function CreateAttendanceForm(props) {
                 >
                   <input
                     type="file"
+                    name="image"
                     className={`text-black w-full`} // Ensure the input takes full width
                     accept="image/*"
+                    required={true}
                   />
                 </label>
               </div>
               <div className="w-full">
                 <FormField
                   label="Method"
+                  name="method"
                   icon={<House width={16} />} // Replace with your icon
-                  defaultValue="Offline"
+                  defaultValue={data.method}
                   type="text"
                 />
               </div>
@@ -208,7 +294,7 @@ export default function CreateAttendanceForm(props) {
                     placeholder="status"
                     type="text"
                     readOnly
-                    defaultValue="2"
+                    defaultValue={data.session}
                   />
                 </div>
                 <div className="">
@@ -226,7 +312,8 @@ export default function CreateAttendanceForm(props) {
                       </svg>
                     }
                     type="text"
-                    defaultValue="English"
+                    readOnly={true}
+                    defaultValue={data.subject}
                   />
                 </div>
               </div>
@@ -234,7 +321,7 @@ export default function CreateAttendanceForm(props) {
                 <FormField
                   label="Student Name"
                   icon={<Baby width={16} />}
-                  defaultValue="Kenji"
+                  defaultValue={data.student_name}
                   type="text"
                   readOnly={true}
                 />
@@ -243,6 +330,7 @@ export default function CreateAttendanceForm(props) {
               <div className="w-full">
                 <FormField
                   label="Topic"
+                  name="topic"
                   icon={<Cone width={16} />}
                   type="text"
                   required={true}
@@ -251,11 +339,12 @@ export default function CreateAttendanceForm(props) {
               </div>
               <div className="w-full">
                 <FormField
-                  label="Daily Report"
+                  label="Result"
+                  name="result"
                   icon={<NotebookIcon width={16} />}
                   type="text"
                   required={true}
-                  placeholder={"Write your daily report here"}
+                  placeholder={"Write your result here"}
                 />
               </div>
             </div>

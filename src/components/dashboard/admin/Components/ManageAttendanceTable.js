@@ -42,8 +42,10 @@ export default function ManageAttendanceTable({
   };
 
   const filteredData = data.filter((item) =>
-    Object.values(item).some((value) =>
-      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    Object.values(item).some(
+      (value) =>
+        value &&
+        value.toString().toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
 
@@ -82,13 +84,15 @@ export default function ManageAttendanceTable({
       <table className="min-w-full border-collapse bg-white rounded-t-lg">
         <thead>
           <tr className="bg-gray-200">
-            {numbering && <th className="w-1/12 px-4 py-4">No.</th>}
+            {numbering && (
+              <th className="w-1/12 px-4 py-4 rounded-tl-lg">No.</th>
+            )}
             {visibleColumns.map((key, index) => (
               <th key={index} className="w-1/5 px-4 py-4 capitalize">
                 {key}
               </th>
             ))}
-            <th className="px-4 py-4 capitalize">Action</th>
+            <th className="px-4 py-4 capitalize rounded-tr-lg">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -114,8 +118,8 @@ export default function ManageAttendanceTable({
                     key={colIndex}
                     className="px-4 py-2 text-center truncate max-w-[300px]"
                   >
-                    {key === "attendanceStatus" ? (
-                      item[key] ? (
+                    {key === "attendance_status" ? (
+                      item[key]?.trim().toLowerCase() === "present" ? (
                         <span className="text-green-500 font-bold">✓</span>
                       ) : (
                         <span className="text-red-500 font-bold">✗</span>
@@ -125,10 +129,11 @@ export default function ManageAttendanceTable({
                     )}
                   </td>
                 ))}
+
                 <td className="text-right px-4 py-2">
                   <Link
-                    href={`/dashboard/admin/attendance/${item.slug}/detail`}
-                    className="btn bg-primary hover:bg-darkerBlue text-white"
+                    href={`/dashboard/admin/attendance/${item.id_attendance}/detail`}
+                    className="btn bg-primary hover:bg-darkerBlueYoender text-white"
                   >
                     {isDetailAttendance ? "Detail" : "Check"}
                   </Link>

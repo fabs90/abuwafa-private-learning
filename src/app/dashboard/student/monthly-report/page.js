@@ -9,7 +9,6 @@ export default function MonthlyReport() {
     <div className="h-screen overflow-auto">
       <DashboardLayoutStudent>
         <ContentMonthlyReport />
-        {/* <Template /> */}
       </DashboardLayoutStudent>
     </div>
   );

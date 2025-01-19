@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 export default function ConfirmAlert({ isOpen, onClose, onConfirm }) {
   useEffect(() => {
-    const dialog = document.getElementById("confirm_dialog");
+    const dialog = document.getElementById("success_dialog");
     if (dialog) {
       if (isOpen) {
         dialog.showModal();
@@ -13,7 +13,7 @@ export default function ConfirmAlert({ isOpen, onClose, onConfirm }) {
   }, [isOpen]);
 
   return (
-    <dialog id="confirm_dialog" className="modal mx-auto">
+    <dialog id="success_dialog" className="modal mx-auto">
       <div className="modal-box bg-accent text-white rounded-lg shadow-lg">
         <h3 className="font-bold text-secondarySiena text-2xl text-center mx-auto mb-4">
           Hold up! 🤯

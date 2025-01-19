@@ -8,9 +8,10 @@ export default function ContentDashboard(params) {
         <div className="flex flex-col gap-3 md:flex-row lg:flex-row justify-evenly">
           <CardDashboard
             title="7 Students"
+            data={"5 Active : 2 Inactive"}
             icon={"/img/smiling-student.png"}
-            width={145}
-            height={160}
+            width={140}
+            height={136}
             isAdminPage={true}
           />
 

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { ChevronLast, ChevronLeft, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronLast, ChevronLeft, ChevronUp } from "lucide-react";
 import { createContext, useContext, useState } from "react";
 import { useSidebar } from "../SidebarContext";
 import Link from "next/link";
@@ -124,7 +124,7 @@ export function SidebarDropdown({ icon, text, children }) {
               isOpen ? "rotate-180" : ""
             }`}
           >
-            <ChevronUp />
+            <ChevronDown />
           </span>
         )}
       </div>

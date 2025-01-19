@@ -19,7 +19,7 @@ export default function AdminNavbar({ pageTitle }) {
     e.stopPropagation();
     // Clear authentication data (e.g., token) from cookies
     Cookies.remove("token");
-    Cookies.remove("username");
+    Cookies.remove("user_id");
     Cookies.remove("role");
 
     // Optionally clear cookies if you're using them for server-side authentication
