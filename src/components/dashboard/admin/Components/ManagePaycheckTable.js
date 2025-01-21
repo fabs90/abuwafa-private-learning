@@ -27,8 +27,13 @@ export default function ManagePaycheckTable({
     setCurrentPage(1);
   };
 
+  // Dummy data in case data is null
+  const defaultData = [{ id: 1, name: "Name Here", status: false }];
+
+  const dataToUse = data || defaultData;
+
   // Filter data based on search term
-  const filteredData = data.filter((item) =>
+  const filteredData = dataToUse.filter((item) =>
     Object.values(item).some((value) =>
       value.toString().toLowerCase().includes(searchTerm.toLowerCase())
     )
@@ -49,11 +54,14 @@ export default function ManagePaycheckTable({
     if (confirmDelete) {
       try {
         const token = Cookies.get("token");
-        await axios.delete(`http://localhost:8080/api/paycheck/${paycheckId}`, {
-          headers: {
-            Authorization: `${token}`,
-          },
-        });
+        await axios.delete(
+          `https://abuwafa-backend-2583485117.us-central1.run.app/api/paycheck/${paycheckId}`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
         // Remove the deleted item from the data
         const updatedData = data.filter((item) => item.id !== paycheckId); // Adjust the key based on your data structure
         setData(updatedData); // Update the state with the new data

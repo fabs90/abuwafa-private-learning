@@ -15,7 +15,7 @@ export default function StudentTable({
     try {
       // Get the file from the backend
       const response = await fetch(
-        `http://localhost:8080/api/monthlyreports/download/${item.id_monthlyReport}`,
+        `https://abuwafa-backend-2583485117.us-central1.run.app/api/monthlyreports/download/${item.id_monthlyReport}`,
         {
           headers: {
             Authorization: `${Cookies.get("token")}`,
@@ -54,7 +54,7 @@ export default function StudentTable({
     try {
       // Get the file from the backend
       const response = await fetch(
-        `http://localhost:8080/api/invoice/download/${item.id_invoice}`,
+        `https://abuwafa-backend-2583485117.us-central1.run.app/api/invoice/download/${item.id_invoice}`,
         {
           headers: {
             Authorization: `${Cookies.get("token")}`,

@@ -46,7 +46,7 @@ export default function Page({ params }) {
         console.log("Fetching data for slug:", slug);
 
         const response = await axios.get(
-          `http://localhost:8080/api/attendance/detail/${slug}`,
+          `https://abuwafa-backend-2583485117.us-central1.run.app/api/attendance/detail/${slug}`,
           {
             headers: {
               Authorization: `${token}`,

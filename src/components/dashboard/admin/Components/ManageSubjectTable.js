@@ -25,7 +25,7 @@ export default function ManageSubjectTable({
     if (confirmed) {
       try {
         const response = await axios.delete(
-          `http://localhost:8080/api/subject/${id}`,
+          `https://abuwafa-backend-2583485117.us-central1.run.app/api/subject/${id}`,
           {
             headers: {
               Authorization: `${token}`,

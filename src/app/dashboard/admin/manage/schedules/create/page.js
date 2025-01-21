@@ -43,22 +43,24 @@ const createAxiosInstance = (baseURL) => {
 };
 
 const clientStudent = createAxiosInstance(
-  "http://localhost:8080/api/students/profiles"
+  "https://abuwafa-backend-2583485117.us-central1.run.app/api/students/profiles"
 );
 const clientTutor = createAxiosInstance(
-  "http://localhost:8080/api/tutors/profiles"
+  "https://abuwafa-backend-2583485117.us-central1.run.app/api/tutors/profiles"
 );
 
-const clientSubject = createAxiosInstance("http://localhost:8080/api/subjects");
+const clientSubject = createAxiosInstance(
+  "https://abuwafa-backend-2583485117.us-central1.run.app/api/subjects"
+);
 
 const attendancePost = createAxiosInstance(
-  "http://localhost:8080/api/attendance/create"
+  "https://abuwafa-backend-2583485117.us-central1.run.app/api/attendance/create"
 );
 
 const fetchStudentData = async (token) => {
   try {
     const response = await clientStudent.get("/", {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: ` ${token}` },
     });
 
     const data = response.data.profile;
@@ -78,7 +80,7 @@ const fetchStudentData = async (token) => {
 const fetchTutorData = async (token) => {
   try {
     const response = await clientTutor.get("/", {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: ` ${token}` },
     });
 
     const data = response.data.profile;
@@ -97,7 +99,7 @@ const fetchTutorData = async (token) => {
 const fetchSubjectData = async (token) => {
   try {
     const response = await clientSubject.get("/", {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: ` ${token}` },
     });
 
     const data = response.data.subjects;
@@ -247,9 +249,9 @@ export default function Page() {
     const FormScheduleLoad = {
       id_schedule: scheduleId,
       student_name: selectedStudent?.label,
-      id_student: student,
+      id_student: selectedStudent?.value,
       tutor_name: selectedTutor?.label,
-      id_tutor: tutor,
+      id_tutor: selectedTutor?.value,
       day: day,
       date: formattedDate,
       subject: selectedSubject?.label,
@@ -268,9 +270,9 @@ export default function Page() {
     const formAttendanceLoad = {
       id_schedule: scheduleId,
       tutor_name: selectedTutor?.label,
-      id_tutor: tutor,
+      id_tutor: selectedTutor?.value,
       student_name: selectedStudent?.label,
-      id_student: student,
+      id_student: selectedStudent?.value,
       time: time,
       date: formattedDate,
       session: totalSession,
@@ -309,7 +311,7 @@ export default function Page() {
   //   const formattedDate = nextDate.toISOString().split("T")[0];
   //   try {
   //     const response = await axios.post(
-  //       "http://localhost:8080/api/schedule/",
+  //       "https://abuwafa-backend-2583485117.us-central1.run.app/api/schedule/",
   //       {
   //         id_schedule: scheduleId,
   //         student_name: selectedStudent?.label,
@@ -363,7 +365,7 @@ export default function Page() {
   const handleConfirm = async () => {
     try {
       await axios.post(
-        "http://localhost:8080/api/schedule/",
+        "https://abuwafa-backend-2583485117.us-central1.run.app/api/schedule/",
         formScheduleData,
         {
           headers: {
@@ -387,7 +389,7 @@ export default function Page() {
       alert("Data submitted successfully");
       setLoading(false);
       setSuccessAlert(true);
-      window.location.reload();
+      // window.location.reload();
     }
   };
 

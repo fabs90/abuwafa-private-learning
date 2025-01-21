@@ -22,11 +22,14 @@ export default function ContentMonthlyReport(params) {
 
     const fetchMonthlyReport = async () => {
       axios
-        .get(`http://localhost:8080/api/monthlyreport/detail/${user_id}`, {
-          headers: {
-            Authorization: token,
-          },
-        })
+        .get(
+          `https://abuwafa-backend-2583485117.us-central1.run.app/api/monthlyreport/detail/${user_id}`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        )
         .then((res) => {
           if (!res.data.reports || res.data.reports.length === 0) {
             setMonthlyReportData(null); // Set to null if no reports are found
@@ -72,7 +75,7 @@ export default function ContentMonthlyReport(params) {
         setLoading(true);
         // Check if the report already exists for the current month
         const existingReportCheck = await axios.get(
-          `http://localhost:8080/api/monthlyreport/check/${user_id}/${
+          `https://abuwafa-backend-2583485117.us-central1.run.app/api/monthlyreport/check/${user_id}/${
             date.getMonth() + 1
           }/${date.getFullYear()}`,
           {
@@ -86,7 +89,7 @@ export default function ContentMonthlyReport(params) {
         }
 
         const response = await axios.get(
-          `http://localhost:8080/api/attendance/generate/${user_id}`,
+          `https://abuwafa-backend-2583485117.us-central1.run.app/api/attendance/generate/${user_id}`,
           { headers: { Authorization: token } }
         );
 
@@ -129,7 +132,7 @@ export default function ContentMonthlyReport(params) {
 
           // Make POST request with FormData
           const createMonthlyReport = await axios.post(
-            "http://localhost:8080/api/monthlyreports",
+            "https://abuwafa-backend-2583485117.us-central1.run.app/api/monthlyreports",
             formData,
             {
               headers: {
@@ -209,7 +212,7 @@ export default function ContentMonthlyReport(params) {
 
 //     const fetchMonthlyReport = async () => {
 //       axios
-//         .get(`http://localhost:8080/api/monthlyreport/detail/${user_id}`, {
+//         .get(`https://abuwafa-backend-2583485117.us-central1.run.app/api/monthlyreport/detail/${user_id}`, {
 //           headers: {
 //             Authorization: token,
 //           },
@@ -260,7 +263,7 @@ export default function ContentMonthlyReport(params) {
 //       try {
 //         setLoading(true);
 //         const response = await axios.get(
-//           `http://localhost:8080/api/attendance/generate/${user_id}`,
+//           `https://abuwafa-backend-2583485117.us-central1.run.app/api/attendance/generate/${user_id}`,
 //           { headers: { Authorization: token } }
 //         );
 
@@ -305,7 +308,7 @@ export default function ContentMonthlyReport(params) {
 
 //           // Make POST request with FormData
 //           const createMonthlyReport = await axios.post(
-//             "http://localhost:8080/api/monthlyreports",
+//             "https://abuwafa-backend-2583485117.us-central1.run.app/api/monthlyreports",
 //             formData,
 //             {
 //               headers: {

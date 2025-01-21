@@ -93,7 +93,8 @@ const CountdownModal = ({ show, onClose }) => {
 };
 
 const client = axios.create({
-  baseURL: "http://localhost:8080/api/attendance/detail",
+  baseURL:
+    "https://abuwafa-backend-2583485117.us-central1.run.app/api/attendance/detail",
 });
 
 export default function CreateAttendanceForm({ params }) {
@@ -167,7 +168,7 @@ export default function CreateAttendanceForm({ params }) {
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/attendance/${slug}`,
+        `https://abuwafa-backend-2583485117.us-central1.run.app/api/attendance/${slug}`,
         attendanceData,
         {
           headers: {

@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 const client = axios.create({
-  baseURL: "http://localhost:8080/api/schedules",
+  baseURL:
+    "https://abuwafa-backend-2583485117.us-central1.run.app/api/schedules",
 });
 
 export default function ContentSchedule(params) {

@@ -16,12 +16,9 @@ export default function FormLogin() {
   const router = useRouter();
 
   const client = axios.create({
-    baseURL: "http://localhost:8080/auth/login",
+    baseURL:
+      "https://abuwafa-backend-2583485117.us-central1.run.app/auth/login",
   });
-
-  // const client = axios.create({
-  //   baseURL: "https://abuwafa-api-2583485117.us-central1.run.app/auth/login",
-  // });
 
   const redirectTo = (url) => {
     if (typeof url === "string" && url.trim() !== "") {

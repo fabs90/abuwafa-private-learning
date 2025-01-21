@@ -13,7 +13,7 @@ export default function ContentMonthlyReportAdmin(params) {
       try {
         const token = Cookies.get("token");
         const response = await axios.get(
-          "http://localhost:8080/api/attendances/distinct",
+          "https://abuwafa-backend-2583485117.us-central1.run.app/api/attendances/distinct",
           {
             headers: {
               Authorization: token,

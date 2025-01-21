@@ -1,12 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import ManageTutortable from "../../Components/ManageTutorTable";
-import Loading from "@/components/dashboard/student/loading";
 import axios from "axios";
 import Cookies from "js-cookie";
+import Loading from "@/app/dashboard/admin/monthly-report/loading";
 
 const client = axios.create({
-  baseURL: "http://localhost:8080/api/tutors/profiles",
+  baseURL:
+    "https://abuwafa-backend-2583485117.us-central1.run.app/api/tutors/profiles/",
 });
 
 export default function ContentManageTutor(params) {

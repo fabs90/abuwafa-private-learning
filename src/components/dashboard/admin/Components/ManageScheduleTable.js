@@ -34,7 +34,7 @@ export default function ManageScheduleTable({
     if (confirmed) {
       try {
         const response = await axios.delete(
-          `http://localhost:8080/api/schedule/${id}`,
+          `https://abuwafa-backend-2583485117.us-central1.run.app/api/schedule/${id}`,
           {
             headers: {
               Authorization: `${token}`,

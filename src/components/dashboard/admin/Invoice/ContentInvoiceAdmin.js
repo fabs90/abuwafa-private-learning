@@ -7,7 +7,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const client = axios.create({
-  baseURL: "http://localhost:8080/api/invoices",
+  baseURL:
+    "https://abuwafa-backend-2583485117.us-central1.run.app/api/invoices",
 });
 
 export default function ContentInvoiceAdmin(params) {

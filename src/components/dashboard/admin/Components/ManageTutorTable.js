@@ -51,7 +51,7 @@ export default function ManageTutortable({
     if (confirmed) {
       try {
         const response = await axios.delete(
-          `http://localhost:8080/api/tutors/profile/${tutor_id}`,
+          `https://abuwafa-backend-2583485117.us-central1.run.app/api/tutors/profile/${tutor_id}`,
           {
             headers: {
               Authorization: `${token}`,
@@ -87,7 +87,12 @@ export default function ManageTutortable({
           </thead>
           <tbody>
             <tr className="hover:bg-gray-100">
-              <td className="px-4 py-2 text-center">-</td>
+              <td className="px-4 py-2 text-center">
+                <Link href={href} className="btn btn-primary text-white">
+                  <Plus />
+                  Add
+                </Link>
+              </td>
             </tr>
           </tbody>
         </table>

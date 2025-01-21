@@ -29,7 +29,7 @@ export default function ManageStudentAdminTable({
 
       try {
         const response = await axios.delete(
-          `http://localhost:8080/api/students/profile/${id}`,
+          `https://abuwafa-backend-2583485117.us-central1.run.app/api/students/profile/${id}`,
           {
             headers: {
               Authorization: `${token}`,

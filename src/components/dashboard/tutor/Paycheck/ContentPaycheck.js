@@ -6,7 +6,8 @@ import Cookies from "js-cookie";
 import Loading from "../../student/loading";
 
 const client = axios.create({
-  baseURL: "http://localhost:8080/api/paychecks",
+  baseURL:
+    "https://abuwafa-backend-2583485117.us-central1.run.app/api/paychecks",
 });
 
 export default function ContentPaycheck() {

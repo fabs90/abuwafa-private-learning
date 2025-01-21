@@ -11,7 +11,8 @@ import { CircleUser, Key, User } from "lucide-react";
 import { useState } from "react";
 
 const client = axios.create({
-  baseURL: "http://localhost:8080/auth/register",
+  baseURL:
+    "https://abuwafa-backend-2583485117.us-central1.run.app/auth/register",
 });
 
 export default function ContentCreateStudent() {
@@ -49,12 +50,12 @@ export default function ContentCreateStudent() {
       const response = await client.post("/", formData);
 
       if (!response.data.error) {
-        router.reload(); // Refresh the page to clear the form
         setLoading(true);
       } else {
         setError(
           response.data.message || "Failed to create student. Please try again."
         );
+        alert("Failed to create student. Please try again.");
       }
     } catch (err) {
       setError(
@@ -264,7 +265,7 @@ export default function ContentCreateStudent() {
                       <input
                         name="student_grade"
                         type="text"
-                        className="text-black"
+                        className="text-black w-full"
                         placeholder="Your Grade"
                       />
                     </label>

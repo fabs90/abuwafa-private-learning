@@ -1,6 +1,6 @@
 "use client";
+import Loading from "@/app/dashboard/admin/monthly-report/loading";
 import ButtonForm from "@/components/button/Button";
-import Loading from "@/components/dashboard/student/loading";
 import ConfirmAlert from "@/components/dashboard/tutor/TutorComponents/ConfirmAlert";
 import { FormField } from "@/components/dashboard/tutor/TutorComponents/InputField";
 import axios from "axios";
@@ -8,7 +8,7 @@ import { Banknote, CircleUser, Key, Mail } from "lucide-react";
 import { useState } from "react";
 
 const client = axios.create({
-  baseURL: "http://localhost:8080/auth/register",
+  baseURL: "https://abuwafa-api-2583485117.us-central1.run.app/auth/register",
 });
 
 export default function ContentCreateTutor(params) {
@@ -41,11 +41,9 @@ export default function ContentCreateTutor(params) {
       phone_tutor: formData.get("tutor_phone"),
       email: formData.get("tutor_email"),
       address: formData.get("tutor_address"),
-      status: formData.get("tutor_status"),
+      status: selectedStatus?.value,
       username: formData.get("tutor_username"),
       password: formData.get("tutor_password"),
-      bank: formData.get("tutor_bankAcc"),
-      no_rek: formData.get("tutor_numberAcc"),
       role: "Tutor",
     };
 
@@ -55,27 +53,26 @@ export default function ContentCreateTutor(params) {
 
   const handleConfirm = async () => {
     setIsConfirmVisible(false);
+    console.log("Form Data:", formData);
 
     try {
-      setError(null);
-      const response = client.post("/", formData);
-
-      if (!response.data.error) {
-        setLoading(true);
-      } else {
-        setError(
-          response.data.message || "Failed to create student. Please try again."
-        );
-      }
-    } catch (err) {
-      setError(
-        err.response?.data?.message ||
-          "An error occurred while creating the student."
-      );
-    } finally {
-      alert("Data submitted successfully");
-      setLoading(false);
-      window.location.reload();
+      client
+        .post("/", formData)
+        .then((response) => {
+          console.log("Response:", response.data);
+          alert("Data submitted successfully");
+          window.location.reload();
+          setLoading(false);
+        })
+        .catch((err) => {
+          alert("There's error, check console!");
+          console.error("Error response:", err.response.data);
+          return;
+        });
+    } catch (error) {
+      // Handle other types of errors (e.g., network issues)
+      console.error("Error:", error.message);
+      alert("An error occurred, please check the console!");
     }
   };
 
@@ -93,11 +90,11 @@ export default function ContentCreateTutor(params) {
 
   const typeOptions = [
     {
-      value: "active",
+      value: "Active",
       label: "Active",
     },
     {
-      value: "inactive",
+      value: "Inactive",
       label: "Inactive",
     },
   ];

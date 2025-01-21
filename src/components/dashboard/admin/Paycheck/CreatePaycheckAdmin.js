@@ -28,11 +28,11 @@ const createAxiosInstance = (baseURL) => {
 };
 
 const clientTutor = createAxiosInstance(
-  "http://localhost:8080/api/tutors/profiles"
+  "https://abuwafa-backend-2583485117.us-central1.run.app/api/tutors/profiles"
 );
 
 const clientPaycheck = createAxiosInstance(
-  "http://localhost:8080/api/paycheck"
+  "https://abuwafa-backend-2583485117.us-central1.run.app/api/paycheck"
 );
 
 const fetchTutorData = async (token) => {

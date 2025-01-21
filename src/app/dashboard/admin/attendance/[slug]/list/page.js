@@ -6,7 +6,8 @@ import { Grid2X2, UserCheck } from "lucide-react";
 import React from "react";
 
 const client = axios.create({
-  baseURL: "http://localhost:8080/api/attendance/schedule/",
+  baseURL:
+    "https://abuwafa-backend-2583485117.us-central1.run.app/api/attendance/schedule/",
 });
 
 export default function Page({ params }) {

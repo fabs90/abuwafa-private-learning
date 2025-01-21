@@ -6,7 +6,8 @@ import Loading from "@/app/dashboard/admin/monthly-report/loading";
 import ManageSubjectTable from "../../Components/ManageSubjectTable";
 
 const client = axios.create({
-  baseURL: "http://localhost:8080/api/subjects",
+  baseURL:
+    "https://abuwafa-backend-2583485117.us-central1.run.app/api/subjects",
 });
 
 export default function ContentManageSubject(params) {

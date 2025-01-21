@@ -71,7 +71,7 @@ export default function TutorTable({
     try {
       // Get the file from the backend
       const response = await fetch(
-        `http://localhost:8080/api/paycheck/download/${item.id_paycheck}`,
+        `https://abuwafa-backend-2583485117.us-central1.run.app/api/paycheck/download/${item.id_paycheck}`,
         {
           headers: {
             Authorization: `${Cookies.get("token")}`,

@@ -6,7 +6,8 @@ import Loading from "@/app/dashboard/admin/monthly-report/loading";
 import AttendanceTutorTable from "../TutorComponents/AttendanceTutorTable";
 
 const client = axios.create({
-  baseURL: "http://localhost:8080/api/attendance",
+  baseURL:
+    "https://abuwafa-backend-2583485117.us-central1.run.app/api/attendance",
 });
 
 export default function ContentAttendanceTutor(params) {

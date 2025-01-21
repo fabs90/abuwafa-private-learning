@@ -29,7 +29,9 @@ const createAxiosInstance = (baseURL) => {
   return instance;
 };
 
-const clientSubject = createAxiosInstance("http://localhost:8080/api/subject");
+const clientSubject = createAxiosInstance(
+  "https://abuwafa-backend-2583485117.us-central1.run.app/api/subject"
+);
 
 export default function Page() {
   const [error, setError] = useState(null);

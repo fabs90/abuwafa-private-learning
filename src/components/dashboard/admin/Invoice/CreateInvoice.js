@@ -28,10 +28,12 @@ const createAxiosInstance = (baseURL) => {
 };
 
 const clientStudents = createAxiosInstance(
-  "http://localhost:8080/api/students/profiles"
+  "https://abuwafa-backend-2583485117.us-central1.run.app/api/students/profiles"
 );
 
-const clientInvoice = createAxiosInstance("http://localhost:8080/api/invoice");
+const clientInvoice = createAxiosInstance(
+  "https://abuwafa-backend-2583485117.us-central1.run.app/api/invoice"
+);
 
 const fetchStudentData = async (token) => {
   try {

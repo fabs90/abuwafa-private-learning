@@ -9,7 +9,8 @@ import Loading from "@/app/dashboard/admin/monthly-report/loading";
 import ConfirmAlert from "../../tutor/TutorComponents/ConfirmAlert";
 
 const client = axios.create({
-  baseURL: "http://localhost:8080/api/students/profile/",
+  baseURL:
+    "https://abuwafa-backend-2583485117.us-central1.run.app/api/students/profile/",
 });
 
 export default function ContentProfile(params) {

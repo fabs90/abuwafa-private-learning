@@ -9,7 +9,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const client = axios.create({
-  baseURL: "http://localhost:8080/api/attendances",
+  baseURL:
+    "https://abuwafa-backend-2583485117.us-central1.run.app/api/attendances",
 });
 export default function ContentAttendanceAdmin() {
   const [data, setData] = useState([]);

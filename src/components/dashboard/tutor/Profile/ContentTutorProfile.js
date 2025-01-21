@@ -9,7 +9,8 @@ import { Breadcrumb } from "../../admin/Components/Breadcrumb";
 import ConfirmAlert from "../TutorComponents/ConfirmAlert";
 
 const client = axios.create({
-  baseURL: "http://localhost:8080/api/tutors/profile/",
+  baseURL:
+    "https://abuwafa-backend-2583485117.us-central1.run.app/api/tutors/profile/",
 });
 
 export default function ContentTutorProfile(params) {
